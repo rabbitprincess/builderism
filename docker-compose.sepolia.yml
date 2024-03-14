@@ -12,12 +12,16 @@ services:
     command: [ "bash", "./config/geth-entrypoint" ]
     volumes:
       - ${GETH_HOST_DATA_DIR}:/data
+    networks:
+      - op-net
     env_file:
       - ./config/env.sepolia
   node:
     build: .
     depends_on:
       - geth
+    networks:
+      - op-net
     ports:
       - 7545:8545     # RPC
       - 9222:9222     # P2P TCP
@@ -31,6 +35,8 @@ services:
     build: .
     depends_on:
       - node
+    networks:
+      - op-net
     command: [ "bash", "./config/batcher-entrypoint" ]  
     env_file:
       - ./config/env.sepolia
@@ -38,6 +44,11 @@ services:
     build: .
     depends_on:
       - batcher
+    networks:
+      - op-net
     command: [ "bash", "./config/proposer-entrypoint" ]  
     env_file:
       - ./config/env.sepolia
+networks:
+  op-net:
+    driver: bridge
