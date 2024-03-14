@@ -4,15 +4,13 @@ WORKDIR /app
 
 ENV REPO=https://github.com/ethereum-optimism/optimism.git
 ENV VERSION=v1.7.1
-# for verification:
-ENV COMMIT=c87a469d7d679e8a4efbace56c3646b925bcc009
 
 RUN git clone $REPO --branch op-node/$VERSION --single-branch . && \
-    git switch -c branch-$VERSION && \
-    bash -c '[ "$(git rev-parse HEAD)" = "$COMMIT" ]'
+    git switch -c branch-$VERSION
 
-RUN cd op-node && \
-    make VERSION=$VERSION op-node
+RUN make -C op-node VERSION=$VERSION op-node
+RUN make -C op-batcher VERSION=$VERSION op-batcher
+RUN make -C op-proposer VERSION=$VERSION op-proposer
 
 FROM golang:1.21 as geth
 
@@ -20,13 +18,10 @@ WORKDIR /app
 
 ENV REPO=https://github.com/ethereum-optimism/op-geth.git
 ENV VERSION=v1.101308.2
-# for verification:
-ENV COMMIT=0402d543c3d0cff3a3d344c0f4f83809edb44f10
 
 # avoid depth=1, so the geth build can read tags
 RUN git clone $REPO --branch $VERSION --single-branch . && \
-    git switch -c branch-$VERSION && \
-    bash -c '[ "$(git rev-parse HEAD)" = "$COMMIT" ]'
+    git switch -c branch-$VERSION
 
 RUN go run build/ci.go install -static ./cmd/geth
 
@@ -40,11 +35,11 @@ RUN mkdir -p /var/log/supervisor
 WORKDIR /app
 
 COPY --from=op /app/op-node/bin/op-node ./
+COPY --from=op /app/op-batcher/bin/op-batcher ./
+COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY geth-entrypoint .
-COPY op-node-entrypoint .
-COPY sepolia ./sepolia
-COPY mainnet ./mainnet
+COPY supervisord.conf ./
+COPY ./config ./config
+
 
 CMD ["/usr/bin/supervisord"]

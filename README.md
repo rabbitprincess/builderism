@@ -1,2 +1,4 @@
 # optimism_node
-build own mainnet using OP Stack
+build your mainnet using OP Stack!
+
+docker compose -f docker-compose.sepolia.yml up
