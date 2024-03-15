@@ -1,8 +1,10 @@
 version: '3.8'
 
 services:
-  geth: # this is Optimism's geth client
-    build: .
+  geth:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8545:8545       # RPC
       - 8546:8546       # websocket
@@ -13,15 +15,18 @@ services:
     volumes:
       - ${GETH_HOST_DATA_DIR}:/data
     networks:
-      - op-net
+      - op
     env_file:
       - ./config/env.sepolia
+
   node:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - geth
     networks:
-      - op-net
+      - op
     ports:
       - 7545:8545     # RPC
       - 9222:9222     # P2P TCP
@@ -31,24 +36,29 @@ services:
     command: [ "bash", "./config/op-node-entrypoint" ]
     env_file:
       - ./config/env.sepolia
+
   batcher:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - node
     networks:
-      - op-net
+      - op
     command: [ "bash", "./config/batcher-entrypoint" ]  
     env_file:
       - ./config/env.sepolia
+
   proposer:
     build: .
     depends_on:
       - batcher
     networks:
-      - op-net
+      - op
     command: [ "bash", "./config/proposer-entrypoint" ]  
     env_file:
       - ./config/env.sepolia
+
 networks:
-  op-net:
+  op:
     driver: bridge
