@@ -1,26 +1,13 @@
 version: '3.8'
 
 services:
-  init-geth:
-    build:
-      context: .
-    volumes:
-      - ./${DATA_DIR}:/data
-    command: >
-      JWT_TOKEN=\$(openssl rand -hex 32);
-      echo \$JWT_TOKEN > /data/jwt.txt;
-      mkdir /data/geth_data;
-      exec ./geth init --datadir=./${DATA_DIR}/geth_data /sepolia/genesis.json;
-      exit 0
   geth:
     build:
       context: .
-    depends_on:
-      init-geth:
-        condition: service_completed_successfully
     command: >
-      exec ./geth
-      --datadir=/data/geth_data
+      bash -c "./geth init --datadir=/data ./sepolia/genesis.json &&
+      ./geth
+      --datadir=/data
       --networkid=42069
       --http
       --http.corsdomain="*"
@@ -36,10 +23,10 @@ services:
       --nodiscover
       --maxpeers=0
       --authrpc.vhosts="*"
-      --authrpc.port=0.0.0.0
+      --authrpc.addr=0.0.0.0
       --authrpc.port=8551
-      --authrpc.jwtsecret=./jwt.txt
-      --rollup.disabletxpoolgossip=true
+      --authrpc.jwtsecret=/data/jwt.txt
+      --rollup.disabletxpoolgossip=true"
     ports:
       - 8545:8545 # http
       - 8546:8546 # ws
@@ -48,38 +35,39 @@ services:
     networks:
       - op-network
     env_file:
-      - ./sepolia/env
-  # 작업중
-  # node:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - geth
-  #   command: >
-  #     exec ./op-node
-  #     --l2=http://op-network:8551
-  #     --l2.jwt-secret=./jwt.txt
-  #     --sequencer.enabled
-  #     --sequencer.l1-confs=5
-  #     --verifier.l1-confs=4
-  #     --rollup.config=./sepolia/rollup.json
-  #     --rpc.addr=0.0.0.0
-  #     --rpc.port=8547
-  #     --p2p.disabletxpoolgossip
-  #     --rpc.enable-admin
-  #     --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}
-  #     --l1=${L1_RPC_URL}
-  #     --l1.rpckind=any
-  #   networks:
-  #     - op-network
-  #   ports:
-  #     - 9545:8545     # RPC
-  #     - 9222:9222     # P2P TCP
-  #     - 9222:9222/udp # P2P UDP
-  #   env_file:
-  #     - ./sepolia/env
+      - .env
 
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - geth
+    command: >
+      bash -c "./op-node
+      --l2=http://geth:8551
+      --l2.jwt-secret=/data/jwt.txt
+      --sequencer.enabled
+      --sequencer.l1-confs=5
+      --verifier.l1-confs=4
+      --rollup.config=./sepolia/rollup.json
+      --rpc.addr=0.0.0.0
+      --rpc.port=8547
+      --rpc.enable-admin
+      --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}
+      --l1=${L1_RPC_URL}
+      --l1.rpckind=any"
+    networks:
+      - op-network
+    volumes:
+      - ./${DATA_DIR}:/data
+    ports:
+      - 9545:8545     # RPC
+      - 9222:9222     # P2P TCP
+      - 9222:9222/udp # P2P UDP
+    env_file:
+      - .env
+  # TODO
   # batcher:
   #   build:
   #     context: .
@@ -104,7 +92,7 @@ services:
   #   networks:
   #     - op-network
   #   env_file:
-  #     - ./sepolia/env
+  #     - ./sepolia/.env
 
   # proposer:
   #   build: .
@@ -121,7 +109,7 @@ services:
   #   networks:
   #     - op-network
   #   env_file:
-  #     - ./sepolia/env
+  #     - ./sepolia/.env
 
 networks:
   op-network:

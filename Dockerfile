@@ -27,7 +27,7 @@ RUN go run build/ci.go install -static ./cmd/geth
 FROM golang:1.21
 
 RUN apt-get update && \
-    apt-get install -y jq curl && \
+    apt-get install -y sudo jq curl && \
     rm -rf /var/lib/apt/lists
 
 WORKDIR /app
@@ -36,4 +36,15 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY ./config ./config
+# 수정필요 : sepolia 대신 범용으로 변경
+COPY /sepolia ./sepolia 
+
+# # jwt 생성
+# # 꼭 이렇게 해야될까? compose 에 넣는거랑 가독성 비교해보기
+# CMD ["sh", "-c", "\
+#     set -e; \
+#     if [ ! -e /app/jwt.txt ]; then \
+#     openssl rand -hex 32; \
+#     fi; \
+#     wait \
+# "]

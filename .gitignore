@@ -1,1 +1,2 @@
-/geth-data/*
+/geth_data/*
+.env
