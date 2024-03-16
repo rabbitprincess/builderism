@@ -1,27 +1,3 @@
 version: '3.8'
 
 services:
-  geth: # this is Optimism's geth client
-    build: .
-    ports:
-      - 8545:8545       # RPC
-      - 8546:8546       # websocket
-      - 7301:6060       # metrics
-    command: [ "bash", "./config/geth-entrypoint" ]
-    volumes:
-      - ./geth-data:/data
-    env_file:
-      - ./config/env.mainnet
-  node:
-    build: .
-    depends_on:
-      - geth
-    ports:
-      - 7545:8545     # RPC
-      - 9222:9222     # P2P TCP
-      - 9222:9222/udp # P2P UDP
-      - 7300:7300     # metrics
-      - 6060:6060     # pprof
-    command: [ "bash", "./config/op-node-entrypoint" ]
-    env_file:
-      - ./config/env.mainnet

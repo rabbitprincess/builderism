@@ -40,7 +40,6 @@ services:
   node:
     build:
       context: .
-      dockerfile: Dockerfile
     depends_on:
       - geth
     command: >
@@ -56,7 +55,8 @@ services:
       --rpc.enable-admin
       --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}
       --l1=${L1_RPC_URL}
-      --l1.rpckind=any"
+      --l1.rpckind=any
+      --l1.beacon=${L1_BEACON_URL}"
     networks:
       - op-network
     volumes:
@@ -67,49 +67,48 @@ services:
       - 9222:9222/udp # P2P UDP
     env_file:
       - .env
-  # TODO
-  # batcher:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - node
-  #   command: >
-  #     exec ./op-batcher
-  #     --l2-eth-rpc=http://op-network:8551
-  #     --rollup-rpc=http://op-network:8547
-  #     --poll-interval=1s
-  #     --sub-safety-margin=6
-  #     --num-confirmations=1
-  #     --safe-abort-nonce-too-low-count=3
-  #     --resubmission-timeout=30s
-  #     --rpc.addr=0.0.0.0
-  #     --rpc.port=8548
-  #     --rpc.enable-admin
-  #     --max-channel-duration=1
-  #     --l1-eth-rpc=${L1_RPC_URL}
-  #     --private-key=${BATCHER_PRIVATE_KEY}
-  #   networks:
-  #     - op-network
-  #   env_file:
-  #     - ./sepolia/.env
 
-  # proposer:
-  #   build: .
-  #   depends_on:
-  #     - batcher
-  #   command: >
-  #     exec ./op-proposer
-  #     --poll-interval=12s
-  #     --rpc.port=8560
-  #     --rolup-rpc=http://op-network:8547
-  #     --l2oo-address=0xf0506faba825783E27D96280c5d742c2cb203873
-  #     --private-key=${PROPOSER_PRIVATE_KEY}
-  #     --l1-eth-rpc=${L1_RPC_URL}
-  #   networks:
-  #     - op-network
-  #   env_file:
-  #     - ./sepolia/.env
+  batcher:
+    build:
+      context: .
+    depends_on:
+      - node
+    command: >
+      bash -c "./op-batcher
+      --l2-eth-rpc=http://geth:8551
+      --rollup-rpc=http://node:8547
+      --poll-interval=1s
+      --sub-safety-margin=6
+      --num-confirmations=1
+      --safe-abort-nonce-too-low-count=3
+      --resubmission-timeout=30s
+      --rpc.addr=0.0.0.0
+      --rpc.port=8548
+      --rpc.enable-admin
+      --max-channel-duration=1
+      --l1-eth-rpc=${L1_RPC_URL}
+      --private-key=${BATCHER_PRIVATE_KEY}"
+    networks:
+      - op-network
+    env_file:
+      - .env
+
+  proposer:
+    build: .
+    depends_on:
+      - batcher
+    command: >
+      bash -c "./op-proposer
+      --poll-interval=12s
+      --rpc.port=8560
+      --rollup-rpc=http://node:8547
+      --l2oo-address=0xf0506faba825783E27D96280c5d742c2cb203873
+      --private-key=${PROPOSER_PRIVATE_KEY}
+      --l1-eth-rpc=${L1_RPC_URL}"
+    networks:
+      - op-network
+    env_file:
+      - .env
 
 networks:
   op-network:

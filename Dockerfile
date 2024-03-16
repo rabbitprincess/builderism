@@ -36,15 +36,5 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-# 수정필요 : sepolia 대신 범용으로 변경
-COPY /sepolia ./sepolia 
-
-# # jwt 생성
-# # 꼭 이렇게 해야될까? compose 에 넣는거랑 가독성 비교해보기
-# CMD ["sh", "-c", "\
-#     set -e; \
-#     if [ ! -e /app/jwt.txt ]; then \
-#     openssl rand -hex 32; \
-#     fi; \
-#     wait \
-# "]
+COPY /sepolia ./sepolia
+COPY /mainnet ./mainnet
