@@ -8,7 +8,11 @@ services:
       bash -c "./geth init --datadir=/data ./sepolia/genesis.json &&
       ./geth
       --datadir=/data
-      --networkid=42069
+      --networkid=51515151
+      --syncmode=full
+      --gcmode=archive
+      --nodiscover
+      --maxpeers=0
       --http
       --http.corsdomain="*"
       --http.addr=0.0.0.0
@@ -18,10 +22,6 @@ services:
       --ws.port=8546
       --ws.origins=*
       --ws.api=debug,eth,txpool,net,engine
-      --syncmode=full
-      --gcmode=archive
-      --nodiscover
-      --maxpeers=0
       --authrpc.vhosts="*"
       --authrpc.addr=0.0.0.0
       --authrpc.port=8551
@@ -44,6 +44,9 @@ services:
       - geth
     command: >
       bash -c "./op-node
+      --l1=${L1_RPC_URL}
+      --l1.rpckind=any
+      --l1.beacon=${L1_BEACON_URL}"
       --l2=http://geth:8551
       --l2.jwt-secret=/data/jwt.txt
       --sequencer.enabled
@@ -54,9 +57,6 @@ services:
       --rpc.port=8547
       --rpc.enable-admin
       --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}
-      --l1=${L1_RPC_URL}
-      --l1.rpckind=any
-      --l1.beacon=${L1_BEACON_URL}"
     networks:
       - op-network
     volumes:
@@ -75,10 +75,11 @@ services:
       - node
     command: >
       bash -c "./op-batcher
+      --l1-eth-rpc=${L1_RPC_URL}
       --l2-eth-rpc=http://geth:8551
       --rollup-rpc=http://node:8547
-      --poll-interval=1s
       --sub-safety-margin=6
+      --poll-interval=1s
       --num-confirmations=1
       --safe-abort-nonce-too-low-count=3
       --resubmission-timeout=30s
@@ -86,7 +87,6 @@ services:
       --rpc.port=8548
       --rpc.enable-admin
       --max-channel-duration=1
-      --l1-eth-rpc=${L1_RPC_URL}
       --private-key=${BATCHER_PRIVATE_KEY}"
     networks:
       - op-network
@@ -99,12 +99,12 @@ services:
       - batcher
     command: >
       bash -c "./op-proposer
+      --l1-eth-rpc=${L1_RPC_URL}"
+      --rollup-rpc=http://node:8547
       --poll-interval=12s
       --rpc.port=8560
-      --rollup-rpc=http://node:8547
       --l2oo-address=${L2OO_ADDRESS}
       --private-key=${PROPOSER_PRIVATE_KEY}
-      --l1-eth-rpc=${L1_RPC_URL}"
     networks:
       - op-network
     env_file:
