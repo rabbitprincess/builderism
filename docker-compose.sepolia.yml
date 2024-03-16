@@ -1,64 +1,128 @@
 version: '3.8'
 
 services:
+  init-geth:
+    build:
+      context: .
+    volumes:
+      - ./${DATA_DIR}:/data
+    command: >
+      JWT_TOKEN=\$(openssl rand -hex 32);
+      echo \$JWT_TOKEN > /data/jwt.txt;
+      mkdir /data/geth_data;
+      exec ./geth init --datadir=./${DATA_DIR}/geth_data /sepolia/genesis.json;
+      exit 0
   geth:
     build:
       context: .
-      dockerfile: Dockerfile
+    depends_on:
+      init-geth:
+        condition: service_completed_successfully
+    command: >
+      exec ./geth
+      --datadir=/data/geth_data
+      --networkid=42069
+      --http
+      --http.corsdomain="*"
+      --http.addr=0.0.0.0
+      --http.api=web3,debug,eth,txpool,net,engine
+      --ws
+      --ws.addr=0.0.0.0
+      --ws.port=8546
+      --ws.origins=*
+      --ws.api=debug,eth,txpool,net,engine
+      --syncmode=full
+      --gcmode=archive
+      --nodiscover
+      --maxpeers=0
+      --authrpc.vhosts="*"
+      --authrpc.port=0.0.0.0
+      --authrpc.port=8551
+      --authrpc.jwtsecret=./jwt.txt
+      --rollup.disabletxpoolgossip=true
     ports:
-      - 8545:8545       # RPC
-      - 8546:8546       # websocket
-      - 30303:30303     # P2P TCP (currently unused)
-      - 30303:30303/udp # P2P UDP (currently unused)
-      - 7301:6060       # metrics
-    command: [ "bash", "./config/geth-entrypoint" ]
+      - 8545:8545 # http
+      - 8546:8546 # ws
     volumes:
-      - ${GETH_HOST_DATA_DIR}:/data
+      - ./${DATA_DIR}:/data
     networks:
-      - op
+      - op-network
     env_file:
-      - ./config/env.sepolia
+      - ./sepolia/env
+  # 작업중
+  # node:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - geth
+  #   command: >
+  #     exec ./op-node
+  #     --l2=http://op-network:8551
+  #     --l2.jwt-secret=./jwt.txt
+  #     --sequencer.enabled
+  #     --sequencer.l1-confs=5
+  #     --verifier.l1-confs=4
+  #     --rollup.config=./sepolia/rollup.json
+  #     --rpc.addr=0.0.0.0
+  #     --rpc.port=8547
+  #     --p2p.disabletxpoolgossip
+  #     --rpc.enable-admin
+  #     --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}
+  #     --l1=${L1_RPC_URL}
+  #     --l1.rpckind=any
+  #   networks:
+  #     - op-network
+  #   ports:
+  #     - 9545:8545     # RPC
+  #     - 9222:9222     # P2P TCP
+  #     - 9222:9222/udp # P2P UDP
+  #   env_file:
+  #     - ./sepolia/env
 
-  node:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - geth
-    networks:
-      - op
-    ports:
-      - 7545:8545     # RPC
-      - 9222:9222     # P2P TCP
-      - 9222:9222/udp # P2P UDP
-      - 7300:7300     # metrics
-      - 6060:6060     # pprof
-    command: [ "bash", "./config/op-node-entrypoint" ]
-    env_file:
-      - ./config/env.sepolia
+  # batcher:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - node
+  #   command: >
+  #     exec ./op-batcher
+  #     --l2-eth-rpc=http://op-network:8551
+  #     --rollup-rpc=http://op-network:8547
+  #     --poll-interval=1s
+  #     --sub-safety-margin=6
+  #     --num-confirmations=1
+  #     --safe-abort-nonce-too-low-count=3
+  #     --resubmission-timeout=30s
+  #     --rpc.addr=0.0.0.0
+  #     --rpc.port=8548
+  #     --rpc.enable-admin
+  #     --max-channel-duration=1
+  #     --l1-eth-rpc=${L1_RPC_URL}
+  #     --private-key=${BATCHER_PRIVATE_KEY}
+  #   networks:
+  #     - op-network
+  #   env_file:
+  #     - ./sepolia/env
 
-  batcher:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - node
-    networks:
-      - op
-    command: [ "bash", "./config/batcher-entrypoint" ]  
-    env_file:
-      - ./config/env.sepolia
-
-  proposer:
-    build: .
-    depends_on:
-      - batcher
-    networks:
-      - op
-    command: [ "bash", "./config/proposer-entrypoint" ]  
-    env_file:
-      - ./config/env.sepolia
+  # proposer:
+  #   build: .
+  #   depends_on:
+  #     - batcher
+  #   command: >
+  #     exec ./op-proposer
+  #     --poll-interval=12s
+  #     --rpc.port=8560
+  #     --rolup-rpc=http://op-network:8547
+  #     --l2oo-address=0xf0506faba825783E27D96280c5d742c2cb203873
+  #     --private-key=${PROPOSER_PRIVATE_KEY}
+  #     --l1-eth-rpc=${L1_RPC_URL}
+  #   networks:
+  #     - op-network
+  #   env_file:
+  #     - ./sepolia/env
 
 networks:
-  op:
+  op-network:
     driver: bridge
