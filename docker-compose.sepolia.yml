@@ -102,7 +102,7 @@ services:
       --poll-interval=12s
       --rpc.port=8560
       --rollup-rpc=http://node:8547
-      --l2oo-address=0xf0506faba825783E27D96280c5d742c2cb203873
+      --l2oo-address=${L2OO_ADDRESS}
       --private-key=${PROPOSER_PRIVATE_KEY}
       --l1-eth-rpc=${L1_RPC_URL}"
     networks:
