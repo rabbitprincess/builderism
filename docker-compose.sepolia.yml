@@ -14,6 +14,7 @@ services:
       --nodiscover
       --maxpeers=0
       --http
+      --http.vhosts="*"
       --http.corsdomain="*"
       --http.addr=0.0.0.0
       --http.api=web3,debug,eth,txpool,net,engine
@@ -76,7 +77,7 @@ services:
     command: >
       bash -c "./op-batcher
       --l1-eth-rpc=${L1_RPC_URL}
-      --l2-eth-rpc=http://geth:8551
+      --l2-eth-rpc=http://geth:8545
       --rollup-rpc=http://node:8547
       --sub-safety-margin=6
       --poll-interval=1s
@@ -88,6 +89,10 @@ services:
       --rpc.enable-admin
       --max-channel-duration=1
       --private-key=${BATCHER_PRIVATE_KEY}"
+    ports:
+      - "6061:6060"
+      - "7301:7300"
+      - "6545:8545"
     networks:
       - op-network
     env_file:
