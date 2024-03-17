@@ -23,7 +23,7 @@
   "seq_window_size": 3600,
   "channel_timeout": 300,
   "l1_chain_id": 11155111,
-  "l2_chain_id": 42069,
+  "l2_chain_id": 51515151,
   "regolith_time": 0,
   "canyon_time": 0,
   "batch_inbox_address": "0xff00000000000000000000000000000000042069",
