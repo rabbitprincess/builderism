@@ -1,4 +1,6 @@
 #!/bin/bash
+set -eu
+
 
 # 보내는 계정의 정보
 sender_address="0xYOUR_SENDER_ADDRESS" # 보내는 계정의 주소
@@ -16,7 +18,6 @@ if [ $balance -lt $amount_to_send ]; then
   echo "$Receiver Already have enough balance"
   exit 0
 fi
-
 
 nonce=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["'"$sender_address"'", "latest"],"id":1}' -H "Content-Type: application/json" | jq -r .result)
 gas_price=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":2}' -H "Content-Type: application/json" | jq -r .result)
