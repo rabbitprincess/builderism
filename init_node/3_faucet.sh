@@ -13,14 +13,14 @@ amount_eth="$2"
 amount_to_send=$(echo "scale=0; $amount_eth * 1000000000000000000" | bc)
 
 # if sender have less eth than amount to send, error
-sender_balance=cast balance --address $FAUCET_ADDRESS --rpc-url $L1_RPC_URL
+sender_balance=$(cast balance --address $FAUCET_ADDRESS --rpc-url $L1_RPC_URL)
 if [ $sender_balance -gt $amount_to_send ]; then
   echo "$FAUCET_ADDRESS does not have enough balance"
   exit 1
 fi
 
 # if receiver have more eth than amount to send, return
-receiver_balance=cast balance --address $receiver_address --rpc-url $L1_RPC_URL
+receiver_balance=$(cast balance --address $receiver_address --rpc-url $L1_RPC_URL)
 if [ $receiver_balance -lt $amount_to_send ]; then
   echo "$receiver_address already has enough balance"
 else
