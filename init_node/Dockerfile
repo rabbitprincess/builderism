@@ -25,7 +25,7 @@ RUN echo "[4/6] Generate deploy config" && \
 
 # 5. deploy L1 contracts
 RUN echo "[5/6] Deploying L1 Contracts" && \
-    ./5_deploy.sh
+    ./5_deploy_L1.sh
 
 # 6. generate and export L2 config files
 RUN echo "[6/6] Generate L2 Config files" && \
