@@ -96,7 +96,7 @@ services:
     networks:
       - op-network
     env_file:
-      - .env
+      - .env.sepolia
 
   proposer:
     build: .
@@ -113,7 +113,7 @@ services:
     networks:
       - op-network
     env_file:
-      - .env
+      - .env.sepolia
 
 networks:
   op-network:

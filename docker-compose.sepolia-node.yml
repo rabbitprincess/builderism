@@ -12,8 +12,8 @@ services:
       --rollup.sequcerhttp="{$SEQUENCER_HTTP}"
       --syncmode=snap
       --gcmode=full
-      --port={$PORT_GETH_P2P:-39393}
-      --dispovery.port={$PORT_GETH_P2P:-39393}
+      --port=30303
+      --dispovery.port=30303
       --maxpeers=0
       --http
       --http.vhosts="*"
@@ -38,7 +38,7 @@ services:
     networks:
       - op-network
     env_file:
-      - .env
+      - .env.node
 
   node:
     build:
@@ -66,7 +66,7 @@ services:
       - 9222:9222     # P2P TCP
       - 9222:9222/udp # P2P UDP
     env_file:
-      - .env
+      - .env.node
 
 networks:
   op-network:
