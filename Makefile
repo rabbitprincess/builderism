@@ -1,14 +1,16 @@
-mainnet:
+# init:
+
+
+run-mainnet:
 	docker compose -f docker-compose.mainnet.yml up
 
-testnet-sequencer:
+run-testnet-sequencer:
 	docker compose -f docker-compose.sepolia-sequencer.yml up
 
-testnet-node:
+run-testnet-node:
 	docker compose -f docker-compose.sepolia-node.yml up
 
 # scan:
 
-
-clean:
+clean: # caution!! it remove all data
 	rm -r ./geth-data/*
