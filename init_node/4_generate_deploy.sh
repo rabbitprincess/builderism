@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # !!!!check https://docs.optimism.io/builders/chain-operators/management/configuration!!!!!
+# original path : https://github.com/ethereum-optimism/optimism\packages\contracts-bedrock\scripts\getting-started\config.sh
 # This script is used to generate the getting-started.json configuration file
 # used in the Getting Started quickstart guide on the docs site. Avoids the
 # need to have the getting-started.json committed to the repo since it's an
