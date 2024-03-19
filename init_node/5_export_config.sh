@@ -1,7 +1,6 @@
 #!/bin/bash
 set -eu
 
-L1_RPC_URL="$L1_RPC_URL"
 env_file=".env"
 
 cd ~/optimism/op-node

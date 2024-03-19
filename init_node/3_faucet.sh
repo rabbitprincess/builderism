@@ -4,7 +4,6 @@ set -eu
 # .env
 FAUCET_PRIVATE_KEY="$FAUCET_PRIVATE_KEY"
 FAUCET_ADDRESS="$FAUCET_ADDRESS"
-L1_RPC_URL="$L1_RPC_URL"
 
 # parameter
 receiver_address="$1"
