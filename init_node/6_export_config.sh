@@ -4,9 +4,10 @@ set -eu
 env_file=".env"
 
 cd ~/optimism/op-node
+# todo : set --deploy-config path / --deployment-dir path - mainnet or sepolia
 go run cmd/main.go genesis l2 \
-  --deploy-config ../packages/contracts-bedrock/deploy-config/getting-started.json \
-  --deployment-dir ../packages/contracts-bedrock/deployments/getting-started/ \
+  --deploy-config ./deploy-config.json \ 
+  --deployment-dir ../sepolia \
   --outfile.l2 ./genesis.json \
   --outfile.rollup ./rollup.json \
   --l1-rpc $L1_RPC_URL
