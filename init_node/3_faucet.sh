@@ -23,11 +23,11 @@ fi
 receiver_balance=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["'"$sender_address"'", "latest"],"id":1}' -H "Content-Type: application/json" | jq -r .result)
 if [ $receiver_balance -lt $amount_to_send ]; then
   echo "$receiver_address already has enough balance"
-else 
+else
   # send eth
   nonce=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_getTransactionCount","params":["'"$sender_address"'", "latest"],"id":1}' -H "Content-Type: application/json" | jq -r .result)
   gas_price=$(curl -s -X POST --data '{"jsonrpc":"2.0","method":"eth_gasPrice","params":[],"id":2}' -H "Content-Type: application/json" | jq -r .result)
-  tip="5000000000" 
+  tip="5000000000"
   max_priority_fee_per_gas="5000000000"
   max_fee_per_gas=$((gas_price + tip))
 
