@@ -21,15 +21,15 @@ RUN echo "[3/6] Send eth from faucet key" && \
 
 # 4. generate config.json
 RUN echo "[4/6] Generate deploy config" && \
-    ./4_generate_deploy.sh
+    ./4_generate_config.sh
 
 # 5. deploy L1 contracts
 RUN echo "[5/6] Deploying L1 Contracts" && \
     ./5_deploy_L1.sh
 
-# 6. generate and export L2 config files
-RUN echo "[6/6] Generate L2 Config files" && \
-    ./6_export_config.sh
+# 6. generate and export genesis / rollup / addresses files
+RUN echo "[6/6] Generate Genesis and other files" && \
+    ./6_export_genesis.sh
 
 RUN echo "finish"
 
