@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
 
+OP_VERSION="$OP_VERSION"
+
 # Install system dependencies
 apt-get update && apt-get install -y sudo jq wget curl gnupg git make direnv ca-certificates && \
     rm -rf /var/lib/apt/lists
@@ -19,11 +21,12 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
 curl -L https://foundry.paradigm.xyz | bash && foundryup
 
 # Clone Optimism repository
-# TODO : is it necessary?
 cd ~/ && \
 git clone https://github.com/ethereum-optimism/optimism.git && \
 cd ~/optimism && \
-git switch op-node/$OP_VERSION && \
-pnpm install && \
-make op-node op-batcher op-proposer && \
-pnpm build
+git switch op-node/$OP_VERSION
+
+# is it necessary?
+# pnpm install && \
+# make op-node op-batcher op-proposer && \
+# pnpm build
