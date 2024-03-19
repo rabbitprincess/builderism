@@ -10,7 +10,7 @@ receiver_address="$1"
 amount_eth="$2"
 
 # convert eth to wei
-amount_to_send=$(echo "scale=0; $amount_eth * 1000000000000000000" | bc)
+amount_to_send=$(cast to-wei $amount_eth)
 
 # if sender have less eth than amount to send, error
 sender_balance=$(cast balance --address $FAUCET_ADDRESS --rpc-url $L1_RPC_URL)
