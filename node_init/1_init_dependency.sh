@@ -3,6 +3,8 @@ set -eu
 
 OP_VERSION="$OP_VERSION"
 
+source ~/.bashrc
+
 # Install system dependencies
 apt-get update && apt-get install -y sudo jq wget curl gnupg git make direnv ca-certificates && \
     rm -rf /var/lib/apt/lists
@@ -18,7 +20,7 @@ apt-get install -y nodejs
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 # Install Foundry
-curl -L https://foundry.paradigm.xyz | bash && chmod a+x ~/.bashrc && source ~/.bashrc && foundryup
+curl -L https://foundry.paradigm.xyz | bash && foundryup
 
 # Clone Optimism repository
 cd ~/ && \
