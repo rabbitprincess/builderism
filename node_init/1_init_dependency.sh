@@ -18,7 +18,7 @@ apt-get install -y nodejs
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 # Install Foundry
-curl -L https://foundry.paradigm.xyz | bash && source ~/.bashrc && foundryup
+curl -L https://foundry.paradigm.xyz | bash && chmod a+x ~/.bashrc && source ~/.bashrc && foundryup
 
 # Clone Optimism repository
 cd ~/ && \
