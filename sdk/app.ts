@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { Config } from './config';
-import { OptimismBridge } from './OptimismBridge';
+import { OptimismBridge } from './bridge';
 
 async function main() {
     // Load config from INI file
