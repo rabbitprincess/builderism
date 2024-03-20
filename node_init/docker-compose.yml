@@ -4,8 +4,9 @@ services:
   node_init:
     build:
       context: .
-      dockerfile: Dockerfile
+    image: node_init
     volumes:
-      - ../config/{$NETWORK_TYPE}:.
+      - ../config/${NETWORK_TYPE}:/config
+      - ./:/script
     env_file:
-      - ../.env.example
+      - ../.env

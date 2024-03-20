@@ -1,18 +1,17 @@
 #!/bin/bash
 set -eu
 
-env_file=".env"
+env_file="/config/address.ini"
 
 cd ~/optimism/op-node
 # todo : set --deploy-config path / --deployment-dir path - mainnet or sepolia
 go run cmd/main.go genesis l2 \
-  --deploy-config ./deploy-config.json \
-  --deployment-dir ./ \
-  --outfile.l2 ./genesis.json \
-  --outfile.rollup ./rollup.json \
+  --deploy-config /config/deploy-config.json \
+  --deployment-dir /config \
+  --outfile.l2 /config/genesis.json \
+  --outfile.rollup /config/rollup.json \
   --l1-rpc $L1_RPC_URL
 
 cd ~/optimism/packages/contracts-bedrock
 addresses=$(./scripts/print-addresses.sh getting-started --sdk)
 echo "$addresses" >> "$env_file" # 파싱 필요
-echo "Addresses added to $env_file"
