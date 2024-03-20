@@ -13,4 +13,4 @@ run-testnet-node:
 # scan:
 
 clean: # caution!! it remove all data
-	rm -r ./geth-data/*
+	rm -r ./geth-data/* && rm -r ./config/sepolia && rm -r ./config/mainnet
