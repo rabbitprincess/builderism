@@ -37,4 +37,4 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY network/&{NETWORK_TYPE} ./network
+COPY ./config/&{NETWORK_TYPE} ./config
