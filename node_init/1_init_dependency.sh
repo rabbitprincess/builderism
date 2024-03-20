@@ -3,24 +3,24 @@ set -eu
 
 OP_VERSION="$OP_VERSION"
 
-source ~/.bashrc
-
 # Install system dependencies
 apt-get update && apt-get install -y sudo jq wget curl gnupg git make direnv ca-certificates && \
     rm -rf /var/lib/apt/lists
 
-# Install Go
+# Install go
 curl -sL https://golang.org/dl/go1.22.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
-# Install Node.js and npm
+# Install node.js
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 apt-get install -y nodejs
 
 # Install pnpm
-curl -fsSL https://get.pnpm.io/install.sh | sudo -E bash -
+curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 # Install Foundry
-bash -c "curl -L https://foundry.paradigm.xyz | sudo -E bash -" && foundryup
+curl -L https://foundry.paradigm.xyz | sudo -E bash -
+export PATH="$PATH:$HOME/.foundry/bin"
+foundryup
 
 # Clone Optimism repository
 cd ~/ && \
