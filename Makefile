@@ -1,5 +1,7 @@
-# init:
-
+init:
+	cd node_init && \
+	docker compose up -d && \
+	docker rmi node_init
 
 run-mainnet:
 	cd ./node_run && \
@@ -15,5 +17,7 @@ run-testnet-node:
 
 # scan:
 
-clean: # caution!! it remove all data
-	rm -r ./geth-data/* && rm -r ./config/sepolia && rm -r ./config/mainnet
+clean: # caution!! it remove all existing data
+	rm -r ./geth-data/* && \
+	rm -r ./config/sepolia && \
+	Erm -r ./config/mainnet

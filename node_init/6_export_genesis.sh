@@ -6,8 +6,8 @@ env_file=".env"
 cd ~/optimism/op-node
 # todo : set --deploy-config path / --deployment-dir path - mainnet or sepolia
 go run cmd/main.go genesis l2 \
-  --deploy-config ../config/$NETWORK_TYPE/deploy-config.json \
-  --deployment-dir ../config/$NETWORK_TYPE \
+  --deploy-config ./deploy-config.json \
+  --deployment-dir ./ \
   --outfile.l2 ./genesis.json \
   --outfile.rollup ./rollup.json \
   --l1-rpc $L1_RPC_URL

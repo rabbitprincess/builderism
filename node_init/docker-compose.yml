@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  node_init:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../config/{$NETWORK_TYPE}:.
+    env_file:
+      - ../.env.example
