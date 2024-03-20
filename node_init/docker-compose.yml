@@ -7,6 +7,5 @@ services:
     image: node_init
     volumes:
       - ../config/${NETWORK_TYPE}:/config
-      - ./:/script
     env_file:
       - ../.env
