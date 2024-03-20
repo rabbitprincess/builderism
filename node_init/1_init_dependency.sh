@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/bash -i
 set -eu
 
 OP_VERSION="$OP_VERSION"
 
-bash -c "source /root/.bashrc"
+source ~/.bashrc
 
 # Install system dependencies
 apt-get update && apt-get install -y sudo jq wget curl gnupg git make direnv ca-certificates && \
@@ -17,10 +17,10 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 apt-get install -y nodejs
 
 # Install pnpm
-curl -fsSL https://get.pnpm.io/install.sh | sh -
+curl -fsSL https://get.pnpm.io/install.sh | sudo -E bash -
 
 # Install Foundry
-curl -L https://foundry.paradigm.xyz | bash && foundryup
+bash -c "curl -L https://foundry.paradigm.xyz | sudo -E bash -" && foundryup
 
 # Clone Optimism repository
 cd ~/ && \
