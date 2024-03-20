@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { Config } from './config';
+import { loadConfigFromIni } from './config';
 import { OptimismBridge } from './bridge';
 
 async function main() {
@@ -12,7 +12,7 @@ async function main() {
     const privateKeyL2 = 'YourPrivateKeyForL2';
 
     // Create OptimismBridge instance
-    const optimismBridge = new OptimismBridge(privateKeyL1, privateKeyL2, config);
+    const optimismBridge = new OptimismBridge(privateKeyL1, privateKeyL2);
 
     // Example usage
     console.log(await optimismBridge.getL1Balance()); // L1 balance

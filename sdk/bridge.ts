@@ -1,35 +1,24 @@
-import fs from 'fs';
-import ini from 'ini';
 import { ethers } from 'ethers';
 import optimism_sdk from '@eth-optimism/sdk';
-import config, { Config } from './config';
+import { Config } from './config';
 
-class OptimismBridge {
+export class OptimismBridge {
     private l1Provider: ethers.providers.StaticJsonRpcProvider;
     private l2Provider: ethers.providers.StaticJsonRpcProvider;
     private l1ChainId: Promise<number>;
     private l2ChainId: Promise<number>;
-    private AddressManager: string;
-    private L1CrossDomainMessenger: string;
-    private L1StandardBridge: string;
-    private OptimismPortal: string;
-    private L2OutputOracle: string;
     private l1Wallet: ethers.Wallet;
     private l2Wallet: ethers.Wallet;
     private messanger: optimism_sdk.CrossChainMessenger;
     private crossBridge: optimism_sdk.CrossChainMessenger;
 
     constructor(privateKeyL1: string, privateKeyL2: string, config: Config) {
-        this.l1Provider = new ethers.providers.StaticJsonRpcProvider(config.l1ProviderUrl);
-        this.l2Provider = new ethers.providers.StaticJsonRpcProvider(config.l2ProviderUrl);
+        const { l1ProviderUrl, l2ProviderUrl, AddressManager, L1CrossDomainMessenger, L1StandardBridge, OptimismPortal, L2OutputOracle } = config;
+
+        this.l1Provider = new ethers.providers.StaticJsonRpcProvider(l1ProviderUrl);
+        this.l2Provider = new ethers.providers.StaticJsonRpcProvider(l2ProviderUrl);
         this.l1ChainId = this.l1Provider.getNetwork().then(network => network.chainId);
         this.l2ChainId = this.l2Provider.getNetwork().then(network => network.chainId);
-
-        this.AddressManager = config.AddressManager;
-        this.L1CrossDomainMessenger = config.L1CrossDomainMessenger;
-        this.L1StandardBridge = config.L1StandardBridge;
-        this.OptimismPortal = config.OptimismPortal;
-        this.L2OutputOracle = config.L2OutputOracle;
 
         this.l1Wallet = new ethers.Wallet(privateKeyL1, this.l1Provider);
         this.l2Wallet = new ethers.Wallet(privateKeyL2, this.l2Provider);
@@ -41,11 +30,11 @@ class OptimismBridge {
             l2ChainId: this.l2ChainId,
             contracts: {
                 l1: {
-                    AddressManager: this.AddressManager,
-                    L1CrossDomainMessenger: this.L1CrossDomainMessenger,
-                    L1StandardBridge: this.L1StandardBridge,
-                    OptimismPortal: this.OptimismPortal,
-                    L2OutputOracle: this.L2OutputOracle,
+                    AddressManager,
+                    L1CrossDomainMessenger,
+                    L1StandardBridge,
+                    OptimismPortal,
+                    L2OutputOracle,
                     StateCommitmentChain: ethers.constants.AddressZero,
                     CanonicalTransactionChain: ethers.constants.AddressZero,
                     BondManager: ethers.constants.AddressZero,
