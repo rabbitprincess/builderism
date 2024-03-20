@@ -5,7 +5,7 @@ services:
     build:
       context: .
     command: >
-      bash -c "./geth init --datadir=/data ./sepolia/genesis.json &&
+      bash -c "./geth init --datadir=/data ./network/${NETWORK_TYPE}/genesis.json &&
       ./geth
       --datadir=/data
       --networkid=51515151
@@ -53,7 +53,7 @@ services:
       --sequencer.enabled
       --sequencer.l1-confs=5
       --verifier.l1-confs=4
-      --rollup.config=./sepolia/rollup.json
+      --rollup.config=./network/${NETWORK_TYPE}/rollup.json
       --rpc.addr=0.0.0.0
       --rpc.port=8547
       --rpc.enable-admin

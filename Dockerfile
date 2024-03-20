@@ -4,6 +4,7 @@ WORKDIR /app
 
 ENV REPO=https://github.com/ethereum-optimism/optimism.git
 ENV VERSION=v1.7.1
+ENV NETWORK_TYPE=${NETWORK_TYPE}
 
 RUN git clone $REPO --branch op-node/$VERSION --single-branch . && \
     git switch -c branch-$VERSION
@@ -36,5 +37,4 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY /sepolia ./sepolia
-COPY /mainnet ./mainnet
+COPY network/&{NETWORK_TYPE} ./network
