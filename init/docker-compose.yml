@@ -6,6 +6,6 @@ services:
       context: .
     image: node_init
     volumes:
-      - ../config/${CONFIG_DIR}:/config
+      - ${CONFIG_DIR}:/config
     env_file:
       - ../.env
