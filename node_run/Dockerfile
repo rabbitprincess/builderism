@@ -1,31 +1,31 @@
-FROM golang:1.21 as op
+FROM golang:1.22 as op
 
 WORKDIR /app
 
 ENV REPO=https://github.com/ethereum-optimism/optimism.git
-ENV VERSION=v1.7.1
+ENV OP_VERSION={$OP_VERSION:-1.7.1}
 ENV NETWORK_TYPE=${NETWORK_TYPE}
 
-RUN git clone $REPO --branch op-node/$VERSION --single-branch . && \
-    git switch -c branch-$VERSION
+RUN git clone $REPO --branch op-node/$OP_VERSION --single-branch . && \
+    git switch -c branch-$OP_VERSION
 
-RUN make -C op-node VERSION=$VERSION op-node
-RUN make -C op-batcher VERSION=$VERSION op-batcher
-RUN make -C op-proposer VERSION=$VERSION op-proposer
+RUN make -C op-node VERSION=$OP_VERSION op-node
+RUN make -C op-batcher VERSION=$OP_VERSION op-batcher
+RUN make -C op-proposer VERSION=$OP_VERSION op-proposer
 
-FROM golang:1.21 as geth
+FROM golang:1.22 as geth
 
 WORKDIR /app
 
 ENV REPO=https://github.com/ethereum-optimism/op-geth.git
-ENV VERSION=v1.101308.2
+ENV GETH_VERSION={$GETH_VERSION:-v1.101308.2}
 
-RUN git clone $REPO --branch $VERSION --single-branch . && \
-    git switch -c branch-$VERSION
+RUN git clone $REPO --branch $GETH_VERSION --single-branch . && \
+    git switch -c branch-$GETH_VERSION
 
 RUN go run build/ci.go install -static ./cmd/geth
 
-FROM golang:1.21
+FROM golang:1.22
 
 RUN apt-get update && \
     apt-get install -y sudo jq curl && \
