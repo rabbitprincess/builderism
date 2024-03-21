@@ -6,12 +6,12 @@ user-friendly tool to build your optimism
 cp .env.example .env
 ```
 
-## Init node
+## init your node
 ```
 make init
 ```
 
-## Run node
+## run your node
 ```
 make run
 ```
