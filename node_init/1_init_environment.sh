@@ -4,7 +4,7 @@ set -eu
 # Check environment variables
 reqenv() {
     if [ -z "${!1:-}" ]; then
-        echo "Error: environment variable '$1' is undefined. check .env file!"
+        echo "Error: environment variable '$1' is not set. check .env file!"
         exit 1
     fi
 }
