@@ -1,5 +1,5 @@
 # optimism_node
-user-friendly tool to build your optimism
+user-friendly tool to build your optimism mainnet
 
 ## configuration
 ```
