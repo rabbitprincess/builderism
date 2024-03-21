@@ -17,7 +17,7 @@ reqenv "FAUCET_ADDRESS"
 
 cd ~/optimism
 cp .envrc.example .envrc
-output=$(./packages/contracts-bedrock/scripts/getting-started/wallets.sh) \ 
+output=$(./packages/contracts-bedrock/scripts/getting-started/wallets.sh) \
 && sed -i \
     -e 's/^export GS_ADMIN_ADDRESS=.*/export GS_ADMIN_ADDRESS='"$(echo "$output" | grep "GS_ADMIN_ADDRESS" | cut -d'=' -f2-)"'/' \
     -e 's/^export GS_ADMIN_PRIVATE_KEY=.*/export GS_ADMIN_PRIVATE_KEY='"$(echo "$output" | grep "GS_ADMIN_PRIVATE_KEY" | cut -d'=' -f2-)"'/' \
