@@ -4,7 +4,6 @@ set -eu
 env_file="/config/address.ini"
 
 cd ~/optimism/op-node
-# todo : set --deploy-config path / --deployment-dir path - mainnet or sepolia
 go run cmd/main.go genesis l2 \
   --deploy-config /config/deploy-config.json \
   --deployment-dir /config \
