@@ -1,10 +1,10 @@
 init:
-	cd node_init && \
+	cd init && \
 	docker compose up -d && \
 	docker-compose down
 
 run:
-	cd node_run && \
+	cd run && \
 	docker compose up
 
 # bridge:
@@ -12,5 +12,5 @@ run:
 # blockscout:
 
 clean: # caution!! it remove all existing data
-	rm -r ./geth-data/* && \
+	rm -r ./geth_data/* && \
 	rm -r ./config/*
