@@ -1,7 +1,18 @@
 #!/bin/bash
 set -eu
 
-L1_RPC_URL="$L1_RPC_URL"
+# Check environment variables
+reqenv() {
+    if [ -z "${!1:-}" ]; then
+        echo "Error: environment variable '$1' is undefined. check .env file!"
+        exit 1
+    fi
+}
+reqenv "L1_RPC_URL"
+reqenv "L1_CHAIN_ID"
+reqenv "L2_CHAIN_ID"
+reqenv "FAUCET_PRIVATE_KEY"
+reqenv "FAUCET_ADDRESS"
 
 cd ~/optimism
 cp .envrc.example .envrc
