@@ -1,9 +1,6 @@
 FROM ubuntu
 
-# copy sh file to docker container
-COPY *.sh ./script/
-
-ENV OP_VERSION=v1.7.1
+ENV OP_VERSION={$OP_VERSION:-v1.7.1}
 ENV FAUCET_PRIVATE_KEY=${FAUCET_PRIVATE_KEY}
 ENV FAUCET_ADDRESS=${FAUCET_ADDRESS}
 ENV L1_RPC_URL=${L1_RPC_URL}
@@ -34,6 +31,9 @@ RUN cd ~/ && \
     git clone https://github.com/ethereum-optimism/optimism.git && \
     cd ~/optimism && \
     git switch -c branch-$VERSION
+
+
+COPY *.sh ./script/
 
 ENTRYPOINT ["sh", "-c", "\
     ./script/1_init_environment.sh && \
