@@ -3,21 +3,15 @@ init:
 	docker compose up -d && \
 	docker-compose down --rmi all
 
-run-mainnet:
+run:
 	cd node_run && \
-	docker compose -f docker-compose.mainnet.yml up
+	docker compose up
 
-run-testnet-sequencer:
-	cd node_run && \
-	docker compose -f docker-compose.sepolia-sequencer.yml up
+# bridge:
 
-run-testnet-node:
-	cd node_run && \
-	docker compose -f docker-compose.sepolia-node.yml up
-
-# scan:
+# blockscout:
 
 clean: # caution!! it remove all existing data
 	rm -r ./geth-data/* && \
-	rm -r ./config/sepolia && \
-	Erm -r ./config/mainnet
+	rm -r ./config/sepolia/* && \
+	Erm -r ./config/mainnet/*
