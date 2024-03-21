@@ -13,5 +13,4 @@ run:
 
 clean: # caution!! it remove all existing data
 	rm -r ./geth-data/* && \
-	rm -r ./config/sepolia/* && \
-	Erm -r ./config/mainnet/*
+	rm -r ./config/*
