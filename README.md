@@ -1,4 +1,14 @@
 # optimism_node
-build your mainnet using OP Stack!
+user-friendly tool to build your optimism
 
-docker compose -f docker-compose.sepolia.yml up
+## Init node
+make init
+
+## Run node
+make run
+
+... that`s all!
+
+## configuration
+cp .env.example .env
+
