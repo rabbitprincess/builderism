@@ -37,7 +37,7 @@ services:
       context: .
     depends_on:
       - node
-    command: [ "bash", "./entrypoint-batcher" ]
+    command: [ "bash", "./entrypoint-op-batcher" ]
     networks:
       - op-network
     env_file:
@@ -47,7 +47,7 @@ services:
     build: .
     depends_on:
       - batcher
-    command: [ "bash", "./entrypoint-proposer" ]
+    command: [ "bash", "./entrypoint-op-proposer" ]
     networks:
       - op-network
     env_file:
