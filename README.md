@@ -1,4 +1,4 @@
-# optimism_node
+# optimism_builder
 user-friendly tool to build your optimism mainnet
 
 ## configuration
