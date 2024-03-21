@@ -5,7 +5,7 @@ SEQUENCER_MODE=${SEQUENCER_MODE:-false}
 ADDITIONAL_ARGS=""
 
 # Initialize geth if necessary
-exec ./geth init --datadir=/data ./config/${NETWORK_TYPE}/genesis.json
+exec ./geth init --datadir=/data ./config/genesis.json
 
 if [ "$SEQUENCER_MODE" != "true" ]; then
     if [ "${SEQUENCER_HTTP+x}" = x ]; then

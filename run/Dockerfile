@@ -26,8 +26,6 @@ RUN go run build/ci.go install -static ./cmd/geth
 
 FROM golang:1.22
 
-ENV NETWORK_TYPE=${NETWORK_TYPE}
-
 RUN apt-get update && \
     apt-get install -y sudo jq curl && \
     rm -rf /var/lib/apt/lists
@@ -38,4 +36,4 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY ./config/${NETWORK_TYPE} ./config
+COPY ${CONFIG_DIR} ./config
