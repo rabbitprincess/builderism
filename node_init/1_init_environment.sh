@@ -8,6 +8,7 @@ reqenv() {
         exit 1
     fi
 }
+reqenv "L1_NETWORK_TYPE"
 reqenv "L1_RPC_URL"
 reqenv "L1_CHAIN_ID"
 reqenv "L2_CHAIN_ID"
