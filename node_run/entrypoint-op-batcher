@@ -23,4 +23,4 @@ exec ./op-batcher \
     --rpc.port=8548 \
     --rpc.enable-admin \
     --max-channel-duration=1 \
-    --private-key=${BATCHER_PRIVATE_KEY} \
+    --private-key=${BATCHER_PRIVATE_KEY}

@@ -15,4 +15,4 @@ exec ./op-proposer \
     --rollup-rpc=http://node:8547 \
     --poll-interval=12s \
     --rpc.port=8560 \
-    --private-key=${PROPOSER_PRIVATE_KEY} \
+    --private-key=${PROPOSER_PRIVATE_KEY}
