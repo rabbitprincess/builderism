@@ -12,8 +12,7 @@ amount_eth="$2"
 # convert eth to wei
 amount_to_send=$(cast to-wei $amount_eth)
 
-
-# if receiver have more eth than amount to send, return
+# if receiver have more eth than amount to send, no need to send
 receiver_balance=$(cast balance --address $receiver_address --rpc-url $L1_RPC_URL)
 if [ $receiver_balance -lt $amount_to_send ]; then
   echo "$receiver_address already has enough balance"
