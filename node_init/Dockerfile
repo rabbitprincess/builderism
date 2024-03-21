@@ -3,8 +3,9 @@ FROM ubuntu
 ENV OP_VERSION={$OP_VERSION:-v1.7.1}
 ENV FAUCET_PRIVATE_KEY=${FAUCET_PRIVATE_KEY}
 ENV FAUCET_ADDRESS=${FAUCET_ADDRESS}
-ENV L1_RPC_URL=${L1_RPC_URL}
 ENV NETWORK_TYPE=${NETWORK_TYPE}
+ENV L1_CHAIN_ID=${L1_CHAIN_ID}
+ENV L1_RPC_URL=${L1_RPC_URL}
 
 # init system dependencies
 RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make direnv ca-certificates && \
