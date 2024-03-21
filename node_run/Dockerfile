@@ -3,8 +3,7 @@ FROM golang:1.22 as op
 WORKDIR /app
 
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION={$OP_VERSION:-1.7.1}
-ENV NETWORK_TYPE=${NETWORK_TYPE}
+ENV OP_VERSION=${OP_VERSION:-1.7.1}
 
 RUN git clone $OP_REPO --branch op-node/$OP_VERSION --single-branch . && \
     git switch -c branch-$OP_VERSION
@@ -18,7 +17,7 @@ FROM golang:1.22 as geth
 WORKDIR /app
 
 ENV GETH_REPO=https://github.com/ethereum-optimism/op-geth.git
-ENV GETH_VERSION={$GETH_VERSION:-v1.101308.2}
+ENV GETH_VERSION=${GETH_VERSION:-v1.101308.2}
 
 RUN git clone $GETH_REPO --branch $GETH_VERSION --single-branch . && \
     git switch -c branch-$GETH_VERSION
@@ -26,6 +25,8 @@ RUN git clone $GETH_REPO --branch $GETH_VERSION --single-branch . && \
 RUN go run build/ci.go install -static ./cmd/geth
 
 FROM golang:1.22
+
+ENV NETWORK_TYPE=${NETWORK_TYPE}
 
 RUN apt-get update && \
     apt-get install -y sudo jq curl && \
@@ -37,4 +38,4 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY ./config/&{NETWORK_TYPE} ./config
+COPY ./config/${NETWORK_TYPE} ./config
