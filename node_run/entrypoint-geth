@@ -1,0 +1,41 @@
+#!/bin/bash
+set -eu
+
+ADDITIONAL_ARGS=""
+
+# Initialize geth if necessary
+exec ./geth init --datadir=/data ./config/${NETWORK_TYPE}/genesis.json
+
+if [ "$SEQUENCER_MODE" != "true" ]; then
+    if [ "${SEQUENCER_HTTP+x}" = x ]; then
+        ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.halt=major --rollup.sequencer-http=$SEQUENCER_HTTP"
+    fi
+    if [ "${BOOTNODES+x}" = x ]; then
+        ADDITIONAL_ARGS="$ADDITIONAL_ARGS --bootnodes=$BOOTNODES"
+    fi
+fi
+
+# Run geth with specified parameters
+exec ./geth \
+    --datadir=/data \
+    --networkid=${NETWORK_ID} \
+    --syncmode=full \
+    --gcmode=archive \
+    --nodiscover \
+    --maxpeers=0 \
+    --http \
+    --http.vhosts="*" \
+    --http.corsdomain="*" \
+    --http.addr=0.0.0.0 \
+    --http.api=web3,debug,eth,txpool,net,engine \
+    --ws \
+    --ws.addr=0.0.0.0 \
+    --ws.port=8546 \
+    --ws.origins="*" \
+    --ws.api=debug,eth,txpool,net,engine \
+    --authrpc.vhosts="*" \
+    --authrpc.addr=0.0.0.0 \
+    --authrpc.port=8551 \
+    --authrpc.jwtsecret=/data/jwt.txt \
+    --rollup.disabletxpoolgossip=true \
+    $ADDITIONAL_ARGS
