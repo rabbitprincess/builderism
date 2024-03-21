@@ -1,3 +1,16 @@
+FROM ubuntu
+
+WORKDIR /app
+
+COPY ${CONFIG_DIR} ./config
+
+RUN if [ ! -f ./config/genesis.json ] || \
+    [ ! -f ./config/rollup.json ] || \
+    [ ! -f ./config/.env.address ]; then \
+    echo "Error: genesis file is not set. initialize the node first!" \
+    exit -1; \
+fi
+
 FROM golang:1.22 as op
 
 WORKDIR /app
@@ -36,4 +49,3 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
-COPY ${CONFIG_DIR} ./config
