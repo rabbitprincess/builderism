@@ -1,7 +1,7 @@
 init:
 	cd node_init && \
 	docker compose up -d && \
-	docker-compose down --rmi all
+	docker-compose down
 
 run:
 	cd node_run && \
