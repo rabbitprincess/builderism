@@ -7,6 +7,8 @@
 # need to have the getting-started.json committed to the repo since it's an
 # invalid JSON file when not filled in, which is annoying.
 
+cd ~/optimism/packages/contracts-bedrock
+
 reqenv() {
     if [ -z "${!1}" ]; then
         echo "Error: environment variable '$1' is undefined"
@@ -105,5 +107,4 @@ EOL
 )
 
 # Write the config file
-cd ~/optimism/packages/contracts-bedrock
 echo "$config" > ./deploy_config/{$L1_NETWORK_TYPE}.json

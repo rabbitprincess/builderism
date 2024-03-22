@@ -8,7 +8,7 @@ ENV L1_CHAIN_ID=${L1_CHAIN_ID}
 ENV L1_RPC_URL=${L1_RPC_URL}
 
 # init system dependencies
-RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make direnv ca-certificates && \
+RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make ca-certificates && \
 rm -rf /var/lib/apt/lists
 
 # install go
