@@ -28,6 +28,10 @@ block=$(cast block finalized --rpc-url "$L1_RPC_URL")
 timestamp=$(echo "$block" | awk '/timestamp/ { print $2 }')
 blockhash=$(echo "$block" | awk '/hash/ { print $2 }')
 
+# generate the batch inbox address by L2_CHAIN_ID
+base_address="0xff00000000000000000000000000000000000000"
+BatchInboxAddress="${base_address%${base_address: -${#L2_CHAIN_ID}}}$L2_CHAIN_ID"
+
 # Generate the config file
 config=$(cat << EOL
 {
@@ -43,7 +47,7 @@ config=$(cat << EOL
   "channelTimeout": 300,
 
   "p2pSequencerAddress": "$GS_SEQUENCER_ADDRESS",
-  "batchInboxAddress": "0xff00000000000000000000000000000000042069",
+  "batchInboxAddress": "$BatchInboxAddress",
   "batchSenderAddress": "$GS_BATCHER_ADDRESS",
 
   "l2OutputOracleSubmissionInterval": 120,
