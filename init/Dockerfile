@@ -1,11 +1,9 @@
 FROM ubuntu
 
-ENV OP_VERSION={$OP_VERSION:-v1.7.1}
-ENV FAUCET_PRIVATE_KEY=${FAUCET_PRIVATE_KEY}
-ENV FAUCET_ADDRESS=${FAUCET_ADDRESS}
-ENV L1_NETWORK_TYPE=${L1_NETWORK_TYPE}
-ENV L1_CHAIN_ID=${L1_CHAIN_ID}
-ENV L1_RPC_URL=${L1_RPC_URL}
+WORKDIR /app
+
+ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
+ENV OP_VERSION=${OP_VERSION:-1.7.1}
 
 # init system dependencies
 RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make ca-certificates && \
@@ -29,19 +27,17 @@ RUN . ~/.bashrc && foundryup
 
 # clone optimism repository
 RUN cd ~/ && \
-    git clone https://github.com/ethereum-optimism/optimism.git && \
-    cd ~/optimism && \
-    git switch -c branch-$VERSION
+    git clone $OP_REPO --branch op-node/$OP_VERSION --single-branch . && \
+    git switch -c branch-$OP_VERSION
 
-
-COPY *.sh ./script/
+COPY *.sh /script/
 
 ENTRYPOINT ["sh", "-c", "\
-    ./script/1_init_environment.sh && \
-    ./script/2_faucet.sh $GS_ADMIN_ADDRESS 0.5 && \
-    ./script/2_faucet.sh $GS_PROPOSER_ADDRESS 0.2 && \
-    ./script/2_faucet.sh $GS_BATCHER_ADDRESS 0.1 && \
-    ./script/3_deploy_contract.sh && \
-    ./script/4_generate_config.sh && \
-    ./script/5_export_genesis.sh \
+    /script/1_init_environment.sh && \
+    /script/2_faucet.sh $GS_ADMIN_ADDRESS 0.5 && \
+    /script/2_faucet.sh $GS_PROPOSER_ADDRESS 0.2 && \
+    /script/2_faucet.sh $GS_BATCHER_ADDRESS 0.1 && \
+    /script/3_deploy_contract.sh && \
+    /script/4_generate_config.sh && \
+    /script/5_export_genesis.sh \
 "]
