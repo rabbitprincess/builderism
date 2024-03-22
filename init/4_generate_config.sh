@@ -105,4 +105,5 @@ EOL
 )
 
 # Write the config file
-echo "$config" > /config/deploy-config.json
+cd ~/optimism/packages/contracts-bedrock
+echo "$config" > ./deploy_config/{$L1_NETWORK_TYPE}.json
