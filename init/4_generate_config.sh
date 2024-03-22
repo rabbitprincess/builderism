@@ -108,3 +108,4 @@ EOL
 
 # Write the config file
 echo "$config" > ./deploy_config/{$NETWORK_TYPE}.json
+cp ./deploy_config/{$NETWORK_TYPE}.json /config
