@@ -107,4 +107,4 @@ EOL
 )
 
 # Write the config file
-echo "$config" > ./deploy_config/{$L1_NETWORK_TYPE}.json
+echo "$config" > ./deploy_config/{$NETWORK_TYPE}.json
