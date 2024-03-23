@@ -36,6 +36,8 @@ COPY *.sh /script/
 
 ENTRYPOINT ["/bin/bash", "-c", "\
     source /script/1_init_environment.sh && \
+    /script/2_faucet.sh && \
     /script/3_generate_config.sh && \
+    /script/4_deploy_contract.sh && \
     /script/5_export_genesis.sh \
 "]
