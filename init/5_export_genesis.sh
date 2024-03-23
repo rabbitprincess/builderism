@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
 
+echo "[5/5] : export genesis files"
+
 env_file="/config/address.ini"
 
 cd ~/optimism/op-node

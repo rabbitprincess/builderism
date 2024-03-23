@@ -18,26 +18,27 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs
 
 # install pnpm
-RUN curl -fsSL https://get.pnpm.io/install.sh | sudo -E bash -
-RUN . ~/.bashrc
+RUN curl -fsSL https://get.pnpm.io/install.sh | npm install -g pnpm
 
 # install foundryup
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
 RUN . ~/.bashrc && foundryup
+ENV PATH="~/.foundry/bin:${PATH}"
+
+ENV OP_VERSION="tutorials/chain"
 
 # clone optimism repository
-RUN cd ~/optimism && \
-    git clone $OP_REPO --branch op-node/$OP_VERSION --single-branch . && \
-    git switch -c branch-$OP_VERSION
+RUN mkdir -p ~/optimism && cd ~/optimism && \
+    git clone $OP_REPO --branch $OP_VERSION --single-branch . && \
+    git switch -c branch-$OP_VERSION && \
+    git submodule update --init --recursive
 
 COPY *.sh /script/
 
-ENTRYPOINT ["sh", "-c", "\
-    /script/1_init_environment.sh && \
-    /script/2_faucet.sh $GS_ADMIN_ADDRESS 0.5 && \
-    /script/2_faucet.sh $GS_PROPOSER_ADDRESS 0.2 && \
-    /script/2_faucet.sh $GS_BATCHER_ADDRESS 0.1 && \
-    /script/3_deploy_contract.sh && \
-    /script/4_generate_config.sh && \
+ENTRYPOINT ["/bin/bash", "-c", "\
+    source /script/1_init_environment.sh && \
+    /script/2_faucet.sh && \
+    /script/3_generate_config.sh && \
+    /script/4_deploy_contract.sh && \
     /script/5_export_genesis.sh \
 "]

@@ -19,23 +19,25 @@ reqenv "FAUCET_ADDRESS"
 # set invironment variables
 export DEPLOYMENT_CONTEXT=$NETWORK_TYPE
 
+echo "[1/5] : init environment variables"
+
 # generate l1 manager addresses
-if [ -z "$GS_ADMIN_ADDRESS" ]; then
+if [ -z "${GS_ADMIN_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
     export GS_ADMIN_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
     export GS_ADMIN_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
-if [ -z "$GS_BATCHER_ADDRESS" ]; then
+if [ -z "${GS_BATCHER_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
     export GS_BATCHER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
     export GS_BATCHER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
-if [ -z "$GS_PROPOSER_ADDRESS" ]; then
+if [ -z "${GS_PROPOSER_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
     export GS_PROPOSER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
     export GS_PROPOSER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
-if [ -z "$GS_SEQUENCER_ADDRESS" ]; then
+if [ -z "${GS_SEQUENCER_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
     export GS_SEQUENCER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
     export GS_SEQUENCER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')

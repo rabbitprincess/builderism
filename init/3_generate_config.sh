@@ -7,20 +7,7 @@
 # need to have the getting-started.json committed to the repo since it's an
 # invalid JSON file when not filled in, which is annoying.
 
-
-reqenv() {
-    if [ -z "${!1}" ]; then
-        echo "Error: environment variable '$1' is undefined"
-        exit 1
-    fi
-}
-
-# Check required environment variables
-reqenv "GS_ADMIN_ADDRESS"
-reqenv "GS_BATCHER_ADDRESS"
-reqenv "GS_PROPOSER_ADDRESS"
-reqenv "GS_SEQUENCER_ADDRESS"
-reqenv "L1_RPC_URL"
+echo "[4/5] : generate config"
 
 # Get the finalized block timestamp and hash
 block=$(cast block finalized --rpc-url "$L1_RPC_URL")
@@ -104,7 +91,7 @@ config=$(cat << EOL
   "faultGameSplitDepth": 14,
 
   "preimageOracleMinProposalSize": 1800000,
-  "preimageOracleChallengePeriod": 86400,
+  "preimageOracleChallengePeriod": 86400
 }
 EOL
 )
