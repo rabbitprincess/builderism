@@ -42,6 +42,7 @@ if [ -z "$GS_SEQUENCER_ADDRESS" ]; then
 fi
 
 # save to file ( address.ini )
+sudo mkdir -p /config
 env_file="/config/address.ini"
 if [ -f "$env_file" ]; then
     sudo rm "$env_file"

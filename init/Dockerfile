@@ -3,7 +3,7 @@ FROM ubuntu
 WORKDIR /app
 
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-1.7.1}
+ENV OP_VERSION=${OP_VERSION:-v1.7.1}
 
 # init system dependencies
 RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make ca-certificates && \
@@ -26,7 +26,7 @@ RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
 RUN . ~/.bashrc && foundryup
 
 # clone optimism repository
-RUN cd ~/ && \
+RUN cd ~/optimism && \
     git clone $OP_REPO --branch op-node/$OP_VERSION --single-branch . && \
     git switch -c branch-$OP_VERSION
 

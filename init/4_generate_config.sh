@@ -7,7 +7,6 @@
 # need to have the getting-started.json committed to the repo since it's an
 # invalid JSON file when not filled in, which is annoying.
 
-cd ~/optimism/packages/contracts-bedrock
 
 reqenv() {
     if [ -z "${!1}" ]; then
@@ -111,5 +110,6 @@ EOL
 )
 
 # Write the config file
-echo "$config" > ./deploy_config/{$NETWORK_TYPE}.json
-cp ./deploy_config/{$NETWORK_TYPE}.json /config
+cd ~/optimism/packages/contracts-bedrock && \
+echo "$config" > ./deploy-config/$NETWORK_TYPE.json && \
+cp ./deploy-config/$NETWORK_TYPE.json /config
