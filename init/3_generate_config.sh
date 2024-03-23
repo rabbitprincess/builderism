@@ -7,7 +7,7 @@
 # need to have the getting-started.json committed to the repo since it's an
 # invalid JSON file when not filled in, which is annoying.
 
-echo "[4/5] : generate config"
+echo "[3/5] : generate config"
 
 # Get the finalized block timestamp and hash
 block=$(cast block finalized --rpc-url "$L1_RPC_URL")
@@ -88,10 +88,7 @@ config=$(cat << EOL
   "faultGameMaxDuration": 1200,
   "faultGameGenesisBlock": 0,
   "faultGameGenesisOutputRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "faultGameSplitDepth": 14,
-
-  "preimageOracleMinProposalSize": 1800000,
-  "preimageOracleChallengePeriod": 86400
+  "faultGameSplitDepth": 14
 }
 EOL
 )

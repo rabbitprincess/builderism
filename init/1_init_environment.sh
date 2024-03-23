@@ -16,10 +16,15 @@ reqenv "L2_CHAIN_ID"
 reqenv "FAUCET_PRIVATE_KEY"
 reqenv "FAUCET_ADDRESS"
 
-# set invironment variables
-export DEPLOYMENT_CONTEXT=$NETWORK_TYPE
 
 echo "[1/5] : init environment variables"
+
+export IMPL_SALT=$(openssl rand -hex 32)
+export DEPLOYMENT_CONTEXT=$NETWORK_TYPE
+export TENDERLY_PROJECT=""
+export TENDERLY_USERNAME=""
+export ETHERSCAN_API_KEY=""
+export PRIVATE_KEY=""
 
 # generate l1 manager addresses
 if [ -z "${GS_ADMIN_ADDRESS:-}" ]; then

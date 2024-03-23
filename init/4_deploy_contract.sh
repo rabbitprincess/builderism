@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-echo "[3/5] : deploy contract"
+echo "[4/5] : deploy contract"
 # base gas 너무 높으면 디플로이 하다가 실패할 수 있음..( 대략 50 gwei 이상부터 )
 # TODO : base gas 낮은거 확인하고 배포하는 얼럿 추가?
 
