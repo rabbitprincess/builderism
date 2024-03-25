@@ -9,8 +9,7 @@ run:
 
 # bridge:
 
-# blockscout:
-
-clean: # caution!! it remove all existing data
-	rm -r ./geth_data/* && \
-	rm -r ./config/*
+scan:
+	git submodule update --init --recursive && \
+	cd blockscout/docker-compose && \
+	DOCKER_REPO=blockscout docker compose -f geth.yml up
