@@ -1,56 +1,72 @@
 version: '3.8'
 services:
+  init:
+    build:
+      context: .
+    image: run_init
+    command: [ "bash", "/app/entrypoint-init" ]
+    volumes:
+      - ${GETH_DATA_DIR}:/data
+    env_file:
+      - .env
   geth:
     build:
       context: .
-    command: [ "bash", "./entrypoint-geth" ]
+    image: run_geth
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    command: [ "bash", "/app/entrypoint-geth" ]
     ports:
       - 8545:8545 # http
       - 8546:8546 # ws
+      - 8551:8551 # auth http
     volumes:
-      - ./${GETH_DATA_DIR}:/data
+      - ${GETH_DATA_DIR}:/data
     networks:
       - op-network
     env_file:
-      - ../.env
+      - .env
 
   node:
     build:
       context: .
+    image: run_op_node
     depends_on:
       - geth
-    command: [ "bash", "./entrypoint-op-node" ]
+    command: [ "bash", "/app/entrypoint-op-node" ]
     networks:
       - op-network
     volumes:
-      - ./${GETH_DATA_DIR}:/data
+      - ${GETH_DATA_DIR}:/data
     ports:
-      - 9545:8545     # RPC
-      - 9222:9222     # P2P TCP
-      - 9222:9222/udp # P2P UDP
+      - 8547:8547     # RPC
     env_file:
-      - ../.env
+      - .env
 
   batcher:
     build:
       context: .
+    image: run_op_batcher
     depends_on:
       - node
-    command: [ "bash", "./entrypoint-op-batcher" ]
+    command: [ "bash", "/app/entrypoint-op-batcher" ]
     networks:
       - op-network
     env_file:
-      - ../.env
+      - .env
 
   proposer:
-    build: .
+    build:
+      context: .
+    image: run_op_proposer
     depends_on:
       - batcher
-    command: [ "bash", "./entrypoint-op-proposer" ]
+    command: [ "bash", "/app/entrypoint-op-proposer" ]
     networks:
       - op-network
     env_file:
-      - ../.env
+      - .env
 
 networks:
   op-network:

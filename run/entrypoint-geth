@@ -1,27 +1,10 @@
 #!/bin/bash
 set -eu
 
-# Check environment variables
-reqenv() {
-    if [ -z "${!1:-}" ]; then
-        echo "Error: environment variable '$1' is not set. check .env file!"
-        exit 1
-    fi
-}
-reqenv "CONFIG_DIR"
-reqenv "L1_RPC_URL"
-reqenv "L1_RPC_KIND"
-reqenv "L1_BEACON_URL"
-reqenv "L1_CHAIN_ID"
-reqenv "L2_CHAIN_ID"
-reqenv "FAUCET_PRIVATE_KEY"
-reqenv "FAUCET_ADDRESS"
 
-SEQUENCER_MODE=${SEQUENCER_MODE:-false}
+SEQUENCER_MODE=${SEQUENCER_MODE:-"false"}
 ADDITIONAL_ARGS=""
 
-# Initialize geth if necessary
-exec ./geth init --datadir=/data ./config/genesis.json
 
 if [ "$SEQUENCER_MODE" != "true" ]; then
     if [ "${SEQUENCER_HTTP+x}" = x ]; then
@@ -32,10 +15,12 @@ if [ "$SEQUENCER_MODE" != "true" ]; then
     fi
 fi
 
+echo "ADDITIONAL ARGS: $ADDITIONAL_ARGS"
+
 # Run geth with specified parameters
-exec ./geth \
+exec /app/geth \
     --datadir=/data \
-    --networkid=${NETWORK_ID} \
+    --networkid=${L2_CHAIN_ID} \
     --syncmode=full \
     --gcmode=archive \
     --nodiscover \
@@ -44,6 +29,7 @@ exec ./geth \
     --http.vhosts="*" \
     --http.corsdomain="*" \
     --http.addr=0.0.0.0 \
+    --http.port=8545 \
     --http.api=web3,debug,eth,txpool,net,engine \
     --ws \
     --ws.addr=0.0.0.0 \

@@ -1,3 +1,4 @@
-/config/*
 /geth-data/*
 .env*
+*.json
+*.ini

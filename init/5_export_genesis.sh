@@ -14,6 +14,9 @@ go run cmd/main.go genesis l2 \
   --l1-rpc $L1_RPC_URL
 
 cd ~/optimism/packages/contracts-bedrock
+l2ooAddress=$(cat ./deployments/$NETWORK_TYPE/L2OutputOracleProxy.json | jq -r .address)
+echo "L2OO_ADDRESS=$l2ooAddress" >> "$env_file"
+
 addresses=$(./scripts/print-addresses.sh $NETWORK_TYPE --sdk)
 echo "$addresses" >> "$env_file" # 파싱 필요
 
