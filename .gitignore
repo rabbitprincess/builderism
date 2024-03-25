@@ -1,5 +1,5 @@
-/geth-data/*
 .env*
 *.json
 *.ini
-/geth_data/*
+/geth_data
+/config
