@@ -3,7 +3,8 @@ user-friendly tool to build your optimism mainnet
 
 ## configuration
 ```
-cp .env.example .env
+
+
 ```
 
 ## init your node

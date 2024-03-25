@@ -1,13 +1,13 @@
 init:
+	cp .env.example /init/.env && \
 	cd init && \
 	docker compose up -d && \
 	docker-compose down
 
 run:
+	cp .env.example /run/.env && \
 	cd run && \
 	docker compose up
-
-# bridge:
 
 scan:
 	git submodule update --init --recursive && \
