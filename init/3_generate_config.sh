@@ -96,4 +96,4 @@ EOL
 # Write the config file
 cd ~/optimism/packages/contracts-bedrock && \
 echo "$config" > ./deploy-config/$NETWORK_TYPE.json && \
-cp ./deploy-config/$NETWORK_TYPE.json /config
+cp ./deploy-config/$NETWORK_TYPE.json /config # TODO: remove / only for test
