@@ -14,4 +14,4 @@ reqenv "L1_RPC_KIND"
 reqenv "L1_BEACON_URL"
 reqenv "L2_CHAIN_ID"
 
-exec /app/geth init --datadir=/data /app/genesis.json;
+exec /app/geth init --datadir=/data /config/genesis.json;

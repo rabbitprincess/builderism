@@ -1,14 +1,3 @@
-FROM ubuntu
-
-WORKDIR /app
-
-
-RUN if [ ! -f ./genesis.json ] || \
-    [ ! -f ./rollup.json ] then \
-    echo "Error: genesis file is not set. initialize the node first!" \
-    exit -1; \
-fi
-
 FROM golang:1.22 as op
 
 WORKDIR /app
@@ -36,15 +25,12 @@ RUN git clone $GETH_REPO --branch $GETH_VERSION --single-branch . && \
 
 FROM golang:1.22
 
+WORKDIR /app
+
 RUN apt-get update && \
     apt-get install -y sudo jq curl && \
     rm -rf /var/lib/apt/lists
 
-WORKDIR /app
-
-ENV CONFIG_DIR=${CONFIG_DIR:-../config}
-COPY ${CONFIG_DIR}/genesis.json ./
-COPY ${CONFIG_DIR}/rollup.json ./
 COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./

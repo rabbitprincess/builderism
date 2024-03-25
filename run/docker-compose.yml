@@ -7,6 +7,7 @@ services:
     command: [ "bash", "/app/entrypoint-init" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
+      - ${CONFIG_DIR}:/config
     env_file:
       - .env
   geth:
@@ -23,6 +24,7 @@ services:
       - 8551:8551 # auth http
     volumes:
       - ${GETH_DATA_DIR}:/data
+      - ${CONFIG_DIR}:/config
     networks:
       - op-network
     env_file:
@@ -39,8 +41,9 @@ services:
       - op-network
     volumes:
       - ${GETH_DATA_DIR}:/data
+      - ${CONFIG_DIR}:/config
     ports:
-      - 8547:8547     # RPC
+      - 8547:8547 # RPC
     env_file:
       - .env
 

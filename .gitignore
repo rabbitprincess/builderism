@@ -2,3 +2,4 @@
 .env*
 *.json
 *.ini
+/geth_data/*

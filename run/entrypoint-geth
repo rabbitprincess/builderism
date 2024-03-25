@@ -1,10 +1,8 @@
 #!/bin/bash
 set -eu
 
-
 SEQUENCER_MODE=${SEQUENCER_MODE:-"false"}
 ADDITIONAL_ARGS=""
-
 
 if [ "$SEQUENCER_MODE" != "true" ]; then
     if [ "${SEQUENCER_HTTP+x}" = x ]; then
