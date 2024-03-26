@@ -16,7 +16,6 @@ reqenv "L2_CHAIN_ID"
 reqenv "FAUCET_PRIVATE_KEY"
 reqenv "FAUCET_ADDRESS"
 
-
 echo "[1/5] : init environment variables"
 
 export IMPL_SALT=$(openssl rand -hex 32)
