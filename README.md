@@ -26,8 +26,8 @@ SEQUENCER_MODE: if true, run sequencer mode
 
 ```
 
-```
 sdk
+```
 
 ```
 
