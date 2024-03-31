@@ -4,7 +4,7 @@ services:
   node_init:
     build:
       context: .
-    image: node_init
+    image: dreamcacao/node_init
     volumes:
       - ${CONFIG_DIR}:/config
     env_file:

@@ -3,17 +3,17 @@ services:
   init:
     build:
       context: .
-    image: run_init
+    image: dreamcacao/node_run
     command: [ "bash", "/app/entrypoint-init" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
     env_file:
       - .env
-  geth:
+  geth: 
     build:
       context: .
-    image: run_geth
+    image: dreamcacao/node_run
     depends_on:
       init:
         condition: service_completed_successfully
@@ -33,7 +33,7 @@ services:
   node:
     build:
       context: .
-    image: run_op_node
+    image: dreamcacao/node_run
     depends_on:
       - geth
     command: [ "bash", "/app/entrypoint-op-node" ]
@@ -50,7 +50,7 @@ services:
   batcher:
     build:
       context: .
-    image: run_op_batcher
+    image: dreamcacao/node_run
     depends_on:
       - node
     command: [ "bash", "/app/entrypoint-op-batcher" ]
@@ -62,7 +62,7 @@ services:
   proposer:
     build:
       context: .
-    image: run_op_proposer
+    image: dreamcacao/node_run
     depends_on:
       - batcher
     command: [ "bash", "/app/entrypoint-op-proposer" ]
