@@ -3,7 +3,7 @@ services:
   init:
     build:
       context: .
-    image: dreamcacao/node_run
+    image: node_run_init
     command: [ "bash", "/app/entrypoint-init" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
@@ -13,7 +13,7 @@ services:
   geth: 
     build:
       context: .
-    image: dreamcacao/node_run
+    image: node_run_geth
     depends_on:
       init:
         condition: service_completed_successfully
@@ -29,11 +29,10 @@ services:
       - op-network
     env_file:
       - .env
-
   node:
     build:
       context: .
-    image: dreamcacao/node_run
+    image: node_run_op
     depends_on:
       - geth
     command: [ "bash", "/app/entrypoint-op-node" ]
@@ -46,11 +45,10 @@ services:
       - 8547:8547 # RPC
     env_file:
       - .env
-
   batcher:
     build:
       context: .
-    image: dreamcacao/node_run
+    image: node_run_batcher
     depends_on:
       - node
     command: [ "bash", "/app/entrypoint-op-batcher" ]
@@ -58,11 +56,10 @@ services:
       - op-network
     env_file:
       - .env
-
   proposer:
     build:
       context: .
-    image: dreamcacao/node_run
+    image: node_run_proposer
     depends_on:
       - batcher
     command: [ "bash", "/app/entrypoint-op-proposer" ]
@@ -70,7 +67,6 @@ services:
       - op-network
     env_file:
       - .env
-
 networks:
   op-network:
     driver: bridge
