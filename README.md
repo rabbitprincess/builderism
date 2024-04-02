@@ -16,7 +16,8 @@ L2_CHAIN_NAME: Your L2 chain name
 
 init node
 ```
-FAUCET_ADDRESS: Ethereum charging address. required for deploy bridge contract. It requires at least 0.8 eth and additional gas fee.
+FAUCET_ADDRESS: Ethereum charging address. required for deploy bridge contract.
+It requires at least 0.8 eth and additional gas fee.
 FAUCET_PRIVATE_KEY: Ethereum charging private key. Be careful about security.
 ```
 
