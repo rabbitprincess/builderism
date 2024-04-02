@@ -6,7 +6,7 @@ ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
 ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
 
 # init system dependencies
-RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make ca-certificates && \
+RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates && \
 rm -rf /var/lib/apt/lists
 
 # install go
@@ -33,6 +33,7 @@ RUN mkdir -p ~/optimism && cd ~/optimism && \
     go mod download && go mod tidy
 
 COPY *.sh /script/
+RUN chmod +x /script/*.sh
 
 ENTRYPOINT ["/bin/bash", "-c", "\
     source /script/1_init_environment.sh && \
