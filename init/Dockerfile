@@ -2,8 +2,6 @@ FROM ubuntu
 
 WORKDIR /app
 
-ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
 
 # init system dependencies
 RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates && \
@@ -24,6 +22,9 @@ RUN curl -fsSL https://get.pnpm.io/install.sh | npm install -g pnpm
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
 RUN . ~/.bashrc && foundryup
 ENV PATH="~/.foundry/bin:${PATH}"
+
+ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
+ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
 
 # clone optimism repository
 RUN mkdir -p ~/optimism && cd ~/optimism && \
