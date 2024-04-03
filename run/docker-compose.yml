@@ -4,7 +4,7 @@ services:
     build:
       context: .
     image: node_run_init
-    command: [ "bash", "/app/entrypoint-init" ]
+    command: [ "bash", "/app/init-entrypoint.sh" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
@@ -17,7 +17,7 @@ services:
     depends_on:
       init:
         condition: service_completed_successfully
-    command: [ "bash", "/app/entrypoint-geth" ]
+    command: [ "bash", "/app/geth-entrypoint.sh" ]
     ports:
       - 8545:8545 # http
       - 8546:8546 # ws
@@ -35,7 +35,7 @@ services:
     image: node_run_op
     depends_on:
       - geth
-    command: [ "bash", "/app/entrypoint-op-node" ]
+    command: [ "bash", "/app/op-node-entrypoint.sh" ]
     networks:
       - op-network
     volumes:
@@ -51,7 +51,7 @@ services:
     image: node_run_batcher
     depends_on:
       - node
-    command: [ "bash", "/app/entrypoint-op-batcher" ]
+    command: [ "bash", "/app/op-batcher-entrypoint.sh" ]
     networks:
       - op-network
     env_file:
@@ -62,7 +62,7 @@ services:
     image: node_run_proposer
     depends_on:
       - batcher
-    command: [ "bash", "/app/entrypoint-op-proposer" ]
+    command: [ "bash", "/app/op-proposer-entrypoint.sh" ]
     networks:
       - op-network
     env_file:
