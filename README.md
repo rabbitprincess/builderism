@@ -51,3 +51,8 @@ make init
 ```
 make run
 ```
+
+## run blockscout
+```
+make scan
+```
