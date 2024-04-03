@@ -15,9 +15,9 @@ if [ "$SEQUENCER_MODE" = "true" ]; then
         --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}"
 fi
 
-# todo : add --l1.beacon=${L1_BEACON_URL} \
 exec /app/op-node \
     --l1=${L1_RPC_URL} \
+    --l1.beacon=${L1_BEACON_URL} \
     --l1.rpckind=any \
     --l2=http://geth:8551 \
     --l2.jwt-secret=/data/jwt.txt \
