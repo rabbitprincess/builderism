@@ -24,7 +24,7 @@ send_eth() {
         fi
 
         # send eth
-        cast send "$receiver_address" --value "$amount_to_send" --from "$FAUCET_ADDRESS" --private-key "$FAUCET_PRIVATE_KEY" --rpc-url "$L1_RPC_URL"
+        cast send "$receiver_address" --priority-gas-price 10000 --value "$amount_to_send" --from "$FAUCET_ADDRESS" --private-key "$FAUCET_PRIVATE_KEY" --rpc-url "$L1_RPC_URL"
         echo "Sent $amount_to_eth eth to $receiver_address"
     fi
 }

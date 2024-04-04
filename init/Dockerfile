@@ -2,7 +2,6 @@ FROM ubuntu
 
 WORKDIR /app
 
-
 # init system dependencies
 RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates && \
 rm -rf /var/lib/apt/lists

@@ -10,7 +10,8 @@ forge script scripts/Deploy.s.sol:Deploy \
     --private-key "$GS_ADMIN_PRIVATE_KEY" \
     --broadcast \
     --rpc-url "$L1_RPC_URL" \
+    --priority-gas-price 10000 \
     --slow && \
 forge script scripts/Deploy.s.sol:Deploy \
     --sig 'sync()' \
-    --rpc-url $L1_RPC_URL
+    --rpc-url "$L1_RPC_URL"
