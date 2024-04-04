@@ -25,6 +25,10 @@ export TENDERLY_USERNAME=""
 export ETHERSCAN_API_KEY=""
 export PRIVATE_KEY=""
 
+if [ -z "${PRIORITY_GAS_PRICE:-}" ]; then
+    export PRIORITY_GAS_PRICE=10000
+fi
+
 # generate l1 manager addresses
 if [ -z "${GS_ADMIN_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)

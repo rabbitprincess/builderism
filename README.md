@@ -19,6 +19,7 @@ init node
 FAUCET_ADDRESS: Ethereum charging address. required for deploy bridge contract.
 It requires at least 0.8 eth and additional gas fee.
 FAUCET_PRIVATE_KEY: Ethereum charging private key. Be careful about security.
+PRIORITY_GAS_PRICE: priority gas price using deploy bridge contracts
 ```
 
 run node
