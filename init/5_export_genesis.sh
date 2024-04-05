@@ -18,7 +18,7 @@ l2ooAddress=$(cat ./deployments/$L2_CHAIN_NAME/L2OutputOracleProxy.json | jq -r 
 echo "L2OO_ADDRESS=$l2ooAddress" >> "$env_file"
 
 addresses=$(./scripts/print-addresses.sh $L2_CHAIN_NAME --sdk)
-parsed_addresses=""
+parsed_addresses=$'\n'"# Generated account"$'\n'
 while read -r line; do
     key=$(echo "$line" | cut -d':' -f1)
     value=$(echo "$line" | cut -d':' -f2 | tr -d '[:space:]')
