@@ -1,3 +1,5 @@
+.PHONY: init run scan
+ 
 init:
 	cp -n .env.example ./init/.env && \
 	cd init && \
