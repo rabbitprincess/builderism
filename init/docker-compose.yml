@@ -1,10 +1,9 @@
 version: '3'
-
 services:
   node_init:
     build:
       context: .
-    image: node_init
+    image: dreamcacao/optimism_builder_init:0.0.0
     volumes:
       - ${CONFIG_DIR}:/config
     env_file:

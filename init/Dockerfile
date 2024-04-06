@@ -1,10 +1,10 @@
-FROM ubuntu
+FROM debian:stable-slim
 
 WORKDIR /app
 
 # init system dependencies
-RUN apt-get update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates && \
-rm -rf /var/lib/apt/lists
+RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates && \
+    sudo rm -rf /var/lib/apt/lists
 
 # install go
 RUN curl -sL https://golang.org/dl/go1.22.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -

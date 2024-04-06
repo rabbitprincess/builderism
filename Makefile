@@ -1,5 +1,13 @@
-.PHONY: init run scan
- 
+.PHONY: buildx init run scan
+
+buildx:
+	docker buildx build \
+	--platform linux/amd64,linux/arm64,linux/arm/v7 \
+	-t dreamcacao/optimism_builder_init:0.0.0 --push ./init && \
+	docker buildx build \
+	--platform linux/amd64,linux/arm64,linux/arm/v7 \
+	-t dreamcacao/optimism_builder_run:0.0.0 --push ./run
+
 init:
 	cp -n .env.example ./init/.env && \
 	cd init && \
