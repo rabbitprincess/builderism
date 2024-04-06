@@ -4,7 +4,7 @@ services:
     build:
       context: .
     image: node_run
-    command: [ "bash", "/app/init-entrypoint.sh" ]
+    command: [ "bash", "/script/init-entrypoint.sh" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
@@ -15,7 +15,7 @@ services:
     depends_on:
       init:
         condition: service_completed_successfully
-    command: [ "bash", "/app/geth-entrypoint.sh" ]
+    command: [ "bash", "/script/geth-entrypoint.sh" ]
     ports:
       - 8545:8545 # http
       - 8546:8546 # ws
