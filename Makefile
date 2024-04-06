@@ -2,10 +2,10 @@
 
 buildx:
 	docker buildx build \
-	--platform linux/amd64,linux/arm64,linux/arm/v7 \
+	--platform linux/amd64,linux/arm64 \
 	-t dreamcacao/optimism_builder_init:0.0.0 --push ./init && \
 	docker buildx build \
-	--platform linux/amd64,linux/arm64,linux/arm/v7 \
+	--platform linux/amd64,linux/arm64 \
 	-t dreamcacao/optimism_builder_run:0.0.0 --push ./run
 
 init:
