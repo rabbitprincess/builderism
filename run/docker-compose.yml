@@ -3,7 +3,7 @@ services:
   init:
     build:
       context: .
-    image: node_run_init
+    image: node_run
     command: [ "bash", "/app/init-entrypoint.sh" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
@@ -11,9 +11,7 @@ services:
     env_file:
       - .env
   geth: 
-    build:
-      context: .
-    image: node_run_geth
+    image: node_run
     depends_on:
       init:
         condition: service_completed_successfully
@@ -30,12 +28,10 @@ services:
     env_file:
       - .env
   node:
-    build:
-      context: .
-    image: node_run_op
+    image: node_run
     depends_on:
       - geth
-    command: [ "bash", "/app/op-node-entrypoint.sh" ]
+    command: [ "bash", "/script/op-node-entrypoint.sh" ]
     networks:
       - op-network
     volumes:
@@ -46,23 +42,19 @@ services:
     env_file:
       - .env
   batcher:
-    build:
-      context: .
-    image: node_run_batcher
+    image: node_run
     depends_on:
       - node
-    command: [ "bash", "/app/op-batcher-entrypoint.sh" ]
+    command: [ "bash", "/script/op-batcher-entrypoint.sh" ]
     networks:
       - op-network
     env_file:
       - .env
   proposer:
-    build:
-      context: .
-    image: node_run_proposer
+    image: node_run
     depends_on:
       - batcher
-    command: [ "bash", "/app/op-proposer-entrypoint.sh" ]
+    command: [ "bash", "/script/op-proposer-entrypoint.sh" ]
     networks:
       - op-network
     env_file:
