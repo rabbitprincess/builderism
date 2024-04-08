@@ -3,7 +3,7 @@ services:
   init:
     build:
       context: .
-    image: dreamcacao/optimism_builder_run:0.0.0
+    image: dreamcacao/optimism_builder_run:latest
     command: [ "bash", "/script/init-entrypoint.sh" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
   geth:
-    image: dreamcacao/optimism_builder_run:0.0.0
+    image: dreamcacao/optimism_builder_run:latest
     depends_on:
       init:
         condition: service_completed_successfully
@@ -28,7 +28,7 @@ services:
     env_file:
       - .env
   node:
-    image: dreamcacao/optimism_builder_run:0.0.0
+    image: dreamcacao/optimism_builder_run:latest
     depends_on:
       - geth
     command: [ "bash", "/script/op-node-entrypoint.sh" ]
@@ -42,7 +42,7 @@ services:
     env_file:
       - .env
   batcher:
-    image: dreamcacao/optimism_builder_run:0.0.0
+    image: dreamcacao/optimism_builder_run:latest
     depends_on:
       - node
     command: [ "bash", "/script/op-batcher-entrypoint.sh" ]
@@ -51,7 +51,7 @@ services:
     env_file:
       - .env
   proposer:
-    image: dreamcacao/optimism_builder_run:0.0.0
+    image: dreamcacao/optimism_builder_run:latest
     depends_on:
       - batcher
     command: [ "bash", "/script/op-proposer-entrypoint.sh" ]
