@@ -18,14 +18,14 @@ RUN apt-get install -y nodejs
 RUN curl -fsSL https://get.pnpm.io/install.sh | npm install -g pnpm
 
 # install foundryup
+ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
-RUN . ~/.bashrc && foundryup
+RUN . ~/.bashrc && foundryup -v "$FOUNDRY_VERSION"
 ENV PATH="~/.foundry/bin:${PATH}"
 
+# clone optimism repository
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
 ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
-
-# clone optimism repository
 RUN mkdir -p ~/optimism && cd ~/optimism && \
     git clone $OP_REPO --branch $OP_VERSION --single-branch . && \
     git switch $OP_VERSION && \
