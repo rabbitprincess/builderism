@@ -28,7 +28,7 @@ ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
 # clone optimism repository
 RUN mkdir -p ~/optimism && cd ~/optimism && \
     git clone $OP_REPO --branch $OP_VERSION --single-branch . && \
-    git switch -c branch-$OP_VERSION && \
+    git switch $OP_VERSION && \
     git submodule update --init --recursive && \
     go mod download && go mod tidy
 
