@@ -8,10 +8,9 @@ common
 CONFIG_DIR: generate genesis.json and other configs. it used to run node.
 L1_CHAIN_ID: L1 chain id ( mainnet=1, sepolia=11155111 )
 L1_RPC_URL: Your L1 RPC endpoint
-L1_RPC_KIND: The type of RPC provider; valid options are: alchemy, quicknode, infura, 
+L1_RPC_KIND: The type of RPC provider; valid options are: standard, alchemy, quicknode, infura, 
 parity, nethermind, debug_geth, erigon, basic, any
 L2_CHAIN_ID: Your L2 chain id
-L2_CHAIN_NAME: Your L2 chain name
 ```
 
 init node

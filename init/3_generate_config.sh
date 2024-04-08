@@ -95,5 +95,5 @@ EOL
 
 # Write the config file
 cd ~/optimism/packages/contracts-bedrock && \
-echo "$config" > ./deploy-config/$L2_CHAIN_NAME.json && \
-cp ./deploy-config/$L2_CHAIN_NAME.json /config # TODO: remove / only for test
+echo "$config" > ./deploy-config/$DEPLOYMENT_CONTEXT.json && \
+cp ./deploy-config/$DEPLOYMENT_CONTEXT.json /config # TODO: remove / only for test

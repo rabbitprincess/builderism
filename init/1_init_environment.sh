@@ -12,14 +12,13 @@ reqenv "L1_RPC_URL"
 reqenv "L1_RPC_KIND"
 reqenv "L1_CHAIN_ID"
 reqenv "L2_CHAIN_ID"
-reqenv "L2_CHAIN_NAME"
 reqenv "FAUCET_PRIVATE_KEY"
 reqenv "FAUCET_ADDRESS"
 
 echo "[1/5] : init environment variables"
 
 export IMPL_SALT=$(openssl rand -hex 32)
-export DEPLOYMENT_CONTEXT=$L2_CHAIN_NAME
+export DEPLOYMENT_CONTEXT=$L2_CHAIN_ID
 export TENDERLY_PROJECT=""
 export TENDERLY_USERNAME=""
 export ETHERSCAN_API_KEY=""
