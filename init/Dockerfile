@@ -27,9 +27,9 @@ ENV PATH="~/.foundry/bin:${PATH}"
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
 ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
 RUN mkdir -p ~/optimism && cd ~/optimism && \
-    git clone $OP_REPO --branch $OP_VERSION --single-branch . && \
+    git clone --depth 1 $OP_REPO --branch $OP_VERSION --single-branch . && \
     git switch $OP_VERSION && \
-    git submodule update --init --recursive && \
+    git submodule update --init --recursive --depth 1 && \
     go mod download && go mod tidy
 
 COPY *.sh /script/

@@ -5,8 +5,8 @@ WORKDIR /app
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
 ENV OP_VERSION=${OP_VERSION:-v1.7.2}
 
-RUN git clone $OP_REPO --depth 10 --branch $OP_VERSION --single-branch . && \
-    git switch -c branch-$OP_VERSION && \
+RUN git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
+    git switch -c $OP_VERSION && \
     make -C op-node VERSION=$OP_VERSION op-node && \
     make -C op-batcher VERSION=$OP_VERSION op-batcher && \
     make -C op-proposer VERSION=$OP_VERSION op-proposer
@@ -18,8 +18,8 @@ WORKDIR /app
 ENV GETH_REPO=https://github.com/ethereum-optimism/op-geth.git
 ENV GETH_VERSION=${GETH_VERSION:-v1.101308.3}
 
-RUN git clone $GETH_REPO --depth 10 --branch $GETH_VERSION --single-branch . && \
-    git switch -c branch-$GETH_VERSION && \
+RUN git clone $GETH_REPO --depth 1 --branch $GETH_VERSION --single-branch . && \
+    git switch -c $GETH_VERSION && \
     make geth
 
 FROM golang:1.22
