@@ -62,9 +62,9 @@ config=$(cat << EOL
   "gasPriceOracleOverhead": 2100,
   "gasPriceOracleScalar": 1000000,
 
-  "enableGovernance": true,
-  "governanceTokenSymbol": "OP",
-  "governanceTokenName": "Optimism",
+  "enableGovernance": false,
+  "governanceTokenSymbol": "NA",
+  "governanceTokenName": "NotApplicable",
   "governanceTokenOwner": "$GS_ADMIN_ADDRESS",
 
   "l2GenesisBlockGasLimit": "0x1c9c380",
