@@ -5,7 +5,7 @@ user-friendly tool to build your optimism mainnet
 ### common
 - `CONFIG_DIR`: Generate genesis.json and other configs.
 - `L1_CHAIN_ID`: L1 chain id (mainnet=1, sepolia=11155111)
-- `L1_RPC_URL`: Your L1 RPC endpoint
+- `L1_RPC_URL`: L1 RPC endpoint
 - `L1_RPC_KIND`: The type of RPC provider (default "standard")
 - `L2_CHAIN_ID`: Your L2 chain id
 
@@ -18,7 +18,7 @@ user-friendly tool to build your optimism mainnet
 - `FAUCET_AMOUNT_PROPOSER`: Faucet amount eth to proposer (default 0.1)
 
 ### run node
-- `L1_BEACON_URL`: Your L1 Beacon endpoint
+- `L1_BEACON_URL`: L1 Beacon endpoint
 - `GETH_DATA_DIR`: Relative path to the directory that will store chain data
 - `SEQUENCER_MODE`: If true, run sequencer mode
 - `BATCHER_PRIVATE_KEY`: Batcher private key, only used for sequencer mode
