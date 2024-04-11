@@ -3,10 +3,14 @@
 buildx:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/optimism_builder_init:0.0.1 --push ./init && \
+	-t dreamcacao/optimism_builder_init:0.0.2 \
+	-t dreamcacao/optimism_builder_init:latest \
+	--push ./init && \
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/optimism_builder_run:0.0.1 --push ./run
+	-t dreamcacao/optimism_builder_run:0.0.2 \
+	-t dreamcacao/optimism_builder_run:latest \
+	--push ./run
 
 init:
 	cp -n .env.example ./init/.env && \

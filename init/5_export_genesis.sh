@@ -3,7 +3,7 @@ set -eu
 
 echo "[5/5] : export genesis files"
 
-env_file="/config/address.ini"
+env_file="/config/address.env"
 
 cd ~/optimism/op-node
 go run cmd/main.go genesis l2 \
@@ -18,7 +18,7 @@ l2ooAddress=$(cat ./deployments/$DEPLOYMENT_CONTEXT/L2OutputOracleProxy.json | j
 echo "L2OO_ADDRESS=$l2ooAddress" >> "$env_file"
 
 addresses=$(./scripts/print-addresses.sh $DEPLOYMENT_CONTEXT --sdk)
-parsed_addresses=$'\n'"# Generated account"$'\n'
+parsed_addresses=""
 while read -r line; do
     key=$(echo "$line" | cut -d':' -f1)
     value=$(echo "$line" | cut -d':' -f2 | tr -d '[:space:]')

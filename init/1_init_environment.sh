@@ -12,64 +12,70 @@ reqenv "L1_RPC_URL"
 reqenv "L1_RPC_KIND"
 reqenv "L1_CHAIN_ID"
 reqenv "L2_CHAIN_ID"
-reqenv "FAUCET_PRIVATE_KEY"
-reqenv "FAUCET_ADDRESS"
 
 echo "[1/5] : init environment variables"
 
 export IMPL_SALT=$(openssl rand -hex 32)
 export DEPLOYMENT_CONTEXT=$L2_CHAIN_ID
-export TENDERLY_PROJECT=""
-export TENDERLY_USERNAME=""
-export ETHERSCAN_API_KEY=""
-export PRIVATE_KEY=""
+export TENDERLY_PROJECT=${TENDERLY_PROJECT:-""}
+export TENDERLY_USERNAME=${TENDERLY_USERNAME:-""}
+export ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY:-""}
+export FAUCET_ADDRESS=${FAUCET_ADDRESS:-""}
+export FAUCET_PRIVATE_KEY=${FAUCET_PRIVATE_KEY:-""}
 
+# set priority gas price
 if [ -z "${PRIORITY_GAS_PRICE:-}" ]; then
     export PRIORITY_GAS_PRICE=10000
 fi
+if [ -z "${FAUCET_AMOUNT_ADMIN:-}" ]; then
+    export FAUCET_AMOUNT_ADMIN=0.5
+fi
+if [ -z "${FAUCET_AMOUNT_BATCHER:-}" ]; then
+    export FAUCET_AMOUNT_BATCHER=0.2
+fi
+if [ -z "${FAUCET_AMOUNT_PROPOSER:-}" ]; then
+    export FAUCET_AMOUNT_PROPOSER=0.1
+fi
 
 # generate l1 manager addresses
-if [ -z "${GS_ADMIN_ADDRESS:-}" ]; then
+if [ -z "${ADMIN_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
-    export GS_ADMIN_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
-    export GS_ADMIN_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
+    export ADMIN_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
+    export ADMIN_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
-if [ -z "${GS_BATCHER_ADDRESS:-}" ]; then
+if [ -z "${BATCHER_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
-    export GS_BATCHER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
-    export GS_BATCHER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
+    export BATCHER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
+    export BATCHER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
-if [ -z "${GS_PROPOSER_ADDRESS:-}" ]; then
+if [ -z "${PROPOSER_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
-    export GS_PROPOSER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
-    export GS_PROPOSER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
+    export PROPOSER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
+    export PROPOSER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
-if [ -z "${GS_SEQUENCER_ADDRESS:-}" ]; then
+if [ -z "${SEQUENCER_ADDRESS:-}" ]; then
     wallet=$(cast wallet new)
-    export GS_SEQUENCER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
-    export GS_SEQUENCER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
+    export SEQUENCER_ADDRESS=$(echo "$wallet" | awk '/Address/ { print $2 }')
+    export SEQUENCER_PRIVATE_KEY=$(echo "$wallet" | awk '/Private key/ { print $3 }')
 fi
 
-# save to file ( address.ini )
+# save to file ( address.env )
 sudo mkdir -p /config
-env_file="/config/address.ini"
+env_file="/config/address.env"
 if [ -f "$env_file" ]; then
     sudo rm "$env_file"
 fi
 sudo tee "$env_file" > /dev/null <<EOF
-# Admin account
-GS_ADMIN_ADDRESS=$GS_ADMIN_ADDRESS
-GS_ADMIN_PRIVATE_KEY=$GS_ADMIN_PRIVATE_KEY
+ADMIN_ADDRESS="$ADMIN_ADDRESS"
+ADMIN_PRIVATE_KEY="$ADMIN_PRIVATE_KEY"
 
-# Batcher account
-GS_BATCHER_ADDRESS=$GS_BATCHER_ADDRESS
-GS_BATCHER_PRIVATE_KEY=$GS_BATCHER_PRIVATE_KEY
+BATCHER_ADDRESS="$BATCHER_ADDRESS"
+BATCHER_PRIVATE_KEY="$BATCHER_PRIVATE_KEY"
 
-# Proposer account
-GS_PROPOSER_ADDRESS=$GS_PROPOSER_ADDRESS
-GS_PROPOSER_PRIVATE_KEY=$GS_PROPOSER_PRIVATE_KEY
+PROPOSER_ADDRESS="$PROPOSER_ADDRESS"
+PROPOSER_PRIVATE_KEY="$PROPOSER_PRIVATE_KEY"
 
-# Sequencer account
-GS_SEQUENCER_ADDRESS=$GS_SEQUENCER_ADDRESS
-GS_SEQUENCER_PRIVATE_KEY=$GS_SEQUENCER_PRIVATE_KEY
+SEQUENCER_ADDRESS="$SEQUENCER_ADDRESS"
+SEQUENCER_PRIVATE_KEY="$SEQUENCER_PRIVATE_KEY"
+
 EOF

@@ -10,12 +10,9 @@ RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc 
 RUN curl -sL https://golang.org/dl/go1.22.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 ENV PATH="$PATH:/usr/local/go/bin"
 
-# install node.js
+# install nodejs and pnpm
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-RUN apt-get install -y nodejs
-
-# install pnpm
-RUN curl -fsSL https://get.pnpm.io/install.sh | npm install -g pnpm
+RUN apt-get install -y nodejs && npm install -g pnpm
 
 # install foundryup
 ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}

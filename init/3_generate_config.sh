@@ -32,25 +32,25 @@ config=$(cat << EOL
   "sequencerWindowSize": 3600,
   "channelTimeout": 300,
 
-  "p2pSequencerAddress": "$GS_SEQUENCER_ADDRESS",
+  "p2pSequencerAddress": "$SEQUENCER_ADDRESS",
   "batchInboxAddress": "$BatchInboxAddress",
-  "batchSenderAddress": "$GS_BATCHER_ADDRESS",
+  "batchSenderAddress": "$BATCHER_ADDRESS",
 
   "l2OutputOracleSubmissionInterval": 120,
   "l2OutputOracleStartingBlockNumber": 0,
   "l2OutputOracleStartingTimestamp": $timestamp,
 
-  "l2OutputOracleProposer": "$GS_PROPOSER_ADDRESS",
-  "l2OutputOracleChallenger": "$GS_ADMIN_ADDRESS",
+  "l2OutputOracleProposer": "$PROPOSER_ADDRESS",
+  "l2OutputOracleChallenger": "$ADMIN_ADDRESS",
 
   "finalizationPeriodSeconds": 12,
 
-  "proxyAdminOwner": "$GS_ADMIN_ADDRESS",
-  "baseFeeVaultRecipient": "$GS_ADMIN_ADDRESS",
-  "l1FeeVaultRecipient": "$GS_ADMIN_ADDRESS",
-  "sequencerFeeVaultRecipient": "$GS_ADMIN_ADDRESS",
-  "finalSystemOwner": "$GS_ADMIN_ADDRESS",
-  "superchainConfigGuardian": "$GS_ADMIN_ADDRESS",
+  "proxyAdminOwner": "$ADMIN_ADDRESS",
+  "baseFeeVaultRecipient": "$ADMIN_ADDRESS",
+  "l1FeeVaultRecipient": "$ADMIN_ADDRESS",
+  "sequencerFeeVaultRecipient": "$ADMIN_ADDRESS",
+  "finalSystemOwner": "$ADMIN_ADDRESS",
+  "superchainConfigGuardian": "$ADMIN_ADDRESS",
 
   "baseFeeVaultMinimumWithdrawalAmount": "0x8ac7230489e80000",
   "l1FeeVaultMinimumWithdrawalAmount": "0x8ac7230489e80000",
@@ -65,7 +65,7 @@ config=$(cat << EOL
   "enableGovernance": false,
   "governanceTokenSymbol": "NA",
   "governanceTokenName": "NotApplicable",
-  "governanceTokenOwner": "$GS_ADMIN_ADDRESS",
+  "governanceTokenOwner": "$ADMIN_ADDRESS",
 
   "l2GenesisBlockGasLimit": "0x1c9c380",
   "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
