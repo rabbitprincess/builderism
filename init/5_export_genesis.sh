@@ -3,7 +3,7 @@ set -eu
 
 echo "[5/5] : export genesis files"
 
-env_file="/config/address.env"
+env_file="/config/address.ini"
 
 cd ~/optimism/op-node
 go run cmd/main.go genesis l2 \
