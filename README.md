@@ -21,19 +21,8 @@ user-friendly tool to build your optimism mainnet
 - `L1_BEACON_URL`: L1 Beacon endpoint
 - `GETH_DATA_DIR`: Relative path to the directory that will store chain data
 - `SEQUENCER_MODE`: If true, run sequencer mode
-- `BATCHER_PRIVATE_KEY`: Batcher private key, only used for sequencer mode
-- `PROPOSER_PRIVATE_KEY`: Batcher private key, only used for sequencer mode
-- `SEQUENCER_PRIVATE_KEY`: Sequencer private key, only used for sequencer mode
-- `L2OO_ADDRESS`: L2OutputOrable address, only used for sequencer mode
 - `SEQUENCER_HTTP`: Sequencer node URL, only used for not sequencer mode
 - `BOOTNODES`: Bootnode URL, only used for not sequencer mode
-
-### sdk
-- `ADDRESS_MANAGER`: Contract manager address, deployed during node init
-- `L1_CROSS_DOMAIN_MESSANGER`: 
-- `L1_STANDARD_BRIDGE_PROXY`: 
-- `L2_OUTPUT_ORACLE_PROXY`: 
-- `OPTIMISM_PORTAL_PROXY`: 
 
 ## init your node
 ```

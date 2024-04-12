@@ -3,13 +3,14 @@ set -eu
 
 SEQUENCER_MODE=${SEQUENCER_MODE:-"false"}
 L1_RPC_URL=${L1_RPC_URL}
-BATCHER_PRIVATE_KEY=${BATCHER_PRIVATE_KEY}
 
 # if SEQUENCER_MODE is not true, do not run batcher
 if [ "$SEQUENCER_MODE" != "true" ]; then
   echo "batcher only running in sequencer mode, exiting..."
   exit 0
 fi
+
+BATCHER_PRIVATE_KEY=$(grep "BATCHER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
 exec /app/op-batcher \
     --l1-eth-rpc=${L1_RPC_URL} \

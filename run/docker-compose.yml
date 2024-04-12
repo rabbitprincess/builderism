@@ -46,6 +46,8 @@ services:
     depends_on:
       - node
     command: [ "bash", "/script/op-batcher-entrypoint.sh" ]
+    volumes:
+      - ${CONFIG_DIR}:/config
     networks:
       - op-network
     env_file:
@@ -55,6 +57,8 @@ services:
     depends_on:
       - batcher
     command: [ "bash", "/script/op-proposer-entrypoint.sh" ]
+    volumes:
+      - ${CONFIG_DIR}:/config
     networks:
       - op-network
     env_file:

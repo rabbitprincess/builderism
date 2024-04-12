@@ -4,10 +4,9 @@ set -eu
 SEQUENCER_MODE=${SEQUENCER_MODE:-"false"}
 L1_RPC_URL=${L1_RPC_URL}
 L1_BEACON_URL=${L1_BEACON_URL}
-SEQUENCER_PRIVATE_KEY=${SEQUENCER_PRIVATE_KEY}
 ADDITIONAL_ARGS=""
-
 if [ "$SEQUENCER_MODE" = "true" ]; then
+    SEQUENCER_PRIVATE_KEY=$(grep "SEQUENCER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
         --sequencer.enabled \
         --sequencer.l1-confs=5 \
