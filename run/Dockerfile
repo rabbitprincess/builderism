@@ -22,7 +22,7 @@ RUN git clone $GETH_REPO --depth 1 --branch $GETH_VERSION --single-branch . && \
     git switch -c $GETH_VERSION && \
     make geth
 
-FROM golang:1.22
+FROM debian
 
 COPY *-entrypoint.sh /script/
 RUN chmod +x /script/*.sh
