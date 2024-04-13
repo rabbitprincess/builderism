@@ -1,7 +1,7 @@
-import { ethers } from 'ethers';
-import { loadConfig } from './config';
-import { OptimismBridge } from './bridge';
-import { createInterface } from 'readline';
+const { ethers } = require('ethers');
+const { loadConfig } = require('./config');
+const { OptimismBridge } = require('./bridge');
+const { createInterface } = require('readline');
 
 const rl = createInterface({
     input: process.stdin,
@@ -26,11 +26,17 @@ async function main() {
 
     let bridgeType = process.argv[2];
     if (!bridgeType) {
-        bridgeType = await question('Select bridge type:\n\t1. Send ETH (L1->L2)\n\t2. Send ETH (L2->L1)\n\t3. Send ERC20 (L1->L2)\n\t4. Send ERC20 (L2->L1)\nChoice: ');
+        bridgeType = await question('Select bridge type:\n  1. Send ETH (L1->L2)\n  2. Send ETH (L2->L1)\n  3. Send ERC20 (L1->L2)\n  4. Send ERC20 (L2->L1)\nChoice: ');
     }
     const privateKeyL1 = await question('Enter your L1 private key: ');
     const privateKeyL2 = await question('Enter your L2 private key: ');
-    const optimismBridge = new OptimismBridge(privateKeyL1, privateKeyL2, config);
+
+    let optimismBridge;
+    try {
+        optimismBridge = new OptimismBridge(privateKeyL1, privateKeyL2, config);
+    } catch (error) {
+        throw new Error(error);
+    }
 
     try {
         switch (bridgeType) {

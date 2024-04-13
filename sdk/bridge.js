@@ -1,5 +1,5 @@
-import { ethers } from 'ethers';
-import { CrossChainMessenger, MessageStatus } from '@eth-optimism/sdk';
+const { ethers } = require('ethers');
+const { CrossChainMessenger, MessageStatus } = require('@eth-optimism/sdk');
 
 class OptimismBridge {
     constructor(privateKeyL1, privateKeyL2, config) {
@@ -138,6 +138,6 @@ class OptimismBridge {
     }
 }
 
-export default {
-    OptimismBridge,
+module.exports = {
+    OptimismBridge: OptimismBridge
 };
