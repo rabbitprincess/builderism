@@ -1,6 +1,5 @@
-// config.ts
-
 import fs from 'fs';
+import dotenv from 'dotenv';
 import ini from 'ini';
 
 export interface Config {
@@ -13,15 +12,25 @@ export interface Config {
     L2OutputOracle: string;
 }
 
-export function loadConfigFromIni(filePath: string): Config {
-    const configData = ini.parse(fs.readFileSync(filePath, 'utf-8'));
+export function loadConfig(): Config {
+    // read .env file in current folder
+    env = dotenv.config({ path: '.env' }).parsed;
+    // parse addresses from env.CONFIG_PATH
+    if (!env.CONFIG_PATH) {
+        throw new Error('CONFIG_PATH is not set');
+    }
+    const addresses = ini.parse(fs.readFileSync(env.CONFIG_PATH+'/address.env', 'utf-8'));
+    if (!addresses) {
+        throw new Error('invalid address.env file');
+    }
+
     return {
-        l1ProviderUrl: configData.l1ProviderUrl,
-        l2ProviderUrl: configData.l2ProviderUrl,
-        AddressManager: configData.AddressManager,
-        L1CrossDomainMessenger: configData.L1CrossDomainMessenger,
-        L1StandardBridge: configData.L1StandardBridge,
-        OptimismPortal: configData.OptimismPortal,
-        L2OutputOracle: configData.L2OutputOracle,
+        l1ProviderUrl: env.L1_RPC_URL,
+        l2ProviderUrl: env.L2_RPC_URL,
+        AddressManager: addresses.AddressManager,
+        L1CrossDomainMessenger: addresses.L1CrossDomainMessenger,
+        L1StandardBridge: addresses.L1StandardBridge,
+        OptimismPortal: addresses.OptimismPortal,
+        L2OutputOracle: addresses.L2OutputOracle,
     };
 }

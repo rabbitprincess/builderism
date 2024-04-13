@@ -50,19 +50,96 @@ export class OptimismBridge {
         });
     }
 
-    async depositToL2(amount: ethers.BigNumberish) {
+    async sendEthToL2(amount: ethers.BigNumberish): Promise<string> {
+        if (await this.l1Wallet.getBalance() < amount) {
+            throw new Error('Insufficient balance L1 | address : ' + this.l1Wallet.address + ' | balance : ' + await this.l1Wallet.getBalance());
+        }
+
         const tx = await this.crossBridge.depositETH(amount);
         await tx.wait();
         await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+        return tx.hash;
     }
 
-    async withdrawToL1(amount: ethers.BigNumberish) {
+    async sendEthToL1(amount: ethers.BigNumberish) {
         const tx = await this.crossBridge.withdrawETH(amount);
         await tx.wait();
         await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
     }
 
-    async getL1Balance() {
+    async getEthBalanceL1() {
         return await this.l1Wallet.getBalance();
+    }
+
+    async getEthBalanceL2() {
+        return await this.l2Wallet.getBalance();
+    }
+
+    async sendErc20ToL2(tokenAddress: string, amount: ethers.BigNumberish) {
+        const token = new ethers.Contract(tokenAddress, ['function approve(address spender, uint256 amount)'], this.l1Wallet);
+        await token.approve(this.crossBridge.contracts.l1.L1StandardBridge, amount);
+        const tx = await this.crossBridge.depositERC20(tokenAddress, amount);
+        await tx.wait();
+        await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+    }
+
+    async sendErc20ToL1(tokenAddress: string, amount: ethers.BigNumberish) {
+        const tx = await this.crossBridge.withdrawERC20(tokenAddress, amount);
+        await tx.wait();
+        await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+    }
+
+    async getErc20BalanceL1(tokenAddress: string) {
+        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], this.l1Wallet);
+        return await token.balanceOf(this.l1Wallet.address);
+    }
+
+    async getErc20BalanceL2(tokenAddress: string) {
+        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], this.l2Wallet);
+        return await token.balanceOf(this.l2Wallet.address);
+    }
+
+    async sendErc721ToL2(tokenAddress: string, tokenId: ethers.BigNumberish) {
+        const tx = await this.crossBridge.depositERC721(tokenAddress, tokenId);
+        await tx.wait();
+        await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+    }
+
+    async sendErc721ToL1(tokenAddress: string, tokenId: ethers.BigNumberish) {
+        const tx = await this.crossBridge.withdrawERC721(tokenAddress, tokenId);
+        await tx.wait();
+        await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+    }
+
+    async getErc721OwnerL1(tokenAddress: string, tokenId: ethers.BigNumberish) {
+        const token = new ethers.Contract(tokenAddress, ['function ownerOf(uint256)'], this.l1Wallet);
+        return await token.ownerOf(tokenId);
+    }
+
+    async getErc721OwnerL2(tokenAddress: string, tokenId: ethers.BigNumberish) {
+        const token = new ethers.Contract(tokenAddress, ['function ownerOf(uint256)'], this.l2Wallet);
+        return await token.ownerOf(tokenId);
+    }
+
+    async sendErc1155ToL2(tokenAddress: string, tokenId: ethers.BigNumberish, amount: ethers.BigNumberish) {
+        const tx = await this.crossBridge.depositERC1155(tokenAddress, tokenId, amount);
+        await tx.wait();
+        await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+    }
+
+    async sendErc1155ToL1(tokenAddress: string, tokenId: ethers.BigNumberish, amount: ethers.BigNumberish) {
+        const tx = await this.crossBridge.withdrawERC1155(tokenAddress, tokenId, amount);
+        await tx.wait();
+        await this.messanger.waitForMessageStatus(tx.hash, optimism_sdk.MessageStatus.RELAYED);
+    }
+
+    async getErc1155BalanceL1(tokenAddress: string, tokenId: ethers.BigNumberish) {
+        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address,uint256)'], this.l1Wallet);
+        return await token.balanceOf(this.l1Wallet.address, tokenId);
+    }
+
+    async getErc1155BalanceL2(tokenAddress: string, tokenId: ethers.BigNumberish) {
+        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address,uint256)'], this.l2Wallet);
+        return await token.balanceOf(this.l2Wallet.address, tokenId);
     }
 }
