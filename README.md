@@ -41,3 +41,8 @@ make run
 ```
 make scan
 ```
+
+## bridge asset ( L1 <=> L2 )
+```
+make bridge
+```
