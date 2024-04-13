@@ -31,5 +31,4 @@ scan:
 bridge:
 	cp -n .env.example ./sdk/.env && \
 	cd sdk && \
-	npm install ts-node typescript --save-dev && \
-	npx ts-node app.ts
+	npm install && npm start

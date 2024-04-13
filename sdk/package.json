@@ -2,9 +2,9 @@
   "name": "optimism_sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "app.js",
   "scripts": {
-    "build": "npx tsc",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,10 +14,11 @@
     "@eth-optimism/sdk": "^3.3.0",
     "dotenv": "^16.4.5",
     "ethers": "5",
+    "ini": "^4.1.2",
     "nodejs": "^0.0.0",
     "npm": "^10.5.2",
     "nvm": "^0.0.4",
-    "typescript": "^5.4.5"
+    "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@types/node": "^20.12.7"
