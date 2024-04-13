@@ -15,7 +15,6 @@ async function main() {
     } catch (error) {
         throw new Error(error);
     }
-    console.log('Config loaded')
 
     let bridgeType;
     if (process.argv[2]) { // if argv have bridge type, don`t ask
