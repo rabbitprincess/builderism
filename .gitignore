@@ -2,3 +2,4 @@
 *.json
 *.ini
 /geth_data
+/config

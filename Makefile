@@ -1,4 +1,4 @@
-.PHONY: buildx init run scan
+.PHONY: buildx init run scan bridge
 
 buildx:
 	docker buildx build \
@@ -27,3 +27,9 @@ scan:
 	git submodule update --init --recursive && \
 	cd blockscout/docker-compose && \
 	DOCKER_REPO=blockscout docker compose -f geth.yml up
+
+bridge:
+	cp -n .env.example ./sdk/.env && \
+	cd sdk && \
+	npm install ts-node typescript --save-dev && \
+	npx ts-node app.ts
