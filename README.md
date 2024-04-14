@@ -24,7 +24,7 @@ user-friendly tool to build your optimism mainnet
 - `SEQUENCER_HTTP`: Sequencer node URL, only used for not sequencer mode
 - `BOOTNODES`: Bootnode URL, only used for not sequencer mode
 
-### sdk
+### bridge
 - `L2_RPC_URL`: L2 RPC endpoint (default `http://localhost:8545`)
 
 ## init your node

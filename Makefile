@@ -29,6 +29,6 @@ scan:
 	DOCKER_REPO=blockscout docker compose -f geth.yml up
 
 bridge:
-	cp -n .env.example ./sdk/.env && \
-	cd sdk && \
+	cp -n .env.example ./bridge/.env && \
+	cd bridge && \
 	npm install && npm start
