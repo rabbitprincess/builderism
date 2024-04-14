@@ -28,12 +28,12 @@ async function main() {
     if (!bridgeType) {
         bridgeType = await question('Select bridge type:\n  1. Send ETH (L1->L2)\n  2. Send ETH (L2->L1)\n  3. Send ERC20 (L1->L2)\n  4. Send ERC20 (L2->L1)\nChoice: ');
     }
-    const privateKeyL1 = await question('Enter your L1 private key: ');
-    const privateKeyL2 = await question('Enter your L2 private key: ');
+    // const privateKeyL1 = await question('Enter your L1 private key: ');
+    // const privateKeyL2 = await question('Enter your L2 private key: ');
 
     let optimismBridge;
     try {
-        optimismBridge = new OptimismBridge(privateKeyL1, privateKeyL2, config);
+        optimismBridge = new OptimismBridge(config);
         await optimismBridge.initialize();
     } catch (error) {
         throw error;
@@ -43,24 +43,29 @@ async function main() {
         switch (bridgeType) {
             case '1':
                 {
+                    const fromPrivateKeyL1 = await question('Enter L1 private key: ');
+                    const toAddressL2 = await question('Enter L2 address: ');
                     const amount = await question('Enter amount for Send ETH (L1->L2): ');
-                    const txid = await optimismBridge.sendEthToL2(ethers.utils.parseEther(amount));
-                    console.log(`Success | txid : ${txid} | amount : ${amount} | address : ${optimismBridge.l1Wallet.address} | balance : ${await optimismBridge.l1Wallet.getBalance()}`);
+                    const txid = await optimismBridge.sendEthToL2(fromPrivateKeyL1, toAddressL2, ethers.utils.parseEther(amount));
+                    console.log(`Success | txid : ${txid} | amount : ${amount}`);
                     break;
                 }
             case '2':
                 {
+                    const fromPrivateKeyL2 = await question('Enter L2 private key: ');
+                    const toAddressL1 = await question('Enter L1 address: ');
                     const amount = await question('Enter amount for Send ETH (L2->L1): ');
-                    const txid = await optimismBridge.sendEthToL1(ethers.utils.parseEther(amount));
-                    console.log(`Success | txid : ${txid} | amount : ${amount} | address : ${optimismBridge.l2Wallet.address} | balance : ${await optimismBridge.l2Wallet.getBalance()}`);
+                    const txid = await optimismBridge.sendEthToL1(fromPrivateKeyL2, toAddressL1, ethers.utils.parseEther(amount));
+                    console.log(`Success | txid : ${txid} | amount : ${amount}`);
                     break;
                 }
+                /* // todo
             case '3':
                 {
                     const amount = await question('Enter amount for Send ERC20 (L1->L2): ');
                     const contractAddress = await question('Enter ERC20 address: ');
                     const txid = await optimismBridge.sendErc20ToL2(contractAddress, ethers.utils.parseEther(amount));
-                    console.log(`Success | txid : ${txid} | amount : ${amount} | address : ${optimismBridge.l1Wallet.address} | balance : ${await optimismBridge.l1Wallet.getBalance()}`);
+                    console.log(`Success | txid : ${txid} | contract : ${contractAddress} | amount : ${amount}`);
                     break;
                 }
             case '4':
@@ -68,9 +73,10 @@ async function main() {
                     const amount = await question('Enter amount for Send ERC20 (L2->L1): ');
                     const contractAddress = await question('Enter ERC20 address: ');
                     const txid = await optimismBridge.sendErc20ToL1(contractAddress, ethers.utils.parseEther(amount));
-                    console.log(`Success | txid : ${txid} | amount : ${amount} | address : ${optimismBridge.l2Wallet.address} | balance : ${await optimismBridge.l2Wallet.getBalance()}`);
+                    console.log(`Success | txid : ${txid} | contract : ${contractAddress} | amount : ${amount}`);
                     break;
                 }
+                */
             default:
                 console.log('Invalid function number');
                 break;

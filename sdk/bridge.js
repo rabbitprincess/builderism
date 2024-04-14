@@ -2,9 +2,7 @@ const { ethers } = require('ethers');
 const { CrossChainMessenger, MessageStatus } = require('@eth-optimism/sdk');
 
 class OptimismBridge {
-    constructor(privateKeyL1, privateKeyL2, config) {
-        this.privateKeyL1 = privateKeyL1;
-        this.privateKeyL2 = privateKeyL2;
+    constructor(config) {
         this.config = config;     
     }
 
@@ -34,112 +32,88 @@ class OptimismBridge {
                 }
             }
         });
-        this.l1Wallet = new ethers.Wallet(this.privateKeyL1, this.l1Provider);
-        this.l2Wallet = new ethers.Wallet(this.privateKeyL2, this.l2Provider);
-        this.crossBridge = new CrossChainMessenger({
-            l1ChainId: this.l1ChainId,
-            l2ChainId: this.l2ChainId,
-            l1SignerOrProvider: this.l1Wallet,
-            l2SignerOrProvider: this.l2Wallet,
-        });
     }
 
     async validPrivateKey(privateKey) {
         return new ethers.Wallet(privateKey).address;
     }
 
-    async sendEthToL2(amount) {
-        if (await this.l1Wallet.getBalance() < amount) {
-            throw new Error('Insufficient balance L1 | address : ' + this.l1Wallet.address + ' | balance : ' + await this.l1Wallet.getBalance());
+    async sendEthToL2(fromPrivKeyL1, toAddressL2, toAmount) {
+        const l1Wallet = new ethers.Wallet(fromPrivKeyL1, this.l1Provider);
+        const balance = await l1Wallet.getBalance();
+        if (balance.lt(toAmount)) {
+            throw new Error('Insufficient balance | balance :' + balance.toString());
         }
 
-        const tx = await this.crossBridge.depositETH(amount);
+        const crossBridge = new CrossChainMessenger({
+            l1ChainId: this.l1ChainId,
+            l2ChainId: this.l2ChainId,
+            l1SignerOrProvider: l1Wallet,
+            l2SignerOrProvider: this.l2Provider,
+        });
+        const tx = await crossBridge.depositETH(toAmount, { recipient: toAddressL2 });
         await tx.wait();
         await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
         return tx.hash;
     }
 
-    async sendEthToL1(amount) {
-        const tx = await this.crossBridge.withdrawETH(amount);
+    async sendEthToL1(fromPrivKeyL2, toAddressL1, amount) {
+        const l2Wallet = new ethers.Wallet(fromPrivKeyL2, this.l2Provider);
+        const balance = await l2Wallet.getBalance();
+        if (balance.lt(amount)) {
+            throw new Error('Insufficient balance | balance :' + balance.toString());
+        }
+
+        const crossBridge = new CrossChainMessenger({
+            l1ChainId: this.l1ChainId,
+            l2ChainId: this.l2ChainId,
+            l1SignerOrProvider: this.l1Provider,
+            l2SignerOrProvider: l2Wallet,
+        });
+        const tx = await crossBridge.withdrawETH(amount, { recipient: toAddressL1 });
         await tx.wait();
         await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        return tx.hash;
     }
 
-    async getEthBalanceL1() {
-        return await this.l1Wallet.getBalance();
+    async getEthBalanceL1(addressL1) {
+        return await this.l1Provider.getBalance(addressL1);
     }
 
-    async getEthBalanceL2() {
-        return await this.l2Wallet.getBalance();
+    async getEthBalanceL2(addressL2) {
+        return await this.l2Provider.getBalance(addressL2);
     }
+    
+    // todo
+    /* 
+        async sendErc20ToL2(fromPrivKeyL1, toAddressL2, tokenAddress, amount) {
+            const l1Wallet = new ethers.Wallet(fromPrivKeyL1, this.l1Provider);
+            const crossBridge = new CrossChainMessenger({
+                l1ChainId: this.l1ChainId,
+                l2ChainId: this.l2ChainId,
+                l1SignerOrProvider: l1Wallet,
+                l2SignerOrProvider: this.l2Provider,
+            });
+            const token = new ethers.Contract(tokenAddress, ['function approve(address spender, uint256 amount)'], this.l1Wallet);
+            
+        }
 
-    async sendErc20ToL2(tokenAddress, amount) {
-        const token = new ethers.Contract(tokenAddress, ['function approve(address spender, uint256 amount)'], this.l1Wallet);
-        await token.approve(this.crossBridge.contracts.l1.L1StandardBridge, amount);
-        const tx = await this.crossBridge.depositERC20(tokenAddress, amount);
-        await tx.wait();
-        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
-    }
+        async sendErc20ToL1(tokenAddress, amount) {
+            const tx = await this.crossBridge.withdrawERC20(tokenAddress, amount);
+            await tx.wait();
+            await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        }
 
-    async sendErc20ToL1(tokenAddress, amount) {
-        const tx = await this.crossBridge.withdrawERC20(tokenAddress, amount);
-        await tx.wait();
-        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
-    }
+        async getErc20BalanceL1(tokenAddress) {
+            const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], this.l1Wallet);
+            return await token.balanceOf(this.l1Wallet.address);
+        }
 
-    async getErc20BalanceL1(tokenAddress) {
-        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], this.l1Wallet);
-        return await token.balanceOf(this.l1Wallet.address);
-    }
-
-    async getErc20BalanceL2(tokenAddress) {
-        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], this.l2Wallet);
-        return await token.balanceOf(this.l2Wallet.address);
-    }
-
-    async sendErc721ToL2(tokenAddress, tokenId) {
-        const tx = await this.crossBridge.depositERC721(tokenAddress, tokenId);
-        await tx.wait();
-        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
-    }
-
-    async sendErc721ToL1(tokenAddress, tokenId) {
-        const tx = await this.crossBridge.withdrawERC721(tokenAddress, tokenId);
-        await tx.wait();
-        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
-    }
-
-    async getErc721OwnerL1(tokenAddress, tokenId) {
-        const token = new ethers.Contract(tokenAddress, ['function ownerOf(uint256)'], this.l1Wallet);
-        return await token.ownerOf(tokenId);
-    }
-
-    async getErc721OwnerL2(tokenAddress, tokenId) {
-        const token = new ethers.Contract(tokenAddress, ['function ownerOf(uint256)'], this.l2Wallet);
-        return await token.ownerOf(tokenId);
-    }
-
-    async sendErc1155ToL2(tokenAddress, tokenId, amount) {
-        const tx = await this.crossBridge.depositERC1155(tokenAddress, tokenId, amount);
-        await tx.wait();
-        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
-    }
-
-    async sendErc1155ToL1(tokenAddress, tokenId, amount) {
-        const tx = await this.crossBridge.withdrawERC1155(tokenAddress, tokenId, amount);
-        await tx.wait();
-        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
-    }
-
-    async getErc1155BalanceL1(tokenAddress, tokenId) {
-        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address,uint256)'], this.l1Wallet);
-        return await token.balanceOf(this.l1Wallet.address, tokenId);
-    }
-
-    async getErc1155BalanceL2(tokenAddress, tokenId) {
-        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address,uint256)'], this.l2Wallet);
-        return await token.balanceOf(this.l2Wallet.address, tokenId);
-    }
+        async getErc20BalanceL2(tokenAddress) {
+            const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], this.l2Wallet);
+            return await token.balanceOf(this.l2Wallet.address);
+        }
+    */
 }
 
 module.exports = {
