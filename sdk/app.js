@@ -21,7 +21,7 @@ async function main() {
     try {
         config = loadConfig();
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 
     let bridgeType = process.argv[2];
@@ -34,8 +34,9 @@ async function main() {
     let optimismBridge;
     try {
         optimismBridge = new OptimismBridge(privateKeyL1, privateKeyL2, config);
+        await optimismBridge.initialize();
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 
     try {

@@ -3,17 +3,20 @@ const { CrossChainMessenger, MessageStatus } = require('@eth-optimism/sdk');
 
 class OptimismBridge {
     constructor(privateKeyL1, privateKeyL2, config) {
-        const { l1ProviderUrl, l2ProviderUrl, AddressManager, L1CrossDomainMessenger, L1StandardBridge, OptimismPortal, L2OutputOracle } = config;
+        this.privateKeyL1 = privateKeyL1;
+        this.privateKeyL2 = privateKeyL2;
+        this.config = config;     
+    }
 
+    async initialize() {
+        const { l1ProviderUrl, l2ProviderUrl, AddressManager, L1CrossDomainMessenger, L1StandardBridge, OptimismPortal, L2OutputOracle } = this.config;
         this.l1Provider = new ethers.providers.StaticJsonRpcProvider(l1ProviderUrl);
         this.l2Provider = new ethers.providers.StaticJsonRpcProvider(l2ProviderUrl);
-        this.l1ChainId = this.l1Provider.getNetwork().then(network => network.chainId);
-        this.l2ChainId = this.l2Provider.getNetwork().then(network => network.chainId);
+        const [l1Network, l2Network] = await Promise.all([this.l1Provider.getNetwork(), this.l2Provider.getNetwork()]);
+        this.l1ChainId = l1Network.chainId;
+        this.l2ChainId = l2Network.chainId;
 
-        this.l1Wallet = new ethers.Wallet(privateKeyL1, this.l1Provider);
-        this.l2Wallet = new ethers.Wallet(privateKeyL2, this.l2Provider);
-
-        this.messanger = new CrossChainMessenger({
+        this.messenger = new CrossChainMessenger({
             l1SignerOrProvider: this.l1Provider,
             l2SignerOrProvider: this.l2Provider,
             l1ChainId: this.l1ChainId,
@@ -31,7 +34,8 @@ class OptimismBridge {
                 }
             }
         });
-
+        this.l1Wallet = new ethers.Wallet(this.privateKeyL1, this.l1Provider);
+        this.l2Wallet = new ethers.Wallet(this.privateKeyL2, this.l2Provider);
         this.crossBridge = new CrossChainMessenger({
             l1ChainId: this.l1ChainId,
             l2ChainId: this.l2ChainId,
@@ -51,14 +55,14 @@ class OptimismBridge {
 
         const tx = await this.crossBridge.depositETH(amount);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
         return tx.hash;
     }
 
     async sendEthToL1(amount) {
         const tx = await this.crossBridge.withdrawETH(amount);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async getEthBalanceL1() {
@@ -74,13 +78,13 @@ class OptimismBridge {
         await token.approve(this.crossBridge.contracts.l1.L1StandardBridge, amount);
         const tx = await this.crossBridge.depositERC20(tokenAddress, amount);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async sendErc20ToL1(tokenAddress, amount) {
         const tx = await this.crossBridge.withdrawERC20(tokenAddress, amount);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async getErc20BalanceL1(tokenAddress) {
@@ -96,13 +100,13 @@ class OptimismBridge {
     async sendErc721ToL2(tokenAddress, tokenId) {
         const tx = await this.crossBridge.depositERC721(tokenAddress, tokenId);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async sendErc721ToL1(tokenAddress, tokenId) {
         const tx = await this.crossBridge.withdrawERC721(tokenAddress, tokenId);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async getErc721OwnerL1(tokenAddress, tokenId) {
@@ -118,13 +122,13 @@ class OptimismBridge {
     async sendErc1155ToL2(tokenAddress, tokenId, amount) {
         const tx = await this.crossBridge.depositERC1155(tokenAddress, tokenId, amount);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async sendErc1155ToL1(tokenAddress, tokenId, amount) {
         const tx = await this.crossBridge.withdrawERC1155(tokenAddress, tokenId, amount);
         await tx.wait();
-        await this.messanger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
     }
 
     async getErc1155BalanceL1(tokenAddress, tokenId) {
