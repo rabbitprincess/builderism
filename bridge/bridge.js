@@ -42,7 +42,7 @@ class OptimismBridge {
         const l1Wallet = new ethers.Wallet(fromPrivKeyL1, this.l1Provider);
         const balance = await l1Wallet.getBalance();
         if (balance.lt(toAmount)) {
-            throw new Error('Insufficient balance | balance :' + balance.toString());
+            throw new Error('Insufficient L1 balance | balance :' + balance.toString());
         }
 
         const crossBridge = new CrossChainMessenger({
@@ -57,11 +57,11 @@ class OptimismBridge {
         return tx.hash;
     }
 
-    async sendEthToL1(fromPrivKeyL2, toAddressL1, amount) {
+    async sendEthToL1(fromPrivKeyL2, toAddressL1, toAmount) {
         const l2Wallet = new ethers.Wallet(fromPrivKeyL2, this.l2Provider);
         const balance = await l2Wallet.getBalance();
-        if (balance.lt(amount)) {
-            throw new Error('Insufficient balance | balance :' + balance.toString());
+        if (balance.lt(toAmount)) {
+            throw new Error('Insufficient L2 balance | balance :' + balance.toString());
         }
 
         const crossBridge = new CrossChainMessenger({
@@ -70,7 +70,7 @@ class OptimismBridge {
             l1SignerOrProvider: this.l1Provider,
             l2SignerOrProvider: l2Wallet,
         });
-        const tx = await crossBridge.withdrawETH(amount, { recipient: toAddressL1 });
+        const tx = await crossBridge.withdrawETH(toAmount, { recipient: toAddressL1 });
         await tx.wait();
         await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
         return tx.hash;

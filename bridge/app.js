@@ -28,8 +28,6 @@ async function main() {
     if (!bridgeType) {
         bridgeType = await question('Select bridge type:\n  1. Send ETH (L1->L2)\n  2. Send ETH (L2->L1)\n  3. Send ERC20 (L1->L2)\n  4. Send ERC20 (L2->L1)\nChoice: ');
     }
-    // const privateKeyL1 = await question('Enter your L1 private key: ');
-    // const privateKeyL2 = await question('Enter your L2 private key: ');
 
     let optimismBridge;
     try {
