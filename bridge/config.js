@@ -26,7 +26,7 @@ function loadConfig() {
     }
     const addresses = ini.parse(fs.readFileSync(env.CONFIG_DIR+'/address.ini', 'utf-8'));
     if (!addresses) {
-        throw new Error('invalid address.env file');
+        throw new Error('invalid address.ini file');
     }
 
     return {
