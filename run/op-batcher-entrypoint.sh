@@ -3,6 +3,7 @@ set -eu
 
 SEQUENCER_MODE=${SEQUENCER_MODE:-"false"}
 L1_RPC_URL=${L1_RPC_URL}
+MAX_CHANNEL_DURATION=${MAX_CHANNEL_DURATION:-0}
 
 # if SEQUENCER_MODE is not true, do not run batcher
 if [ "$SEQUENCER_MODE" != "true" ]; then
@@ -24,5 +25,5 @@ exec /app/op-batcher \
     --rpc.addr=0.0.0.0 \
     --rpc.port=8548 \
     --rpc.enable-admin \
-    --max-channel-duration=1 \
+    --max-channel-duration=${MAX_CHANNEL_DURATION} \
     --private-key=${BATCHER_PRIVATE_KEY}

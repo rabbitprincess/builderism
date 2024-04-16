@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # !!!!check https://docs.optimism.io/builders/chain-operators/management/configuration!!!!!
 # original path : https://github.com/ethereum-optimism/optimism\packages\contracts-bedrock\scripts\getting-started\config.sh

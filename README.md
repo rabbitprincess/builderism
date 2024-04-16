@@ -21,6 +21,7 @@ user-friendly tool to build your optimism mainnet
 - `L1_BEACON_URL`: L1 Beacon endpoint
 - `GETH_DATA_DIR`: Directory that will store chain data (default `../geth_data`)
 - `SEQUENCER_MODE`: If true, run sequencer mode (default `true`)
+- `MAX_CHANNEL_DURATION`: batch time submitted to the L1. ( default `1500` )
 - `SEQUENCER_HTTP`: Sequencer node URL, only used for not sequencer mode
 - `BOOTNODES`: Bootnode URL, only used for not sequencer mode
 
