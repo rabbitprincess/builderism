@@ -72,7 +72,23 @@ class OptimismBridge {
         });
         const tx = await crossBridge.withdrawETH(toAmount, { recipient: toAddressL1 });
         await tx.wait();
+
+        // wait for the message to be ready to prove. it takes some minutes
+        console.log('waiting for [' + tx.hash + '] message is ready to prove. it takes minutes...');
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.READY_TO_PROVE);
+        await this.messenger.proveMessage(tx.hash);
+        console.log('message [' + tx.hash + '] is proved.');
+
+        // wait for the message to be ready to finalize. it takes weeks... really?
+        console.log('waiting for [' + tx.hash + '] message is ready to finalize. it takes seconds...');
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.READY_FOR_RELAY);
+        await this.messenger.finalizeMessage(tx.hash);
+        console.log('message [' + tx.hash + '] is finalized.');
+
+        // wait for the message to be relayed. it takes some minutes
         await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        console.log('send eth l2 to l1 is finished. check l1 balance!');
+
         return tx.hash;
     }
 
@@ -84,19 +100,28 @@ class OptimismBridge {
         return await this.l2Provider.getBalance(addressL2);
     }
     
+    async sendErc20ToL2(fromPrivKeyL1, toAddressL2, tokenAddress, toAmount) {
+        const l1Wallet = new ethers.Wallet(fromPrivKeyL1, this.l1Provider);
+        const token = new ethers.Contract(tokenAddress, ['function balanceOf(address)'], l1Wallet);
+        const balance = await token.balanceOf(l1Wallet.address);
+        if (balance.lt(toAmount)) {
+            throw new Error('Insufficient L1 balance | balance :' + balance.toString());
+        }
+
+        const crossBridge = new CrossChainMessenger({
+            l1ChainId: this.l1ChainId,
+            l2ChainId: this.l2ChainId,
+            l1SignerOrProvider: l1Wallet,
+            l2SignerOrProvider: this.l2Provider,
+        });
+        const tx = await crossBridge.depositERC20(tokenAddress, toAmount, { recipient: toAddressL2 });
+        await tx.wait();
+        await this.messenger.waitForMessageStatus(tx.hash, MessageStatus.RELAYED);
+        return tx.hash;
+    }
+
     // todo
     /* 
-        async sendErc20ToL2(fromPrivKeyL1, toAddressL2, tokenAddress, amount) {
-            const l1Wallet = new ethers.Wallet(fromPrivKeyL1, this.l1Provider);
-            const crossBridge = new CrossChainMessenger({
-                l1ChainId: this.l1ChainId,
-                l2ChainId: this.l2ChainId,
-                l1SignerOrProvider: l1Wallet,
-                l2SignerOrProvider: this.l2Provider,
-            });
-            const token = new ethers.Contract(tokenAddress, ['function approve(address spender, uint256 amount)'], this.l1Wallet);
-            
-        }
 
         async sendErc20ToL1(tokenAddress, amount) {
             const tx = await this.crossBridge.withdrawERC20(tokenAddress, amount);
