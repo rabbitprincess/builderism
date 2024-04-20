@@ -36,7 +36,7 @@ config=$(cat << EOL
   "batchInboxAddress": "$BatchInboxAddress",
   "batchSenderAddress": "$BATCHER_ADDRESS",
 
-  "l2OutputOracleSubmissionInterval": 120,
+  "l2OutputOracleSubmissionInterval": 1800,
   "l2OutputOracleStartingBlockNumber": 0,
   "l2OutputOracleStartingTimestamp": $timestamp,
 
