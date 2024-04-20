@@ -24,9 +24,6 @@ RUN git clone $GETH_REPO --depth 1 --branch $GETH_VERSION --single-branch . && \
 
 FROM debian
 
-COPY *-entrypoint.sh /script/
-RUN chmod +x /script/*.sh
-
 WORKDIR /app
 
 RUN apt-get update && \
@@ -37,3 +34,6 @@ COPY --from=op /app/op-node/bin/op-node ./
 COPY --from=op /app/op-batcher/bin/op-batcher ./
 COPY --from=op /app/op-proposer/bin/op-proposer ./
 COPY --from=geth /app/build/bin/geth ./
+
+COPY *-entrypoint.sh /script/
+RUN chmod +x /script/*.sh

@@ -6,7 +6,8 @@ ADDITIONAL_ARGS=""
 
 if [ "$SEQUENCER_MODE" != "true" ]; then
     if [ "${SEQUENCER_HTTP+x}" = x ]; then
-        ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.halt=major --rollup.sequencer-http=$SEQUENCER_HTTP"
+        ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.halt=major"
+        ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.sequencerhttp=$SEQUENCER_HTTP"
     fi
     if [ "${BOOTNODES+x}" = x ]; then
         ADDITIONAL_ARGS="$ADDITIONAL_ARGS --bootnodes=$BOOTNODES"
