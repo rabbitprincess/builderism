@@ -16,6 +16,12 @@ send_eth() {
     if [ "$(echo "$receiver_balance >= $amount_to_send" | bc)" -eq 1 ]; then
         echo "$receiver_address already has enough balance"
     else
+        # if FAUCET_PRIVATE_KEY is not set, error
+        if [ -z "$FAUCET_PRIVATE_KEY" ]; then
+            echo "FAUCET_PRIVATE_KEY is not set"
+            exit 1
+        fi
+
         # if sender has less eth than amount to send, error
         sender_balance=$(cast balance --rpc-url "$L1_RPC_URL" "$FAUCET_ADDRESS")
         if [ "$(echo "$sender_balance < $amount_to_send" | bc)" -eq 1 ]; then
