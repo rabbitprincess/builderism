@@ -17,7 +17,7 @@ fi
 exec /app/op-node \
     --l1=${L1_RPC_URL} \
     --l1.beacon=${L1_BEACON_URL} \
-    --l1.rpckind=any \
+    --l1.rpckind=${L1_RPC_KIND} \
     --l2=http://geth:8551 \
     --l2.jwt-secret=/data/jwt.txt \
     --rollup.config=/config/rollup.json \
