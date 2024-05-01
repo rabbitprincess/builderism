@@ -11,7 +11,8 @@ if [ "$SEQUENCER_MODE" = "true" ]; then
         --sequencer.enabled \
         --sequencer.l1-confs=5 \
         --verifier.l1-confs=4 \
-        --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}"
+        --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY} \
+        --rpc.enable-admin"
 fi
 
 exec /app/op-node \
@@ -23,5 +24,4 @@ exec /app/op-node \
     --rollup.config=/config/rollup.json \
     --rpc.addr=0.0.0.0 \
     --rpc.port=8547 \
-    --rpc.enable-admin \
     $ADDITIONAL_ARGS

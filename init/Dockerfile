@@ -15,17 +15,16 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs && npm install -g pnpm
 
 # install foundryup
-ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
-RUN . ~/.bashrc && foundryup -v "$FOUNDRY_VERSION"
+RUN . ~/.bashrc && foundryup
 ENV PATH="~/.foundry/bin:${PATH}"
 
 # clone optimism repository
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-tutorials/chain}
+ENV OP_VERSION=${OP_VERSION:-v1.7.3}
 RUN mkdir -p ~/optimism && cd ~/optimism && \
-    git clone --depth 1 $OP_REPO --branch $OP_VERSION --single-branch . && \
-    git switch $OP_VERSION && \
+    git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
+    git switch -c $OP_VERSION && \
     git submodule update --init --recursive --depth 1 && \
     go mod download && go mod tidy
 
@@ -37,5 +36,4 @@ ENTRYPOINT ["/bin/bash", "-c", "\
     /script/2_faucet.sh && \
     /script/3_generate_config.sh && \
     /script/4_deploy_contract.sh && \
-    /script/5_export_genesis.sh \
-"]
+    /script/5_export_genesis.sh"]

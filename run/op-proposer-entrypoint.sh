@@ -10,7 +10,7 @@ if [ "$SEQUENCER_MODE" != "true" ]; then
   exit 0
 fi
 
-L2OO_ADDRESS=$(grep "L2OO_ADDRESS" /config/address.ini | cut -d'=' -f2)
+L2OO_ADDRESS=$(jq -r '.L2OutputOracleProxy' /config/.deploy)
 PROPOSER_PRIVATE_KEY=$(grep "PROPOSER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
 exec /app/op-proposer \

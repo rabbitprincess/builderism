@@ -88,12 +88,21 @@ config=$(cat << EOL
   "faultGameMaxDuration": 1200,
   "faultGameGenesisBlock": 0,
   "faultGameGenesisOutputRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "faultGameSplitDepth": 14
+  "faultGameSplitDepth": 14,
+  "faultGameWithdrawalDelay": 604800,
+
+  "preimageOracleMinProposalSize": 1800000,
+  "preimageOracleChallengePeriod": 86400,
+
+  "fundDevAccounts": false,
+  "useFaultProofs": false,
+  "proofMaturityDelaySeconds": 604800,
+  "disputeGameFinalityDelaySeconds": 604800,
+  "respectedGameType": 0
 }
 EOL
 )
 
 # Write the config file
 cd ~/optimism/packages/contracts-bedrock && \
-echo "$config" > ./deploy-config/$DEPLOYMENT_CONTEXT.json && \
-cp ./deploy-config/$DEPLOYMENT_CONTEXT.json /config # TODO: remove / only for test
+echo "$config" > ./deploy-config/$DEPLOYMENT_CONTEXT.json

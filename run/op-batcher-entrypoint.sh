@@ -25,5 +25,6 @@ exec /app/op-batcher \
     --rpc.addr=0.0.0.0 \
     --rpc.port=8548 \
     --rpc.enable-admin \
+    --data-availability-type=blobs \
     --max-channel-duration=${MAX_CHANNEL_DURATION} \
     --private-key=${BATCHER_PRIVATE_KEY}
