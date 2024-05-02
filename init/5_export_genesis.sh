@@ -13,6 +13,6 @@ go run cmd/main.go genesis l2 \
   --outfile.rollup /config/rollup.json \
   --l1-rpc $L1_RPC_URL
 
-cp ~/optimism/packages/contracts-bedrock/$DEPLOYMENT_CONTEXT/.deploy /config/.deploy
+cp ~/optimism/packages/contracts-bedrock/deployments/$DEPLOYMENT_CONTEXT/.deploy /config/.deploy
 
 echo "[all done!]"
