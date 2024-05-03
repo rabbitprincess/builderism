@@ -18,17 +18,12 @@ const ini = require('ini');
  * @returns {Config} Loaded configuration.
  */
 function loadConfig() {
-    // Read .env file in current folder
     const env = dotenv.config({ path: './.env' }).parsed;
-    // Parse addresses from env.CONFIG_PATH
     if (!env.CONFIG_DIR) {
         throw new Error('CONFIG_DIR is not set');
     }
-    const addresses = ini.parse(fs.readFileSync(env.CONFIG_DIR+'/address.ini', 'utf-8'));
-    if (!addresses) {
-        throw new Error('invalid address.ini file');
-    }
-
+    const addresses = JSON.parse(fs.readFileSync(env.CONFIG_DIR + '/.deploy', 'utf8'));
+    
     return {
         l1ProviderUrl: env.L1_RPC_URL,
         l2ProviderUrl: env.L2_RPC_URL,
