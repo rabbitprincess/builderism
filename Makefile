@@ -3,12 +3,12 @@
 buildx:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/optimism_builder_init:0.0.4 \
+	-t dreamcacao/optimism_builder_init:1.7.3 \
 	-t dreamcacao/optimism_builder_init:latest \
 	--push ./init && \
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/optimism_builder_run:0.0.4 \
+	-t dreamcacao/optimism_builder_run:1.7.4 \
 	-t dreamcacao/optimism_builder_run:latest \
 	--push ./run
 
