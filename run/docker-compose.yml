@@ -29,6 +29,11 @@ services:
       - op-network
     env_file:
       - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "7"
   node:
     image: dreamcacao/optimism_builder_run:latest
     depends_on:
@@ -44,6 +49,11 @@ services:
       - 8547:8547 # RPC
     env_file:
       - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "7"
   batcher:
     image: dreamcacao/optimism_builder_run:latest
     depends_on:
@@ -56,6 +66,11 @@ services:
       - op-network
     env_file:
       - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "7"
   proposer:
     image: dreamcacao/optimism_builder_run:latest
     depends_on:
@@ -68,6 +83,11 @@ services:
       - op-network
     env_file:
       - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "7"
 networks:
   op-network:
     driver: bridge
