@@ -29,6 +29,7 @@ RUN mkdir -p ~/optimism && cd ~/optimism && \
     go mod download && go mod tidy
 
 ENTRYPOINT ["/bin/bash", "-c", "\
+    chmod +x /script/*.sh && \
     source /script/1_init_environment.sh && \
     /script/2_faucet.sh && \
     /script/3_generate_config.sh && \
