@@ -8,7 +8,7 @@ buildx:
 	--push ./init && \
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/optimism_builder_run:1.7.4 \
+	-t dreamcacao/optimism_builder_run:1.7.5 \
 	-t dreamcacao/optimism_builder_run:latest \
 	--push ./run
 
