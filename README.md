@@ -10,7 +10,7 @@ It support 4 steps to operate OP Stack node
 ## prerequisite
 - docker
 - docker-compose
-- L1 endpoint (RPC, Beacon)
+- L1 RPC, Beacon endpoint (use PublicNode experimentally)
 - faucet private key for charging eth to admin, proposer, batcher
 
 ## configuration ( .env.example )
