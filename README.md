@@ -1,5 +1,16 @@
 # optimism_builder
-user-friendly tool to build your optimism mainnet
+User-friendly builder for launch your optimism node
+It support 4 steps to operate OP Stack mainnet
+1. init node : deploy bridge contracts and generate l2 configs
+2. run node : run optimism node
+3. run scan : run blockchain explorer (using blockscout)
+4. bridge : bridge eth and tokens between L1 and L2
+
+## prerequisite
+- docker
+- docker-compose
+- L1 endpoint (RPC, Beacon)
+- faucet private key for charging eth to admin, proposer, batcher
 
 ## configuration ( .env.example )
 ### common
