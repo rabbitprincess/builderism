@@ -4,7 +4,7 @@
 It support 4 steps to operate OP Stack mainnet
 1. init node : deploy bridge contracts and generate l2 configs
 2. run node : run optimism node using generated configs
-3. run scan : run blockchain explorer (using blockscout)
+3. run scan : run blockchain explorer using blockscout
 4. bridge : bridge eth and tokens between L1 and L2
 
 ## prerequisite
