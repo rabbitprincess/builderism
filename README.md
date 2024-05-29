@@ -1,7 +1,7 @@
 # optimism_builder
 **User-friendly builder for launch your optimism node**
 
-It support 4 steps to operate OP Stack mainnet
+It support 4 steps to operate OP Stack node
 1. init node : deploy bridge contracts and generate l2 configs
 2. run node : run optimism node using generated configs
 3. run scan : run blockchain explorer using blockscout
