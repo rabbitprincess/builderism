@@ -1,5 +1,5 @@
 # optimism_builder
-User-friendly builder for launch your optimism node
+**User-friendly builder for launch your optimism node**
 
 It support 4 steps to operate OP Stack mainnet
 1. init node : deploy bridge contracts and generate l2 configs
