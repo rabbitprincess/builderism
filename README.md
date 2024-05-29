@@ -11,7 +11,7 @@ It support 4 steps to operate OP Stack node
 - docker
 - docker-compose
 - L1 RPC, Beacon endpoint (use PublicNode experimentally)
-- faucet private key for charging eth to admin, proposer, batcher
+- faucet private key that charges eth to admin, proposer, batcher
 
 ## configuration ( .env.example )
 ### common
