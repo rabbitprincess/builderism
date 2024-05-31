@@ -4,10 +4,10 @@
 It support 4 steps to operate OP Stack node
 |  Command   | Description                                       |
 | :--------: | ------------------------------------------------- |
-|   `init`   | deploy bridge contracts and generate l2 configs.  |
+|  `init`    | deploy bridge contracts and generate l2 configs.  |
 |  `run`     | run optimism node using generated configs.        |
-|  `scan`    | run blockchain explorer using blockscout          |
-| `bridge`   | transfer eth and tokens between L1 and L2         |
+|  `scan`    | run blockchain explorer using blockscout.         |
+|  `bridge`  | transfer eth and tokens between L1 and L2.        |
 
 ## prerequisite
 - docker, docker-compose
