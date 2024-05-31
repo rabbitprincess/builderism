@@ -14,7 +14,7 @@ ENV PATH="$PATH:/usr/local/go/bin"
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs && npm install -g pnpm
 
-# install foundryup
+# install foundry
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
 RUN . ~/.bashrc && foundryup
 ENV PATH="~/.foundry/bin:${PATH}"
