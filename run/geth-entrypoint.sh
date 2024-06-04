@@ -19,6 +19,8 @@ echo "ADDITIONAL ARGS: $ADDITIONAL_ARGS"
 # Run geth with specified parameters
 exec /app/geth \
     --datadir=/data \
+    --db.engine=pebble \
+    --state.scheme=path \
     --networkid=${L2_CHAIN_ID} \
     --syncmode=full \
     --gcmode=archive \

@@ -2,7 +2,7 @@
 set -eu
 
 SEQUENCER_MODE=${SEQUENCER_MODE:-"false"}
-L1_RPC_URL=${L1_RPC_URL}
+OP_PROPOSER_L1_ETH_RPC=${L1_RPC_URL}
 
 # if SEQUENCER_MODE is not true, do not run proposer
 if [ "$SEQUENCER_MODE" != "true" ]; then
@@ -10,13 +10,15 @@ if [ "$SEQUENCER_MODE" != "true" ]; then
   exit 0
 fi
 
-L2OO_ADDRESS=$(jq -r '.L2OutputOracleProxy' /config/.deploy)
+OP_PROPOSER_L2OO_ADDRESS=$(jq -r '.L2OutputOracleProxy' /config/.deploy)
+
 PROPOSER_PRIVATE_KEY=$(grep "PROPOSER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
 exec /app/op-proposer \
-    --l1-eth-rpc=${L1_RPC_URL} \
+    --l1-eth-rpc=${OP_PROPOSER_L1_ETH_RPC} \
     --rollup-rpc=http://node:8547 \
     --poll-interval=12s \
     --rpc.port=8560 \
-    --l2oo-address=${L2OO_ADDRESS} \
+    --l2oo-address=${OP_PROPOSER_L2OO_ADDRESS} \
+    --wait-node-sync=true \
     --private-key=${PROPOSER_PRIVATE_KEY}
