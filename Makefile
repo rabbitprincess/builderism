@@ -19,8 +19,8 @@ scan:
 bridge:
 	git submodule update --init --recursive && \
 	cp -n .env.example ./bridge/.env && \
-	cd op-stack-bridge && \
-	yarn && yarn start
+	cd bridge && \
+	docker compose -p builder_bridge up
 
 # buildx command
 buildx: buildx-init && buildx-run && buildx-bridge
