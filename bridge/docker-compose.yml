@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  bridge:
+    build:
+      context: .
+    image: dreamcacao/optimism_builder_bridge:latest
+    command: [ "bash", "/script/init-entrypoint.sh" ]
+    ports:
+      - 3000:3000
+    volumes:
+      - ${CONFIG_DIR}:/config
+      - ./init-entrypoint.sh:/script/init-entrypoint.sh
+    env_file:
+      - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "500m"
+        max-file: "7"
