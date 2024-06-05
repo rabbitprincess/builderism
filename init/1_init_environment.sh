@@ -17,9 +17,6 @@ echo "[1/5] : init environment variables"
 
 export IMPL_SALT=$(openssl rand -hex 32)
 export DEPLOYMENT_CONTEXT=$L2_CHAIN_ID
-export TENDERLY_PROJECT=${TENDERLY_PROJECT:-""}
-export TENDERLY_USERNAME=${TENDERLY_USERNAME:-""}
-export ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY:-""}
 export FAUCET_ADDRESS=${FAUCET_ADDRESS:-""}
 export FAUCET_PRIVATE_KEY=${FAUCET_PRIVATE_KEY:-""}
 
