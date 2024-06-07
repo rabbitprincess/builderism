@@ -1,6 +1,3 @@
-[submodule "blockscout"]
-	path = blockscout
-	url = https://github.com/blockscout/blockscout
 [submodule "bridge/op-stack-bridge"]
 	path = bridge/op-stack-bridge
 	url = https://github.com/rabbitprincess/op-stack-bridge
