@@ -3,8 +3,10 @@ version: '3.9'
 services:
   stats-db-init:
     image: postgres:15
+    env_file:
+      - ../.env
     volumes:
-      - ./stats-db-data:/var/lib/postgresql/data
+      - ${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
     entrypoint:
       - sh
       - -c
@@ -25,8 +27,10 @@ services:
     ports:
       - target: 5432
         published: 7433
+    env_file:
+      - ../.env
     volumes:
-      - ./stats-db-data:/var/lib/postgresql/data
+      - ${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U stats -d stats"]
       interval: 10s

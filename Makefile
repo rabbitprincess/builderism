@@ -12,9 +12,9 @@ run:
 	docker compose -p builder_run up
 
 scan:
-	git submodule update --init --recursive && \
-	cd blockscout/docker-compose && \
-	DOCKER_REPO=blockscout docker compose -f geth.yml up
+	cp .env.example ./scan/.env && \
+	cd scan && \
+	docker compose -p builder_scan up
 
 bridge:
 	git submodule update --init --recursive && \

@@ -5,5 +5,7 @@ services:
     image: 'redis:alpine'
     container_name: redis-db
     command: redis-server
+    env_file:
+      - ../.env
     volumes:
-      - ./redis-data:/data
+      - ${SCAN_DATA_DIR-.}/redis-data:/data
