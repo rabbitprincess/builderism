@@ -15,3 +15,8 @@ services:
       - ../envs/common-blockscout.env
     volumes:
       - ${SCAN_DATA_DIR-.}/logs/:/app/logs/
+    environment:
+      ETHEREUM_JSONRPC_HTTP_URL: ${L2_RPC_URL:-http://host.docker.internal:8545/}
+      ETHEREUM_JSONRPC_TRACE_URL: ${L2_RPC_URL:-http://host.docker.internal:8545/}
+      ETHEREUM_JSONRPC_WS_URL: ${L2_WS_URL:-ws://host.docker.internal:8546/}
+      CHAIN_ID: ${L2_CHAIN_ID:-11155111}

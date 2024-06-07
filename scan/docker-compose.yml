@@ -26,25 +26,8 @@ services:
     extends:
       file: ./services/backend.yml
       service: backend
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      args:
-        CACHE_EXCHANGE_RATES_PERIOD: ""
-        API_V1_READ_METHODS_DISABLED: "false"
-        DISABLE_WEBAPP: "false"
-        API_V1_WRITE_METHODS_DISABLED: "false"
-        CACHE_TOTAL_GAS_USAGE_COUNTER_ENABLED: ""
-        CACHE_ADDRESS_WITH_BALANCES_UPDATE_INTERVAL: ""
-        ADMIN_PANEL_ENABLED: ""
-        RELEASE_VERSION: 6.6.0
     links:
       - db:database
-    environment:
-        ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:8545/
-        ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:8545/
-        ETHEREUM_JSONRPC_WS_URL: ws://host.docker.internal:8545/
-        CHAIN_ID: '1337'
 
   visualizer:
     extends:

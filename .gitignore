@@ -1,5 +1,5 @@
 .env
 *.ini
-geth_data
-scan_data
+data-geth
+data-scan
 /config
