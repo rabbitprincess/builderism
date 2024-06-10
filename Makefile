@@ -1,9 +1,9 @@
 .PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
 
 ifeq ($(OS),Windows_NT)
-    cp_env = @powershell -Command "Copy-Item -Path '..\\.env' -Destination '.env'"
+    cp_env = @powershell -Command "Copy-Item -Path '..\\.env.example' -Destination '.env' -ErrorAction Ignore"
 else
-    cp_env = cp ../.env .env
+    cp_env = cp -n ../.env.example .env
 endif
 
 init:
