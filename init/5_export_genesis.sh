@@ -15,4 +15,4 @@ go run cmd/main.go genesis l2 \
 
 cp ~/optimism/packages/contracts-bedrock/deployments/$DEPLOYMENT_CONTEXT/.deploy /config/.deploy
 
-echo "[all done!]"
+echo "[all process is done! check config and run node.]"
