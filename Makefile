@@ -8,7 +8,7 @@ endif
 
 init:
 	cd init && @$(cp_env) && \
-	docker compose -p builder_init up -d && \
+	docker compose -p builder_init up && \
 	docker-compose down
 
 run:
