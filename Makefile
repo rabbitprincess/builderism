@@ -1,9 +1,9 @@
 .PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
 
 ifeq ($(OS),Windows_NT)
-    cp_env = (if not exist .env copy ..\.env.example .env)
+	cp_env = (if not exist .env copy ..\.env.example .env)
 else
-    cp_env = cp -n ../.env.example .env
+	cp_env = cp -n ../.env.example .env
 endif
 
 init:
