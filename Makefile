@@ -1,27 +1,27 @@
 .PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
 
 ifeq ($(OS),Windows_NT)
-    cp_env = @powershell -Command "Copy-Item -Path '..\\.env.example' -Destination '.env' -ErrorAction Ignore"
+    cp_env = (if not exist .env copy ..\.env.example .env)
 else
     cp_env = cp -n ../.env.example .env
 endif
 
 init:
-	cd init && @$(cp_env) && \
+	cd init && $(cp_env) && \
 	docker compose -p builder_init up && \
 	docker-compose down
 
 run:
-	cd run && @$(cp_env) && \
+	cd run && $(cp_env) && \
 	docker compose -p builder_run up
 
 scan:
-	cd scan && @$(cp_env) && \
+	cd scan && $(cp_env) && \
 	docker compose -p builder_scan up
 
 bridge:
 	git submodule update --init --recursive && \
-	cd bridge && @$(cp_env) && \
+	cd bridge && $(cp_env) && \
 	docker compose -p builder_bridge up
 
 # buildx command
