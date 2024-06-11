@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common
+data:
+  L1_CHAIN_ID: "11155111"
+  L1_RPC_URL: "https://ethereum-sepolia-rpc.publicnode.com/"
+  L1_RPC_KIND: "standard"
+  L1_BEACON_URL: "https://ethereum-sepolia-beacon-api.publicnode.com"
+  L2_CHAIN_ID: "87654321"
+  L2_NETWORK_NAME: "sample"
+  L2_RPC_URL: "http://localhost:8545"
+  L2_WS_URL: "http://localhost:8546"
+  L2_EXPLORER_URL: "http://localhost"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init
+data:
+  # Init Node Configuration
+  PRIORITY_GAS_PRICE: "10000"
+  # Faucet Configuration (Option 1)
+  FAUCET_PRIVATE_KEY: ""
+  FAUCET_ADDRESS: ""
+  FAUCET_AMOUNT_ADMIN: "0.5"
+  FAUCET_AMOUNT_BATCHER: "0.2"
+  FAUCET_AMOUNT_PROPOSER: "0.1"
+  # Existing Addresses Configuration (Option 2)
+  # ADMIN_ADDRESS: ""
+  # ADMIN_PRIVATE_KEY: ""
+  # BATCHER_ADDRESS: ""
+  # BATCHER_PRIVATE_KEY: ""
+  # PROPOSER_ADDRESS: ""
+  # PROPOSER_PRIVATE_KEY: ""
+  # SEQUENCER_ADDRESS: ""
+  # SEQUENCER_PRIVATE_KEY: ""
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: run_sequencer # docs.optimism.io/builders/chain-operators/management/configuration#op-batcher-configuration
+data:
+  MAX_CHANNEL_DURATION: "1500" 
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: run_fullnode
+data:
+  SEQUENCER_HTTP: ""
+  BOOTNODES: ""

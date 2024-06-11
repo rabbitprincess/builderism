@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: proposer
+spec:
+  completions: 1
+  parallelism: 1
+  template:
+    spec:
+      containers:
+      - name: proposer
+        image: dreamcacao/optimism_builder_run:latest
+        command: [ "bash", "/script/op-proposer-entrypoint.sh" ]
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: script-volume
+          subPath: op-proposer-entrypoint.sh
+          mountPath: /script/op-proposer-entrypoint.sh
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+      restartPolicy: Never
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: config-pvc
+      - name: script-volume
+        configMap:
+          name: script-configmap

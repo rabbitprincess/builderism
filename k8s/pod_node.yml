@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: node
+spec:
+  completions: 1
+  parallelism: 1
+  template:
+    spec:
+      containers:
+      - name: node
+        image: dreamcacao/optimism_builder_run:latest
+        command: [ "bash", "/script/op-node-entrypoint.sh" ]
+        ports:
+        - containerPort: 8547
+        volumeMounts:
+        - name: geth-data
+          mountPath: /data
+        - name: config
+          mountPath: /config
+        - name: script-volume
+          subPath: op-node-entrypoint.sh
+          mountPath: /script/op-node-entrypoint.sh
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+      restartPolicy: Never
+      volumes:
+      - name: geth-data
+        persistentVolumeClaim:
+          claimName: geth-data-pvc
+      - name: config
+        persistentVolumeClaim:
+          claimName: config-pvc
+      - name: script-volume
+        configMap:
+          name: script-configmap
