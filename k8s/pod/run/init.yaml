@@ -15,6 +15,9 @@ spec:
     envFrom:
     - configMapRef:
         name: env-configmap
+  containers:
+    - name: main-container
+      image: dreamcacao/optimism_builder_run:latest
   restartPolicy: Never
   volumes:
   - name: config
