@@ -24,6 +24,9 @@ RUN git clone $GETH_REPO --depth 1 --branch $GETH_VERSION --single-branch . && \
 
 FROM debian
 
+COPY *-entrypoint.sh /script/
+RUN chmod +x /script/*.sh
+
 WORKDIR /app
 
 RUN apt-get update && \

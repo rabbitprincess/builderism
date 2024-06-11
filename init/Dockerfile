@@ -28,6 +28,9 @@ RUN mkdir -p ~/optimism && cd ~/optimism && \
     git submodule update --init --recursive --depth 1 && \
     go mod download && go mod tidy
 
+COPY *.sh /script/
+RUN chmod +x /script/*.sh
+
 ENTRYPOINT ["/bin/bash", "-c", "\
     chmod +x /script/*.sh && \
     source /script/1_init_environment.sh && \
