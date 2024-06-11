@@ -6,7 +6,7 @@ services:
     env_file:
       - ../.env
     volumes:
-      - ${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
+      - ../${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
     entrypoint:
       - sh
       - -c
@@ -30,7 +30,7 @@ services:
     env_file:
       - ../.env
     volumes:
-      - ${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
+      - ../${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U stats -d stats"]
       interval: 10s

@@ -8,4 +8,4 @@ services:
     env_file:
       - ../.env
     volumes:
-      - ${SCAN_DATA_DIR-.}/redis-data:/data
+      - ../${SCAN_DATA_DIR-.}/redis-data:/data
