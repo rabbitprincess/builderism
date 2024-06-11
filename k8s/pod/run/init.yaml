@@ -3,29 +3,23 @@ kind: Pod
 metadata:
   name: init
 spec:
-  containers:
+  initContainers:
   - name: init
     image: dreamcacao/optimism_builder_run:latest
     command: [ "bash", "/script/init-entrypoint.sh" ]
     volumeMounts:
-    - name: geth-data
-      mountPath: /data
     - name: config
       mountPath: /config
-    - name: script-volume
-      subPath: init-entrypoint.sh
-      mountPath: /script/init-entrypoint.sh
+    - name: geth-data
+      mountPath: /data
     envFrom:
     - configMapRef:
         name: env-configmap
   restartPolicy: Never
   volumes:
-  - name: geth-data
-    persistentVolumeClaim:
-      claimName: geth-data-pvc
   - name: config
     persistentVolumeClaim:
-      claimName: config-pvc
-  - name: script-volume
-    configMap:
-      name: script-configmap
+      claimName: config
+  - name: geth-data
+    persistentVolumeClaim:
+      claimName: geth-data

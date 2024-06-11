@@ -41,9 +41,10 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: run_sequencer # docs.optimism.io/builders/chain-operators/management/configuration#op-batcher-configuration
+  name: run_sequencer
 data:
-  MAX_CHANNEL_DURATION: "1500" 
+  # docs.optimism.io/builders/chain-operators/management/configuration#op-batcher-configuration
+  MAX_CHANNEL_DURATION: "1500"
 
 ---
 apiVersion: v1

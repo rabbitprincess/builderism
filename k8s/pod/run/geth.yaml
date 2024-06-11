@@ -20,9 +20,6 @@ spec:
           mountPath: /data
         - name: config
           mountPath: /config
-        - name: script-volume
-          subPath: geth-entrypoint.sh
-          mountPath: /script/geth-entrypoint.sh
         envFrom:
         - configMapRef:
             name: env-configmap
@@ -34,6 +31,3 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: config-pvc
-      - name: script-volume
-        configMap:
-          name: script-configmap
