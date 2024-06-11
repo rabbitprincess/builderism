@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-init
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-init
+  template:
+    metadata:
+      labels:
+        app: db-init
+    spec:
+      containers:
+        - name: db-init
+          image: postgres:15
+          envFrom:
+            - configMapRef:
+                name: blockscout-env
+          command:
+            - sh
+            - -c
+            - |
+              chown -R 2000:2000 /var/lib/postgresql/data
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: blockscout-db-data-pvc  # PVC 이름 설정
+      restartPolicy: OnFailure  # 초기화 작업이 완료되면 Pod 종료

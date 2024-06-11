@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batcher
+spec:
+  replicas: 1
+  selector: {}
+  template:
+    metadata:
+      labels:
+        app: batcher
+    spec:
+      containers:
+        - name: batcher
+          image: dreamcacao/optimism_builder_run:latest
+          command: ["bash", "/script/op-batcher-entrypoint.sh"]
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: script-volume
+              subPath: op-batcher-entrypoint.sh
+              mountPath: /script/op-batcher-entrypoint.sh
+          envFrom:
+            - configMapRef:
+                name: env-configmap
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: config-pvc
+        - name: script-volume
+          configMap:
+            name: script-configmap

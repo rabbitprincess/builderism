@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proposer 
+spec:
+  replicas: 1
+  selector: {}
+  template:
+    metadata:
+      labels:
+        app: proposer 
+    spec:
+      containers:
+        - name: proposer
+          image: dreamcacao/optimism_builder_run:latest
+          command: ["bash", "/script/op-proposer-entrypoint.sh"]
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: script-volume
+              subPath: op-proposer-entrypoint.sh
+              mountPath: /script/op-proposer-entrypoint.sh
+          envFrom:
+            - configMapRef:
+                name: env-configmap
+          resources:
+            requests:
+              cpu: "1"
+              memory: "4Gi"
+            limits:
+              cpu: "2"
+              memory: "8Gi"
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: config-pvc
+        - name: script-volume
+          configMap:
+            name: script-configmap

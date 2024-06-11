@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      securityContext:
+        runAsUser: 2000
+        runAsGroup: 2000
+      containers:
+        - name: db
+          image: postgres:15
+          command:
+            - postgres
+            - -c
+            - max_connections=200
+            - -c
+            - client_connection_check_interval=60000
+          env:
+            - name: POSTGRES_DB
+              value: 'blockscout'
+            - name: POSTGRES_USER
+              value: 'blockscout'
+            - name: POSTGRES_PASSWORD
+              value: 'ceWb1MeLBEeOIfk65gU8EjF8'
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: blockscout-env
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgresql/data
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 500m
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U blockscout -d blockscout
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U blockscout -d blockscout
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: blockscout-db-data-pvc  

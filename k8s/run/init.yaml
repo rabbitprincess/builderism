@@ -1,12 +1,16 @@
 apiVersion: v1
-kind: Pod
+kind: Job
 metadata:
   name: init
 spec:
-  initContainers:
+  containers:
   - name: init
     image: dreamcacao/optimism_builder_run:latest
     command: [ "bash", "/script/init-entrypoint.sh" ]
+    resources:
+      limits:
+        cpu: "1"
+        memory: "100Mi"
     volumeMounts:
     - name: config
       mountPath: /config
@@ -15,9 +19,6 @@ spec:
     envFrom:
     - configMapRef:
         name: env-configmap
-  containers:
-    - name: main-container
-      image: dreamcacao/optimism_builder_run:latest
   restartPolicy: Never
   volumes:
   - name: config
