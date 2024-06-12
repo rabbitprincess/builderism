@@ -1,4 +1,4 @@
-# Optimism-builder
+# Builderism
 **User-friendly builder for launch your optimism node**
 
 It support 4 steps to operate OP Stack node
