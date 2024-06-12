@@ -17,7 +17,7 @@ It support 4 steps to operate OP Stack node
 ## Quick Start
 1. Clone this repository
 2. Check and modify configuration `.env.example`
-3. Run Command `make init`, `make run`, `make scan`, `make bridge`
+3. Run Command `make init`, `make run`, `make scan`, `make bridge` step by step
 
 ## Configuration
 ### common
