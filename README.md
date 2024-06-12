@@ -2,12 +2,12 @@
 **User-friendly builder for launch your optimism node**
 
 It support 4 steps to operate OP Stack node
-|  Command   | Description                                       |
-| :--------: | ------------------------------------------------- |
-|  `init`    | deploy bridge contracts and generate l2 configs.  |
-|  `run`     | run optimism node using generated configs.        |
-|  `scan`    | run blockchain explorer using blockscout.         |
-|  `bridge`  | transfer eth and tokens between L1 and L2.        |
+|  Command   | Description                                       | Exec Command |
+| :--------: | ------------------------------------------------- | ------------ |
+|  `init`    | deploy bridge contracts and generate l2 configs.  | `make init`  |
+|  `run`     | run optimism node using generated configs.        | `make run`   |
+|  `scan`    | run blockchain explorer using blockscout.         | `make scan`  |
+|  `bridge`  | transfer eth and tokens between L1 and L2.        | `make bridge`|
 
 ## prerequisite
 - docker, docker-compose
@@ -44,23 +44,3 @@ It support 4 steps to operate OP Stack node
 - `MAX_CHANNEL_DURATION`: batch time submitted to the L1. (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer node URL, only used for not sequencer mode
 - `BOOTNODES`: Bootnode URL, only used for not sequencer mode
-
-## init your node
-```
-make init
-```
-
-## run your node
-```
-make run
-```
-
-## run blockscout
-```
-make scan
-```
-
-## bridge eth / erc20 ( L1 <-> L2 )
-```
-make bridge
-```
