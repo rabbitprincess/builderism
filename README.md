@@ -2,7 +2,7 @@
 **User-friendly builder for launch your optimism node**
 
 It support 4 steps to operate OP Stack node
-|  Command   | Description                                       | Exec Command |
+|  Command   | Description                                       | Command      |
 | :--------: | ------------------------------------------------- | ------------ |
 |  `init`    | deploy bridge contracts and generate l2 configs.  | `make init`  |
 |  `run`     | run optimism node using generated configs.        | `make run`   |
