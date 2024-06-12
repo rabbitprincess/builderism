@@ -10,7 +10,7 @@ It support 4 steps to operate OP Stack node
 |  `bridge`  | transfer eth and tokens between L1 and L2.        | `make bridge`|
 
 ## Prerequisite
-- docker, docker-compose
+- makefile, docker, docker-compose
 - L1 RPC and Beacon endpoint (use PublicNode experimentally)
 - faucet private key (for charging eth to proposer, batcher, admin)
 
