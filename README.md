@@ -15,7 +15,7 @@ It support 4 steps to operate OP Stack node
 - faucet private key (for charging eth to proposer, batcher, admin)
 
 ## Quick Start
-1. Clone this repository
+1. Clone this repository `git clone https://github.com/rabbitprincess/optimism-builder.git`
 2. Check and modify configuration `.env.example`
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
 
