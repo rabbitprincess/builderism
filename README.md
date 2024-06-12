@@ -16,20 +16,20 @@ It support 4 steps to operate OP Stack node
 
 ## configuration ( .env.example )
 ### common
-| Option          | Description                | Default Value |
-| ----------------|----------------------------|---------------|
-| `CONFIG_DIR`    | Path to store config files | `../config`   |
-| `GETH_DATA_DIR` | Path to store config files | `../config`   |
-| `SCAN_DATA_DIR` | Path to store config files | `../config`   |
-| `L1_CHAIN_ID`   | L1 chain id                | `11155111`    |
-| `L1_RPC_KIND`   | The type of RPC provider   | `standard`    |
-| `L1_RPC_URL`    | L1 RPC endpoint            | `publicNode`  |
-| `L1_BEACON_URL` | L1 Beacon endpoint         | `publicNode`  |
-| `L2_CHAIN_ID`   | Your L2 chain id           |               |
-| `L2_CHAIN_ID`   | Your L2 chain name         |               |
-| `L2_RPC_URL`    | Your L2 RPC endpoint       |               |
-| `L2_SCAN_URL`   | L2 Explore endpoint        |               |
-| `L2_BRIDGE_URL` | L2 Bridge endpoint         |               |
+| Option          | Description                | Default Value  |
+| ----------------|----------------------------|----------------|
+| `CONFIG_DIR`    | Path to store config files | `../config`    |
+| `GETH_DATA_DIR` | Path to store config files | `../data-geth` |
+| `SCAN_DATA_DIR` | Path to store config files | `../data-scan` |
+| `L1_CHAIN_ID`   | L1 chain id                | `11155111`     |
+| `L1_RPC_KIND`   | The type of RPC provider   | `standard`     |
+| `L1_RPC_URL`    | L1 RPC endpoint            | `publicNode`   |
+| `L1_BEACON_URL` | L1 Beacon endpoint         | `publicNode`   |
+| `L2_CHAIN_ID`   | Your L2 chain id           |                |
+| `L2_CHAIN_ID`   | Your L2 chain name         |                |
+| `L2_RPC_URL`    | Your L2 RPC endpoint       |                |
+| `L2_SCAN_URL`   | L2 Explore endpoint        |                |
+| `L2_BRIDGE_URL` | L2 Bridge endpoint         |                |
 
 ### init node
 - `PRIORITY_GAS_PRICE`: Gas price using deploy contracts (default `10000`)
