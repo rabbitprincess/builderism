@@ -1,4 +1,4 @@
-# optimism-builder
+# Optimism-builder
 **User-friendly builder for launch your optimism node**
 
 It support 4 steps to operate OP Stack node
@@ -9,12 +9,17 @@ It support 4 steps to operate OP Stack node
 |  `scan`    | run blockchain explorer using blockscout.         | `make scan`  |
 |  `bridge`  | transfer eth and tokens between L1 and L2.        | `make bridge`|
 
-## prerequisite
+## Prerequisite
 - docker, docker-compose
 - L1 RPC and Beacon endpoint (use PublicNode experimentally)
 - faucet private key (for charging eth to proposer, batcher, admin)
 
-## configuration ( .env.example )
+## Quick Start
+1. Clone this repository
+2. Check and modify configuration `.env.example`
+3. Run Command `make init`, `make run`, `make scan`, `make bridge`
+
+## Configuration
 ### common
 | Option          | Description                | Default Value  |
 | ----------------|----------------------------|----------------|
