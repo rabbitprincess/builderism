@@ -16,11 +16,19 @@ It support 4 steps to operate OP Stack node
 
 ## configuration ( .env.example )
 ### common
-- `CONFIG_DIR`: Directory that will store config data (default `../config`)
-- `L1_CHAIN_ID`: L1 chain id (default `11155111`)
-- `L1_RPC_URL`: L1 RPC endpoint
-- `L1_RPC_KIND`: The type of RPC provider (default `standard`)
+- `CONFIG_DIR`: Path to store config files (default `../config`)
+- `GETH_DATA_DIR`: Path to store geth data (default `../data-geth`)
+- `SCAN_DATA_DIR`: Path to store explorer data (default `../data-scan`)
+
+- `L1_CHAIN_ID`: L1 chain id
 - `L2_CHAIN_ID`: Your L2 chain id
+- `L2_CHAIN_NAME`: Your L2 chain name
+
+- `L1_RPC_KIND`: The type of RPC provider
+- `L1_RPC_URL`: L1 RPC endpoint
+- `L1_BEACON_URL`: L1 Beacon endpoint
+- `L2_RPC_URL`: L2 RPC endpoint
+- `L2_WS_URL`: L2 WebSocket endpoint
 
 ### init node
 - `PRIORITY_GAS_PRICE`: Gas price during deploy contracts (default `10000`)
@@ -31,15 +39,14 @@ It support 4 steps to operate OP Stack node
 - `FAUCET_AMOUNT_PROPOSER`: Faucet amount eth to proposer (default `0.1`)
 
 ### run node
-- `L1_BEACON_URL`: L1 Beacon endpoint
-- `GETH_DATA_DIR`: Directory that will store chain data (default `../geth_data`)
 - `SEQUENCER_MODE`: If true, run sequencer mode (default `true`)
 - `MAX_CHANNEL_DURATION`: batch time submitted to the L1. (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer node URL, only used for not sequencer mode
 - `BOOTNODES`: Bootnode URL, only used for not sequencer mode
 
-### bridge
-- `L2_RPC_URL`: L2 RPC endpoint (default `http://localhost:8545`)
+### bridge/scan
+- `L2_SCAN_URL`: block explorer endpoint
+- `L2_BRIDGE_URL`: L2 Bridge endpoint
 
 ## init your node
 ```
