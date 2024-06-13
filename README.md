@@ -20,21 +20,23 @@ It support 4 steps to operate OP Stack node
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
 
 ## Configuration
-### common
-| Option          | Description                | Default Value  |
-| ----------------|----------------------------|----------------|
-| `CONFIG_DIR`    | Path to store config files | `../config`    |
-| `GETH_DATA_DIR` | Path to store config files | `../data-geth` |
-| `SCAN_DATA_DIR` | Path to store config files | `../data-scan` |
-| `L1_CHAIN_ID`   | L1 chain id                | `11155111`     |
-| `L1_RPC_KIND`   | The type of RPC provider   | `standard`     |
-| `L1_RPC_URL`    | L1 RPC endpoint            | `publicNode`   |
-| `L1_BEACON_URL` | L1 Beacon endpoint         | `publicNode`   |
-| `L2_CHAIN_ID`   | Your L2 chain id           |                |
-| `L2_CHAIN_ID`   | Your L2 chain name         |                |
-| `L2_RPC_URL`    | Your L2 RPC endpoint       |                |
-| `L2_SCAN_URL`   | L2 Explore endpoint        |                |
-| `L2_BRIDGE_URL` | L2 Bridge endpoint         |                |
+### Directory
+- `CONFIG_DIR`: Path to store config files (default `../config`)
+- `GETH_DATA_DIR`: Path to store config files (default `../data-geth`)
+- `SCAN_DATA_DIR`: Path to store config files (default `../data-scan`)
+
+### L1 chain
+- `L1_CHAIN_ID`: L1 chain id (default `11155111`)
+- `L1_RPC_KIND`: The type of RPC provider (default `standard`)
+- `L1_RPC_URL`: L1 RPC endpoint (default `publicNode`)
+- `L1_BEACON_URL`: L1 Beacon endpoint (default `publicNode`)
+
+### L2 chain
+- `L2_CHAIN_ID`: Your L2 chain id
+- `L2_CHAIN_ID`: Your L2 chain name
+- `L2_RPC_URL`: Your L2 RPC endpoint
+- `L2_SCAN_URL`: L2 Explore endpoint
+- `L2_BRIDGE_URL`: L2 Bridge endpoint
 
 ### init node
 - `PRIORITY_GAS_PRICE`: Gas price using deploy contracts (default `10000`)
