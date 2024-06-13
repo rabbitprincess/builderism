@@ -1,12 +1,12 @@
-FROM node:latest
+FROM node:latest 
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y jq sudo
+RUN apt-get update && apt-get install -y sudo jq git
 
-COPY ./op-stack-bridge/package.json ./
-COPY ./op-stack-bridge/yarn.lock ./
-RUN yarn install
+ENV BRIDGE_REPO=https://github.com/rabbitprincess/op-stack-bridge.git
+ENV BRIDGE_BRANCH=feature/migrate-viem
 
-COPY ./op-stack-bridge/ .
-RUN yarn build
+RUN git clone $BRIDGE_REPO --depth 1 --branch $BRIDGE_BRANCH --single-branch . && \
+    git switch -c branch-$BRIDGE_BRANCH && \
+    yarn install && yarn build
