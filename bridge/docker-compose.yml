@@ -3,7 +3,7 @@ services:
   bridge:
     build:
       context: .
-    image: dreamcacao/optimism_builder_bridge:latest
+    image: dreamcacao/builderism_bridge:latest
     command: [ "bash", "/script/init-entrypoint.sh" ]
     ports:
       - 3000:3000
