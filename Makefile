@@ -25,7 +25,7 @@ bridge:
 	docker compose -p builderism_bridge up
 
 # buildx command
-buildx: buildx-init && buildx-run && buildx-bridge
+buildx: buildx-init buildx-run buildx-bridge
 
 buildx-init:
 	docker buildx build \
