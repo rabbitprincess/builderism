@@ -15,8 +15,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs && npm install -g pnpm
 
 # install foundry
+ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
-RUN . ~/.bashrc && foundryup
+RUN . ~/.bashrc && foundryup  -v "$FOUNDRY_VERSION"
 ENV PATH="~/.foundry/bin:${PATH}"
 
 # clone optimism repository
