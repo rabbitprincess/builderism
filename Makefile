@@ -4,13 +4,13 @@ cp_env :=
 ifeq ($(OS),Windows_NT)
 	cp_env := (if not exist .env copy ..\.env.example .env)
 else
-	cp_env := cp -n ../.env.example .env
+	cp_env := cp -n ../.env.example .env || true
 endif
 
 init:
 	cd init && $(cp_env) && \
 	docker compose -p builderism_init up && \
-	docker-compose down
+	docker compose down
 
 run:
 	cd run && $(cp_env) && \
