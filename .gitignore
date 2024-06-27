@@ -2,4 +2,4 @@
 *.ini
 data-geth
 data-scan
-/config
+config
