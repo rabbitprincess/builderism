@@ -21,7 +21,6 @@ scan:
 	docker compose -p builderism_scan up
 
 bridge:
-	git submodule update --init --recursive && \
 	cd bridge && $(cp_env) && \
 	docker compose -p builderism_bridge up
 
