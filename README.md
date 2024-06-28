@@ -33,13 +33,13 @@ It support 4 steps to operate OP Stack node
 
 ### L2 chain
 - `L2_CHAIN_ID`: Your L2 chain id
-- `L2_CHAIN_ID`: Your L2 chain name
+- `L2_CHAIN_NAME`: Your L2 chain name
 - `L2_RPC_URL`: Your L2 RPC endpoint
 - `L2_SCAN_URL`: L2 Explore endpoint
 - `L2_BRIDGE_URL`: L2 Bridge endpoint
 
 ### init node
-- `PRIORITY_GAS_PRICE`: Gas price using deploy contracts (default `10000`)
+- `PRIORITY_GAS_PRICE`: Gas wei price using deploy contracts (default `10000`)
 - `FAUCET_ADDRESS`: Charging address
 - `FAUCET_PRIVATE_KEY`: Charging private key; Be careful about security
 - `FAUCET_AMOUNT_ADMIN`: Faucet amount eth to admin (default `0.5`)
@@ -47,7 +47,7 @@ It support 4 steps to operate OP Stack node
 - `FAUCET_AMOUNT_PROPOSER`: Faucet amount eth to proposer (default `0.1`)
 
 ### run node
-- `SEQUENCER_MODE`: If true, run sequencer mode (default `true`)
+- `SEQUENCER_MODE`: If true, run sequencer; otherwise run fullnode (default `true`)
 - `MAX_CHANNEL_DURATION`: batch time submitted to the L1. (default `1500`)
-- `SEQUENCER_HTTP`: Sequencer node URL, only used for not sequencer mode
-- `BOOTNODES`: Bootnode URL, only used for not sequencer mode
+- `SEQUENCER_HTTP`: Sequencer node URL, only used for fullnode mode
+- `BOOTNODES`: Bootnode URL, only used for fullnode mode
