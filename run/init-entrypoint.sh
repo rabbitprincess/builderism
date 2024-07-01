@@ -3,10 +3,10 @@ set -eu
 
 # Check environment variables
 reqenv() {
-    if [ -z "${!1:-}" ]; then
-        echo "Error: environment variable '$1' is not set. check .env file!"
-        exit 1
-    fi
+  if [ -z "${!1:-}" ]; then
+    echo "Error: environment variable '$1' is not set. check .env file!"
+    exit 1
+  fi
 }
 reqenv "CONFIG_DIR" 
 reqenv "L1_RPC_URL"

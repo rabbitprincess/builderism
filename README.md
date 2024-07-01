@@ -47,7 +47,8 @@ It support 4 steps to operate OP Stack node
 - `FAUCET_AMOUNT_PROPOSER`: Faucet amount eth to proposer (default `0.1`)
 
 ### run node
-- `SEQUENCER_MODE`: If true, run sequencer; otherwise run fullnode (default `true`)
-- `MAX_CHANNEL_DURATION`: batch time submitted to the L1. (default `1500`)
-- `SEQUENCER_HTTP`: Sequencer node URL, only used for fullnode mode
-- `BOOTNODES`: Bootnode URL, only used for fullnode mode
+- `RUN_MODE`: Run mode ( sequencer or fullnode ) (default `sequencer`)
+- `DATA_AVAILABILITY_TYPE`: Data availability type (default `blobs`)
+- `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
+- `SEQUENCER_HTTP`: Sequencer endpoint
+- `P2P_BOOTNODES`: Bootnode enr address
