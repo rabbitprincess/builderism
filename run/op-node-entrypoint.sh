@@ -57,4 +57,7 @@ exec /app/op-node \
   --rpc.addr=0.0.0.0 \
   --rpc.port=8547 \
   --rpc.enable-admin \
+  --p2p.listen.ip=0.0.0.0 \
+  --p2p.listen.tcp=9222 \
+  --p2p.listen.udp=0 \
   $ADDITIONAL_ARGS
