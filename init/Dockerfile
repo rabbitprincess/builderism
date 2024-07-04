@@ -7,7 +7,7 @@ RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc 
     sudo rm -rf /var/lib/apt/lists
 
 # install go
-RUN curl -sL https://golang.org/dl/go1.22.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+RUN curl -sL https://golang.org/dl/go1.22.5.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 ENV PATH="$PATH:/usr/local/go/bin"
 
 # install nodejs and pnpm
@@ -15,14 +15,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs && npm install -g pnpm
 
 # install foundry
-# ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}
+ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly}
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
-RUN . ~/.bashrc && foundryup
+RUN . ~/.bashrc && foundryup -v "$FOUNDRY_VERSION"
 ENV PATH="~/.foundry/bin:${PATH}"
 
 # clone optimism repository
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.7.6}
+ENV OP_VERSION=${OP_VERSION:-v1.7.7}
 RUN mkdir -p ~/optimism && cd ~/optimism && \
     git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
     git switch -c $OP_VERSION && \
