@@ -5,6 +5,7 @@ echo "[4/5] : deploy contract"
 
 cd ~/optimism/packages/contracts-bedrock && \
 DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT.json" \
+DEPLOYMENT_OUTLINE="./deployments/$DEPLOYMENT_CONTEXT/deploy.json"
 forge script scripts/Deploy.s.sol:Deploy \
   --private-key $ADMIN_PRIVATE_KEY \
   --broadcast \
