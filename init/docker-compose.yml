@@ -3,7 +3,7 @@ services:
   node_init:
     build:
       context: .
-    image: dreamcacao/builderism_init:1.7.7
+    image: dreamcacao/builderism_init:latest
     volumes:
       - ${CONFIG_DIR}:/config
       - ./1_init_environment.sh:/script/1_init_environment.sh

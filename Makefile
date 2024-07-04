@@ -30,7 +30,7 @@ buildx: buildx-init buildx-run buildx-bridge
 buildx-init:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/builderism_init:1.7.3 \
+	-t dreamcacao/builderism_init:1.7.7 \
 	-t dreamcacao/builderism_init:latest \
 	--push ./init
 
