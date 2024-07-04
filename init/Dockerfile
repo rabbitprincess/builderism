@@ -15,14 +15,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs && npm install -g pnpm
 
 # install foundry
-ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}
+# ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-de33b6af53005037b463318d2628b5cfcaf39916}
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
-RUN . ~/.bashrc && foundryup  -v "$FOUNDRY_VERSION"
+RUN . ~/.bashrc && foundryup
 ENV PATH="~/.foundry/bin:${PATH}"
 
 # clone optimism repository
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.7.3}
+ENV OP_VERSION=${OP_VERSION:-v1.7.6}
 RUN mkdir -p ~/optimism && cd ~/optimism && \
     git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
     git switch -c $OP_VERSION && \
