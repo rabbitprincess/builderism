@@ -122,4 +122,4 @@ EOL
 
 # Write the config file
 cd ~/optimism/packages/contracts-bedrock && \
-echo "$config" > ./deploy-config/$DEPLOYMENT_CONTEXT.json
+echo "$config" > ./deployments/$DEPLOYMENT_CONTEXT.json
