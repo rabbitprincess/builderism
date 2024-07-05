@@ -4,6 +4,7 @@ services:
     build:
       context: .
     image: dreamcacao/builderism_init:latest
+    pull_policy: always
     volumes:
       - ${CONFIG_DIR}:/config
       - ./1_init_environment.sh:/script/1_init_environment.sh
