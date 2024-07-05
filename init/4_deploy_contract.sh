@@ -12,6 +12,8 @@ forge script scripts/Deploy.s.sol:Deploy \
   --priority-gas-price $PRIORITY_GAS_PRICE \
   --slow
 
+echo "run upgrader"
+
 CONTRACT_ADDRESSES_PATH="./deployments/$L1_CHAIN_ID-deploy.json" \
 DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/config.json" \
 forge script scripts/L2Genesis.s.sol:L2Genesis \
