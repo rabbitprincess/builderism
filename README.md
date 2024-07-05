@@ -45,6 +45,7 @@ It support 4 steps to operate OP Stack node
 - `FAUCET_AMOUNT_ADMIN`: Faucet amount eth to admin (default `0.5`)
 - `FAUCET_AMOUNT_BATCHER`: Faucet amount eth to batcher (default `0.2`)
 - `FAUCET_AMOUNT_PROPOSER`: Faucet amount eth to proposer (default `0.1`)
+- `GOVERNANCE_TOKEN_SYMBOL`: Governance token symbol
 
 ### run node
 - `RUN_MODE`: Run mode ( sequencer or fullnode ) (default `sequencer`)

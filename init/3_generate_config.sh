@@ -18,6 +18,25 @@ blockhash=$(echo "$block" | awk '/hash/ { print $2 }')
 base_address="0xff00000000000000000000000000000000000000"
 BatchInboxAddress="${base_address%${base_address: -${#L2_CHAIN_ID}}}$L2_CHAIN_ID"
 
+govConfig=""
+if [ -n "$GOVERNANCE_TOKEN_SYMBOL" ]; then
+  govConfig=$(cat << EOL
+  "enableGovernance": true,
+  "governanceTokenSymbol": "$GOVERNANCE_TOKEN_SYMBOL",
+  "governanceTokenName": "$GOVERNANCE_TOKEN_SYMBOL",
+  "governanceTokenOwner": "$ADMIN_ADDRESS",
+EOL
+  )
+else
+govConfig=$(cat << EOL
+  "enableGovernance": false,
+  "governanceTokenSymbol": "NA",
+  "governanceTokenName": "NotApplicable",
+  "governanceTokenOwner": "$ADMIN_ADDRESS",
+EOL
+  )
+fi
+
 # Generate the config file
 config=$(cat << EOL
 {
@@ -59,13 +78,10 @@ config=$(cat << EOL
   "l1FeeVaultWithdrawalNetwork": 0,
   "sequencerFeeVaultWithdrawalNetwork": 0,
 
-  "gasPriceOracleOverhead": 2100,
+  "gasPriceOracleOverhead": 0,
   "gasPriceOracleScalar": 1000000,
 
-  "enableGovernance": false,
-  "governanceTokenSymbol": "NA",
-  "governanceTokenName": "NotApplicable",
-  "governanceTokenOwner": "$ADMIN_ADDRESS",
+$govConfig
 
   "l2GenesisBlockGasLimit": "0x1c9c380",
   "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
@@ -85,7 +101,8 @@ config=$(cat << EOL
 
   "faultGameAbsolutePrestate": "0x03c7ae758795765c6664a5d39bf63841c71ff191e9189522bad8ebff5d4eca98",
   "faultGameMaxDepth": 44,
-  "faultGameMaxDuration": 1200,
+  "faultGameClockExtension": 0,
+  "faultGameMaxClockDuration": 1200,
   "faultGameGenesisBlock": 0,
   "faultGameGenesisOutputRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
   "faultGameSplitDepth": 14,
@@ -105,4 +122,5 @@ EOL
 
 # Write the config file
 cd ~/optimism/packages/contracts-bedrock && \
-echo "$config" > ./deploy-config/$DEPLOYMENT_CONTEXT.json
+mkdir -p ./deployments/$DEPLOYMENT_CONTEXT && \
+echo "$config" > ./deployments/$DEPLOYMENT_CONTEXT/config.json

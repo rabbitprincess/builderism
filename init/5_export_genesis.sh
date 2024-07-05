@@ -3,16 +3,15 @@ set -eu
 
 echo "[5/5] : export genesis files"
 
-env_file="/config/address.ini"
-
 cd ~/optimism/op-node
 go run cmd/main.go genesis l2 \
-  --deploy-config ../packages/contracts-bedrock/deploy-config/$DEPLOYMENT_CONTEXT.json \
-  --l1-deployments ../packages/contracts-bedrock/deployments/$DEPLOYMENT_CONTEXT/.deploy \
+  --deploy-config ../packages/contracts-bedrock/deployments/$DEPLOYMENT_CONTEXT/config.json \
+  --l1-deployments ../packages/contracts-bedrock/deployments/$L1_CHAIN_ID-deploy.json \
   --outfile.l2 /config/genesis.json \
   --outfile.rollup /config/rollup.json \
-  --l1-rpc $L1_RPC_URL
+  --l1-rpc $L1_RPC_URL \
+  --l2-allocs ../packages/contracts-bedrock/state-dump-$DEPLOYMENT_CONTEXT.json
 
-cp ~/optimism/packages/contracts-bedrock/deployments/$DEPLOYMENT_CONTEXT/.deploy /config/.deploy
+cp ../packages/contracts-bedrock/deployments/$L1_CHAIN_ID-deploy.json /config/deploy.json
 
 echo "[all process is done! check config files.]"

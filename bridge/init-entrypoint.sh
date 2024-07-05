@@ -14,11 +14,11 @@ reqenv "L1_RPC_KIND"
 reqenv "L1_BEACON_URL"
 reqenv "L2_CHAIN_ID"
 
-OPTIMISM_PORTAL_PROXY=$(jq -r '.OptimismPortalProxy' /config/.deploy)
-ADDRESS_MANAGER=$(jq -r '.AddressManager' /config/.deploy)
-L1_CROSS_DOMAIN_MESSANGER_PROXY=$(jq -r '.L1CrossDomainMessengerProxy' /config/.deploy)
-L1_STANDARD_BRIDGE_PROXY=$(jq -r '.L1StandardBridgeProxy' /config/.deploy)
-L2_OUTPUT_ORACLE_PROXY=$(jq -r '.L2OutputOracleProxy' /config/.deploy)
+OPTIMISM_PORTAL_PROXY=$(jq -r '.OptimismPortalProxy' /config/deploy.json)
+ADDRESS_MANAGER=$(jq -r '.AddressManager' /config/deploy.json)
+L1_CROSS_DOMAIN_MESSANGER_PROXY=$(jq -r '.L1CrossDomainMessengerProxy' /config/deploy.json)
+L1_STANDARD_BRIDGE_PROXY=$(jq -r '.L1StandardBridgeProxy' /config/deploy.json)
+L2_OUTPUT_ORACLE_PROXY=$(jq -r '.L2OutputOracleProxy' /config/deploy.json)
 
 sudo tee "/app/.env" > /dev/null <<EOF
 REACT_APP_OPTIMISM_PORTAL_PROXY=$OPTIMISM_PORTAL_PROXY
