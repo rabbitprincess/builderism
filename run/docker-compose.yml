@@ -50,6 +50,8 @@ services:
       - ./op-node-entrypoint.sh:/script/op-node-entrypoint.sh
     ports:
       - 8547:8547 # RPC
+      - 9222:9222
+      - 9222:9222/udp
     env_file:
       - .env
     logging:

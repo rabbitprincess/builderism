@@ -59,5 +59,5 @@ exec /app/op-node \
   --rpc.enable-admin \
   --p2p.listen.ip=0.0.0.0 \
   --p2p.listen.tcp=9222 \
-  --p2p.listen.udp=0 \
+  --p2p.listen.udp=9222 \
   $ADDITIONAL_ARGS
