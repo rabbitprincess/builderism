@@ -47,9 +47,9 @@ config=$(cat << EOL
   "l2BlockTime": 2,
   "l1BlockTime": 12,
 
-  "maxSequencerDrift": 600,
-  "sequencerWindowSize": 3600,
-  "channelTimeout": 300,
+  "maxSequencerDrift": 300,
+  "sequencerWindowSize": 200,
+  "channelTimeout": 120,
 
   "p2pSequencerAddress": "$SEQUENCER_ADDRESS",
   "batchInboxAddress": "$BatchInboxAddress",
@@ -78,21 +78,21 @@ config=$(cat << EOL
   "l1FeeVaultWithdrawalNetwork": 0,
   "sequencerFeeVaultWithdrawalNetwork": 0,
 
-  "gasPriceOracleOverhead": 0,
-  "gasPriceOracleScalar": 1000000,
+  "gasPriceOracleBaseFeeScalar": 1368,
+  "gasPriceOracleBlobBaseFeeScalar": 810949,
 
 $govConfig
-
-  "l2GenesisBlockGasLimit": "0x1c9c380",
-  "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
-  "l2GenesisRegolithTimeOffset": "0x0",
 
   "eip1559Denominator": 50,
   "eip1559DenominatorCanyon": 250,
   "eip1559Elasticity": 6,
 
-  "l2GenesisEcotoneTimeOffset": "0x0",
+  "l2GenesisBlockGasLimit": "0x1c9c380",
+  "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
+  "l2GenesisRegolithTimeOffset": "0x0",
   "l2GenesisDeltaTimeOffset": "0x0",
+  "l2GenesisEcotoneTimeOffset": "0x0",
+  "l1CancunTimeOffset": "0x0",  
   "l2GenesisCanyonTimeOffset": "0x0",
 
   "systemConfigStartBlock": 0,
@@ -101,7 +101,7 @@ $govConfig
   "recommendedProtocolVersion": "0x0000000000000000000000000000000000000000000000000000000000000000",
 
   "faultGameAbsolutePrestate": "0x03c7ae758795765c6664a5d39bf63841c71ff191e9189522bad8ebff5d4eca98",
-  "faultGameMaxDepth": 44,
+  "faultGameMaxDepth": 50,
   "faultGameClockExtension": 0,
   "faultGameMaxClockDuration": 1200,
   "faultGameGenesisBlock": 0,
@@ -109,8 +109,8 @@ $govConfig
   "faultGameSplitDepth": 14,
   "faultGameWithdrawalDelay": 604800,
 
-  "preimageOracleMinProposalSize": 1800000,
-  "preimageOracleChallengePeriod": 86400,
+  "preimageOracleMinProposalSize": 18000,
+  "preimageOracleChallengePeriod": 120,
 
   "fundDevAccounts": false,
   "useFaultProofs": false,
