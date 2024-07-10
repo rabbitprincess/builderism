@@ -5,9 +5,9 @@ RUN_MODE=${RUN_MODE:-"fullnode"}
 ADDITIONAL_ARGS=""
 
 if [ "$RUN_MODE" != "sequencer" ]; then
-  if [ ! -z "${OP_GETH_SEQUENCER_HTTP:-}" ]; then
+  if [ ! -z "${OP_EXECUTION_SEQUENCER_HTTP:-}" ]; then
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.halt=major"
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.sequencerhttp=$OP_GETH_SEQUENCER_HTTP"
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.sequencerhttp=$OP_EXECUTION_SEQUENCER_HTTP"
   fi
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS --chain=$L2_SUPERCHAIN_NETWORK"
