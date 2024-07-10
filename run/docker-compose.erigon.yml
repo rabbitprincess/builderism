@@ -1,24 +1,11 @@
 version: '3.8'
 services:
-  init:
-    build:
-      context: .
-    image: dreamcacao/builderism_run:latest
-    pull_policy: always
-    command: [ "bash", "/script/init-entrypoint.sh" ]
-    volumes:
-      - ${EXECUTION_DATA_DIR}:/data
-      - ${CONFIG_DIR}:/config
-      - ./init-entrypoint.sh:/script/init-entrypoint.sh
-    env_file:
-      - .env
   execution:
-    image: dreamcacao/builderism_run:latest
+    image: testinprod/op-erigon:latest
     pull_policy: always
-    depends_on:
-      init:
-        condition: service_completed_successfully
-    command: [ "bash", "/script/geth-entrypoint.sh" ]
+    entrypoint: [ "/script/erigon-entrypoint.sh" ]
+    networks:
+      - op-network
     ports:
       - 8545:8545 # http
       - 8546:8546 # ws
@@ -26,9 +13,7 @@ services:
     volumes:
       - ${EXECUTION_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
-      - ./geth-entrypoint.sh:/script/geth-entrypoint.sh
-    networks:
-      - op-network
+      - ./erigon-entrypoint.sh:/script/erigon-entrypoint.sh
     env_file:
       - .env
     logging:

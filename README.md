@@ -22,7 +22,7 @@ It support 4 steps to operate OP Stack node
 ## Configuration
 ### Directory
 - `CONFIG_DIR`: Path to store config files (default `../config`)
-- `GETH_DATA_DIR`: Path to store geth data (default `../data-geth`)
+- `EXECUTION_DATA_DIR`: Path to store execution layer data (default `../data-execution`)
 - `SCAN_DATA_DIR`: Path to store explorer data (default `../data-scan`)
 
 ### L1 chain
