@@ -16,6 +16,10 @@ run:
 	cd run && $(cp_env) && \
 	docker compose -p builderism_run up
 
+run_erigon:
+	cd run && $(cp_env) && \
+	docker compose -f docker-compose.erigon.yml -p builderism_run up
+
 scan:
 	cd scan && $(cp_env) && \
 	docker compose -p builderism_scan up
