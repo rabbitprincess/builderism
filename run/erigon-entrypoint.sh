@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -eu
 
 RUN_MODE=${RUN_MODE:-"fullnode"}
@@ -14,28 +14,19 @@ if [ "$RUN_MODE" != "sequencer" ]; then
   fi
 fi
 
-exec /app/geth \
+exec erigon \
   --datadir=/data \
-  --db.engine=pebble \
-  --networkid=${L2_CHAIN_ID} \
-  --syncmode=full \
-  --gcmode=archive \
+  --private.api.addr=localhost:9090 \
   --nodiscover \
   --maxpeers=0 \
-  --http \
-  --http.vhosts="*" \
-  --http.corsdomain="*" \
   --http.addr=0.0.0.0 \
   --http.port=8545 \
-  --http.api=web3,debug,eth,txpool,net,engine \
-  --ws \
-  --ws.addr=0.0.0.0 \
-  --ws.port=8546 \
-  --ws.origins="*" \
-  --ws.api=debug,eth,txpool,net,engine \
-  --authrpc.vhosts="*" \
+  --http.corsdomain="*" \
+  --http.vhosts="*" \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port=8551 \
+  --authrpc.vhosts="*" \
   --authrpc.jwtsecret=/data/jwt.txt \
-  --rollup.disabletxpoolgossip=true \
+  --txpool.gossip.disable=true \
+  --db.size.limit=8TB \
   $ADDITIONAL_ARGS

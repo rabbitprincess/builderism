@@ -4,19 +4,29 @@ set -eu
 RUN_MODE=${RUN_MODE:-"fullnode"}
 OP_NODE_L1_ETH_RPC=${L1_RPC_URL}
 OP_NODE_L1_BEACON=${L1_BEACON_URL}
-OP_NODE_L2_ENGINE_RPC=${L2_ENGINE_URL:-"ws://geth:8551"}
 
 ADDITIONAL_ARGS=""
 if [ "$RUN_MODE" = "sequencer" ]; then
   SEQUENCER_PRIVATE_KEY=$(grep "SEQUENCER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
   ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+    --rollup.config=/config/rollup.json \
     --sequencer.enabled \
     --sequencer.l1-confs=5 \
     --verifier.l1-confs=4 \
     --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}"
 else
+  if [ ! -z "${OP_NODE_P2P_BOOTNODES:-}" ]; then
   ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
     --p2p.bootnodes=$OP_NODE_P2P_BOOTNODES"
+  fi
+
+  if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+      --network=$L2_SUPERCHAIN_NETWORK"
+  else
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+      --rollup.config=/config/rollup.json"
+  fi
 fi
 
 get_public_ip() {
@@ -51,9 +61,8 @@ exec /app/op-node \
   --l1=${OP_NODE_L1_ETH_RPC} \
   --l1.beacon=${OP_NODE_L1_BEACON} \
   --l1.rpckind=${L1_RPC_KIND} \
-  --l2=${OP_NODE_L2_ENGINE_RPC} \
+  --l2=http://execution:8551 \
   --l2.jwt-secret=/data/jwt.txt \
-  --rollup.config=/config/rollup.json \
   --rpc.addr=0.0.0.0 \
   --rpc.port=8547 \
   --rpc.enable-admin \
