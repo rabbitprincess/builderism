@@ -10,7 +10,7 @@ if [ "$RUN_MODE" != "sequencer" ]; then
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.sequencerhttp=$OP_EXECUTION_SEQUENCER_HTTP"
   fi
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --chain=$L2_SUPERCHAIN_NETWORK"
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --op-network=$L2_SUPERCHAIN_NETWORK"
   fi
 fi
 
