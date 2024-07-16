@@ -14,6 +14,11 @@ reqenv "L1_RPC_KIND"
 reqenv "L1_BEACON_URL"
 reqenv "L2_CHAIN_ID"
 
+if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
+  echo "init only running in custom chain, exiting on [$L2_SUPERCHAIN_NETWORK]..."
+  exit 0
+fi
+
 exec /app/geth init \
   --datadir=/data \
   --state.scheme=path \
