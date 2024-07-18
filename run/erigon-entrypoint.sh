@@ -11,6 +11,8 @@ if [ "$RUN_MODE" != "sequencer" ]; then
   fi
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS --chain=$L2_SUPERCHAIN_NETWORK"
+  else
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --genesis.path=/config/genesis.json"
   fi
 fi
 
