@@ -7,6 +7,6 @@ services:
     command: redis-server
     env_file:
       - ../../.env.common
-      - ../../envs/${ENV_FILE}
+      - ../../envs/${CHAIN_ENV_FILE}
     volumes:
       - ../${SCAN_DATA_DIR-.}/redis-data:/data

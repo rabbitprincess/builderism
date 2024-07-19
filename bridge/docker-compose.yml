@@ -12,7 +12,7 @@ services:
       - ./init-entrypoint.sh:/script/init-entrypoint.sh
     env_file:
       - ../.env.common
-      - ../envs/${ENV_FILE}
+      - ../envs/${CHAIN_ENV_FILE}
     logging:
       driver: "json-file"
       options:

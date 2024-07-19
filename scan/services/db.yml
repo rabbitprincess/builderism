@@ -5,7 +5,7 @@ services:
     image: postgres:15
     env_file:
       - ../../.env.common
-      - ../../envs/${ENV_FILE}
+      - ../../envs/${CHAIN_ENV_FILE}
     volumes:
       - ../${SCAN_DATA_DIR-.}/blockscout-db-data:/var/lib/postgresql/data
     entrypoint:
@@ -30,7 +30,7 @@ services:
         published: 7432
     env_file:
       - ../../.env.common
-      - ../../envs/${ENV_FILE}
+      - ../../envs/${CHAIN_ENV_FILE}
     volumes:
       - ../${SCAN_DATA_DIR-.}/blockscout-db-data:/var/lib/postgresql/data
     healthcheck:

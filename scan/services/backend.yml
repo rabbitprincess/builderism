@@ -12,7 +12,7 @@ services:
       - 'host.docker.internal:host-gateway'
     env_file:
       - ../../.env.common
-      - ../../envs/${ENV_FILE}
+      - ../../envs/${CHAIN_ENV_FILE}
       - ../envs/common-blockscout.env
     volumes:
       - ../${SCAN_DATA_DIR-.}/logs/:/app/logs/

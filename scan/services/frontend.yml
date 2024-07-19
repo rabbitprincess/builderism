@@ -9,5 +9,5 @@ services:
     container_name: 'frontend'
     env_file:
       - ../../.env.common
-      - ../../envs/${ENV_FILE}
+      - ../../envs/${CHAIN_ENV_FILE}
       - ../envs/common-frontend.env

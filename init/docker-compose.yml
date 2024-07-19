@@ -13,4 +13,4 @@ services:
       - ./5_export_genesis.sh:/script/5_export_genesis.sh
     env_file:
       - ../.env.common
-      - ../envs/${ENV_FILE}
+      - ../envs/${CHAIN_ENV_FILE}
