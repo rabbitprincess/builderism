@@ -15,7 +15,8 @@ services:
       - ${CONFIG_DIR}:/config
       - ./erigon-entrypoint.sh:/script/erigon-entrypoint.sh
     env_file:
-      - .env
+      - ../.env.common
+      - ../envs/${ENV_FILE}
     logging:
       driver: "json-file"
       options:
@@ -38,7 +39,8 @@ services:
       - 9222:9222
       - 9222:9222/udp
     env_file:
-      - .env
+      - ../.env.common
+      - ../envs/${ENV_FILE}
     logging:
       driver: "json-file"
       options:
@@ -56,7 +58,8 @@ services:
     networks:
       - op-network
     env_file:
-      - .env
+      - ../.env.common
+      - ../envs/${ENV_FILE}
     logging:
       driver: "json-file"
       options:
@@ -74,7 +77,8 @@ services:
     networks:
       - op-network
     env_file:
-      - .env
+      - ../.env.common
+      - ../envs/${ENV_FILE}
     logging:
       driver: "json-file"
       options:
