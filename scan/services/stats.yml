@@ -4,7 +4,8 @@ services:
   stats-db-init:
     image: postgres:15
     env_file:
-      - ../.env
+      - ../../.env.common
+      - ../../envs/${ENV_FILE}
     volumes:
       - ../${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
     entrypoint:
@@ -28,7 +29,8 @@ services:
       - target: 5432
         published: 7433
     env_file:
-      - ../.env
+      - ../../.env.common
+      - ../../envs/${ENV_FILE}
     volumes:
       - ../${SCAN_DATA_DIR-.}/stats-db-data:/var/lib/postgresql/data
     healthcheck:

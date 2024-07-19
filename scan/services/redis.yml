@@ -6,6 +6,7 @@ services:
     container_name: redis-db
     command: redis-server
     env_file:
-      - ../.env
+      - ../../.env.common
+      - ../../envs/${ENV_FILE}
     volumes:
       - ../${SCAN_DATA_DIR-.}/redis-data:/data
