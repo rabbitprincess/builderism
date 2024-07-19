@@ -8,7 +8,7 @@ reqenv() {
         exit 1
     fi
 }
-reqenv "CONFIG_DIR" 
+reqenv "CONFIG_DIR"
 reqenv "L1_RPC_URL"
 reqenv "L1_RPC_KIND"
 reqenv "L1_BEACON_URL"
