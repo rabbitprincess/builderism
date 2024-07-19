@@ -1,5 +1,3 @@
-.env
-*.ini
 data-execution
 data-scan
 config

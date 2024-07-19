@@ -16,7 +16,7 @@ It support 4 steps to operate OP Stack node
 
 ## Quick Start
 1. Clone this repository `git clone https://github.com/rabbitprincess/builderism.git`
-2. Check and modify configuration `.env.example`
+2. Check and modify configuration `common.env`
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
 
 ## Configuration

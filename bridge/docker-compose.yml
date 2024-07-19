@@ -11,7 +11,8 @@ services:
       - ${CONFIG_DIR}:/config
       - ./init-entrypoint.sh:/script/init-entrypoint.sh
     env_file:
-      - .env
+      - ../common.env
+      - ../envs/${CHAIN_ENV_FILE}
     logging:
       driver: "json-file"
       options:

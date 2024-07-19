@@ -1,32 +1,22 @@
 .PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
 
-cp_env :=
-ifeq ($(OS),Windows_NT)
-	cp_env := (if not exist .env copy ..\.env.example .env)
-else
-	cp_env := cp -n ../.env.example .env || true
-endif
+ENV_FILE=common.env
+DOCKER_COMPOSE=docker compose --env-file $(ENV_FILE)
 
 init:
-	cd init && $(cp_env) && \
-	docker compose -p builderism_init up && \
-	docker compose down
+	$(DOCKER_COMPOSE) -f init/docker-compose.yml -p builderism_init up
 
 run:
-	cd run && $(cp_env) && \
-	docker compose -p builderism_run up
+	$(DOCKER_COMPOSE) -f run/docker-compose.yml -p builderism_run up
 
 run_erigon:
-	cd run && $(cp_env) && \
-	docker compose -f docker-compose.erigon.yml -p builderism_run up
+	$(DOCKER_COMPOSE) -f run/docker-compose.erigon.yml -p builderism_run up
 
 scan:
-	cd scan && $(cp_env) && \
-	docker compose -p builderism_scan up
+	$(DOCKER_COMPOSE) -f scan/docker-compose.yml -p builderism_scan up
 
 bridge:
-	cd bridge && $(cp_env) && \
-	docker compose -p builderism_bridge up
+	$(DOCKER_COMPOSE) -f bridge/docker-compose.yml -p builderism_bridge up
 
 # buildx command
 buildx: buildx-init buildx-run buildx-bridge
