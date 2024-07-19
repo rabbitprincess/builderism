@@ -10,7 +10,7 @@ services:
       - ${CONFIG_DIR}:/config
       - ./init-entrypoint.sh:/script/init-entrypoint.sh
     env_file:
-      - ../.env.common
+      - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
   execution:
     image: dreamcacao/builderism_run:latest
@@ -30,7 +30,7 @@ services:
     networks:
       - op-network
     env_file:
-      - ../.env.common
+      - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
     logging:
       driver: "json-file"
@@ -54,7 +54,7 @@ services:
       - 9222:9222
       - 9222:9222/udp
     env_file:
-      - ../.env.common
+      - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
     logging:
       driver: "json-file"
@@ -73,7 +73,7 @@ services:
     networks:
       - op-network
     env_file:
-      - ../.env.common
+      - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
     logging:
       driver: "json-file"
@@ -92,7 +92,7 @@ services:
     networks:
       - op-network
     env_file:
-      - ../.env.common
+      - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
     logging:
       driver: "json-file"

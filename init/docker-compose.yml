@@ -12,5 +12,5 @@ services:
       - ./4_deploy_contract.sh:/script/4_deploy_contract.sh
       - ./5_export_genesis.sh:/script/5_export_genesis.sh
     env_file:
-      - ../.env.common
+      - ../common.env
       - ../envs/${CHAIN_ENV_FILE}

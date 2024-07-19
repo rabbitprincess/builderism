@@ -1,6 +1,6 @@
 .PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
 
-ENV_FILE=.env.common
+ENV_FILE=common.env
 DOCKER_COMPOSE=docker compose --env-file $(ENV_FILE)
 
 init:
