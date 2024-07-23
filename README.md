@@ -16,13 +16,13 @@ It support 4 steps to operate OP Stack node
 
 ## Quick Start
 1. Clone this repository `git clone https://github.com/rabbitprincess/builderism.git`
-2. Check and modify configuration `.env.example`
+2. Check and modify configuration `common.env`
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
 
 ## Configuration
 ### Directory
 - `CONFIG_DIR`: Path to store config files (default `../config`)
-- `GETH_DATA_DIR`: Path to store geth data (default `../data-geth`)
+- `EXECUTION_DATA_DIR`: Path to store execution layer data (default `../data-execution`)
 - `SCAN_DATA_DIR`: Path to store explorer data (default `../data-scan`)
 
 ### L1 chain
@@ -53,15 +53,3 @@ It support 4 steps to operate OP Stack node
 - `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer endpoint
 - `P2P_BOOTNODES`: Bootnode enr address
-
-## Frequently Asked Questions
-
-### how long time take during deploy?
-
-### I don`t have enough fee for testnet
-
-### I want to reuse admin address
-
-### how can I run replica node ( fullnode )?
-
-### L3 chain and Custom gas token supported?
