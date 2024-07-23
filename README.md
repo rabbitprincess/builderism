@@ -53,3 +53,15 @@ It support 4 steps to operate OP Stack node
 - `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer endpoint
 - `P2P_BOOTNODES`: Bootnode enr address
+
+## Frequently Asked Questions
+
+### how long time take during deploy?
+
+### I don`t have enough fee for testnet
+
+### I want to reuse admin address
+
+### how can I run replica node ( fullnode )?
+
+### L3 chain and Custom gas token supported?
