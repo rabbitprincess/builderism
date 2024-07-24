@@ -1,3 +1,4 @@
+*.env text eol=lf
 *.sh text eol=lf
 entrypoint* text eol=lf
 Dockerfile text eol=lf
