@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-RUN_MODE=${RUN_MODE:-"fullnode"}
+RUN_MODE=${RUN_MODE:-"replica"}
 OP_PROPOSER_L1_ETH_RPC=${L1_RPC_URL}
 
 if [ "$RUN_MODE" != "sequencer" ]; then

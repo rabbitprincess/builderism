@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-RUN_MODE=${RUN_MODE:-"fullnode"}
+RUN_MODE=${RUN_MODE:-"replica"}
 ADDITIONAL_ARGS=""
 
 if [ "$RUN_MODE" != "sequencer" ]; then

@@ -48,7 +48,7 @@ It support 4 steps to operate OP Stack node
 - `GOVERNANCE_TOKEN_SYMBOL`: Governance token symbol
 
 ### run node
-- `RUN_MODE`: Run mode ( sequencer or fullnode ) (default `sequencer`)
+- `RUN_MODE`: Run mode ( sequencer or replica ) (default `sequencer`)
 - `DATA_AVAILABILITY_TYPE`: Data availability type (default `blobs`)
 - `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer endpoint
