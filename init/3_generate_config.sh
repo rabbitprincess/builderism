@@ -78,8 +78,10 @@ config=$(cat << EOL
   "l1FeeVaultWithdrawalNetwork": 0,
   "sequencerFeeVaultWithdrawalNetwork": 0,
 
-  "gasPriceOracleOverhead": 0,
+  "gasPriceOracleOverhead": 2100,
   "gasPriceOracleScalar": 1000000,
+  "gasPriceOracleBaseFeeScalar": 1368,
+  "gasPriceOracleBlobBaseFeeScalar": 810949,
 
 $govConfig
 
