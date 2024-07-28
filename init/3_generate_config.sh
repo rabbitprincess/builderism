@@ -47,9 +47,9 @@ config=$(cat << EOL
   "l2BlockTime": 2,
   "l1BlockTime": 12,
 
-  "maxSequencerDrift": 300,
-  "sequencerWindowSize": 200,
-  "channelTimeout": 120,
+  "maxSequencerDrift": 600,
+  "sequencerWindowSize": 3600,
+  "channelTimeout": 300,
 
   "p2pSequencerAddress": "$SEQUENCER_ADDRESS",
   "batchInboxAddress": "$BatchInboxAddress",
@@ -78,50 +78,48 @@ config=$(cat << EOL
   "l1FeeVaultWithdrawalNetwork": 0,
   "sequencerFeeVaultWithdrawalNetwork": 0,
 
+  "gasPriceOracleOverhead": 2100,
+  "gasPriceOracleScalar": 1000000,
   "gasPriceOracleBaseFeeScalar": 1368,
   "gasPriceOracleBlobBaseFeeScalar": 810949,
 
 $govConfig
 
+  "l2GenesisBlockGasLimit": "0x1c9c380",
+  "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
+  "l2GenesisRegolithTimeOffset": "0x0",
+
   "eip1559Denominator": 50,
   "eip1559DenominatorCanyon": 250,
   "eip1559Elasticity": 6,
 
-  "l2GenesisBlockGasLimit": "0x1c9c380",
-  "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
-  "l2GenesisRegolithTimeOffset": "0x0",
-  "l2GenesisDeltaTimeOffset": "0x0",
-  "l2GenesisEcotoneTimeOffset": "0x0",
-  "l1CancunTimeOffset": "0x0",  
+  "l2GenesisDeltaTimeOffset": null,
   "l2GenesisCanyonTimeOffset": "0x0",
 
   "systemConfigStartBlock": 0,
 
-  "requiredProtocolVersion": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "recommendedProtocolVersion": "0x0000000000000000000000000000000000000000000000000000000000000000",
-
-  "faultGameAbsolutePrestate": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "faultGameMaxDepth": 50,
-  "faultGameClockExtension": 0,
-  "faultGameMaxClockDuration": 1200,
+  "requiredProtocolVersion": "0x0000000000000000000000000000000000000004000000000000000000000001",
+  "recommendedProtocolVersion": "0x0000000000000000000000000000000000000004000000000000000000000001",
+  "fundDevAccounts": false,
+  "faultGameAbsolutePrestate": "0x037ef3c1a487960b0e633d3e513df020c43432769f41a634d18a9595cbf53c55",
+  "faultGameMaxDepth": 73,
+  "faultGameClockExtension": 10800,
+  "faultGameMaxClockDuration": 302400,
   "faultGameGenesisBlock": 0,
   "faultGameGenesisOutputRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
-  "faultGameSplitDepth": 14,
+  "faultGameSplitDepth": 30,
   "faultGameWithdrawalDelay": 604800,
-
-  "preimageOracleMinProposalSize": 18000,
-  "preimageOracleChallengePeriod": 120,
-
-  "fundDevAccounts": false,
-  "useFaultProofs": false,
+  "preimageOracleMinProposalSize": 126000,
+  "preimageOracleChallengePeriod": 86400,
   "proofMaturityDelaySeconds": 604800,
-  "disputeGameFinalityDelaySeconds": 604800,
-  "respectedGameType": 0
-}
+  "disputeGameFinalityDelaySeconds": 302400,
+  "respectedGameType": 0,
+  "useFaultProofs": true
+} 
 EOL
 )
 
 # Write the config file
 cd ~/optimism/packages/contracts-bedrock && \
 mkdir -p ./deployments/$DEPLOYMENT_CONTEXT && \
-echo "$config" > ./deployments/$DEPLOYMENT_CONTEXT/config.json
+echo "$config" > ./deployments/$DEPLOYMENT_CONTEXT/.deploy

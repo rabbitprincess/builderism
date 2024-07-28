@@ -4,18 +4,18 @@ set -eu
 echo "[4/5] : deploy contract"
 
 cd ~/optimism/packages/contracts-bedrock && \
-DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/config.json" \
-forge script scripts/Deploy.s.sol:Deploy \
+DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/.deploy" \
+forge script scripts/deploy/Deploy.s.sol:Deploy \
   --private-key $ADMIN_PRIVATE_KEY \
   --broadcast \
   --rpc-url $L1_RPC_URL \
-  --priority-gas-price $PRIORITY_GAS_PRICE \
-  --slow
+  --priority-gas-price $PRIORITY_GAS_PRICE
 
-echo "run upgrader"
+echo "[deploy contract done!]"
 
 CONTRACT_ADDRESSES_PATH="./deployments/$L1_CHAIN_ID-deploy.json" \
-DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/config.json" \
+DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/.deploy" \
 forge script scripts/L2Genesis.s.sol:L2Genesis \
   --sig 'runWithAllUpgrades()' \
-  --rpc-url $L1_RPC_URL
+  --chain-id $L2_CHAIN_ID \
+  --rpc-url $L1_RPC_URL \
