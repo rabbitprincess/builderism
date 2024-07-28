@@ -15,7 +15,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 RUN apt-get install -y nodejs && npm install -g pnpm
 
 # install foundry
-ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly}
+ENV FOUNDRY_VERSION=${FOUNDRY_VERSION:-nightly-ef62fdbab638a275fc19a2ff8fe8951c3bd1d9aa}
 RUN curl -L https://foundry.paradigm.xyz | sudo -E bash -
 RUN . ~/.bashrc && foundryup -v "$FOUNDRY_VERSION"
 ENV PATH="~/.foundry/bin:${PATH}"
