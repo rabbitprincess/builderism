@@ -27,7 +27,8 @@ RUN mkdir -p ~/optimism && cd ~/optimism && \
     git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
     git switch -c $OP_VERSION && \
     git submodule update --init --recursive --depth 1 && \
-    go mod download && go mod tidy
+    go mod download && go mod tidy && \
+    make -C op-node VERSION=$OP_VERSION op-node
 
 COPY *.sh /script/
 RUN chmod +x /script/*.sh

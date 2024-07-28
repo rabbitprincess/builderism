@@ -13,7 +13,6 @@ forge script scripts/deploy/Deploy.s.sol:Deploy \
 
 echo "[deploy contract done!]"
 
-cd ~/optimism/packages/contracts-bedrock && \
 CONTRACT_ADDRESSES_PATH="./deployments/$L1_CHAIN_ID-deploy.json" \
 DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/.deploy" \
 forge script scripts/L2Genesis.s.sol:L2Genesis \

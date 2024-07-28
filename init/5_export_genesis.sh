@@ -4,7 +4,7 @@ set -eu
 echo "[5/5] : export genesis files"
 
 cd ~/optimism/op-node
-go run cmd/main.go genesis l2 \
+./bin/op-node genesis l2 \
   --deploy-config ../packages/contracts-bedrock/deployments/$DEPLOYMENT_CONTEXT/.deploy \
   --l1-deployments ../packages/contracts-bedrock/deployments/$L1_CHAIN_ID-deploy.json \
   --outfile.l2 /config/genesis.json \
