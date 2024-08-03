@@ -9,7 +9,7 @@ init:
 run:
 	$(DOCKER_COMPOSE) -f run/docker-compose.yml -p builderism_run up
 
-run_erigon:
+run-erigon:
 	$(DOCKER_COMPOSE) -f run/docker-compose.erigon.yml -p builderism_run up
 
 scan:

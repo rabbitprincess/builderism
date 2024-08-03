@@ -16,8 +16,13 @@ if [ "$RUN_MODE" = "sequencer" ]; then
     --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}"
 else
   if [ ! -z "${OP_NODE_P2P_BOOTNODES:-}" ]; then
-  ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-    --p2p.bootnodes=$OP_NODE_P2P_BOOTNODES"
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+      --p2p.bootnodes=$OP_NODE_P2P_BOOTNODES"
+  fi
+
+  if [ ! -z "${L1_BEACON_FALLBACK_URL:-}" ]; then
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+      --l2.beacon-fallback=$L1_BEACON_FALLBACK_URL"
   fi
 
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
