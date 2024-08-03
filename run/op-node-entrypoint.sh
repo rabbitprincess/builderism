@@ -22,7 +22,7 @@ else
 
   if [ ! -z "${L1_BEACON_FALLBACK_URL:-}" ]; then
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-      --l2.beacon-fallbacks=$L1_BEACON_FALLBACK_URL"
+      --l1.beacon-fallbacks=$L1_BEACON_FALLBACK_URL"
   fi
 
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
