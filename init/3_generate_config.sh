@@ -88,13 +88,13 @@ $govConfig
   "l2GenesisBlockGasLimit": "0x1c9c380",
   "l2GenesisBlockBaseFeePerGas": "0x3b9aca00",
   "l2GenesisRegolithTimeOffset": "0x0",
+  "l2GenesisCanyonTimeOffset": "0x0",
+  "l2GenesisDeltaTimeOffset": "0x0",
+  "l2GenesisEcotoneTimeOffset": "0x0",
 
   "eip1559Denominator": 50,
   "eip1559DenominatorCanyon": 250,
   "eip1559Elasticity": 6,
-
-  "l2GenesisDeltaTimeOffset": null,
-  "l2GenesisCanyonTimeOffset": "0x0",
 
   "systemConfigStartBlock": 0,
 
