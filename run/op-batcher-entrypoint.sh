@@ -11,13 +11,6 @@ if [ "$RUN_MODE" != "sequencer" ]; then
   exit 0
 fi
 
-ADDITIONAL_ARGS=""
-if [ ! -z "${ALT_DA_SERVER:-}" ]; then
-  ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-    --altda.da-server=$ALT_DA_SERVER \
-    --altda.enabled"
-fi
-
 OP_BATCHER_PRIVATE_KEY=$(grep "BATCHER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
 exec /app/op-batcher \
@@ -35,5 +28,4 @@ exec /app/op-batcher \
   --data-availability-type=${OP_BATCHER_DATA_AVAILABILITY_TYPE} \
   --wait-node-sync=true \
   --max-channel-duration=${OP_BATCHER_MAX_CHANNEL_DURATION} \
-  --private-key=${OP_BATCHER_PRIVATE_KEY} \
-  $ADDITIONAL_ARGS
+  --private-key=${OP_BATCHER_PRIVATE_KEY}
