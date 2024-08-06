@@ -32,6 +32,12 @@ else
     ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
       --rollup.config=/config/rollup.json"
   fi
+
+  if [ ! -z "${ALT_DA_SERVER:-}" ]; then
+    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+      --altda.da-server=$ALT_DA_SERVER \
+      --altda.enabled"
+  fi
 fi
 
 get_public_ip() {
