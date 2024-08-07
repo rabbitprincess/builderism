@@ -34,6 +34,12 @@ else
   fi
 fi
 
+if [ ! -z "${ALT_DA_SERVER:-}" ]; then
+  ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+    --altda.da-server=$ALT_DA_SERVER \
+    --altda.enabled"
+fi
+
 get_public_ip() {
   # Define a list of HTTP-based providers
   local PROVIDERS=(
