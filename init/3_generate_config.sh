@@ -37,6 +37,19 @@ EOL
   )
 fi
 
+altDaConfig=""
+if [ -n "$ALT_DA_SERVER" ]; then
+  altDaConfig=$(cat << EOL
+  "usePlasma": true,
+  "daCommitmentType": "KeccakCommitment",
+  "daChallengeWindow": 16,
+  "daResolveWindow": 16,
+  "daBondSize": 1000000,
+  "daResolverRefundPercentage": 0,
+EOL
+  )
+fi
+
 # Generate the config file
 config=$(cat << EOL
 {
@@ -97,6 +110,8 @@ $govConfig
   "eip1559Elasticity": 6,
 
   "systemConfigStartBlock": 0,
+
+$altDaConfig
 
   "requiredProtocolVersion": "0x0000000000000000000000000000000000000004000000000000000000000000",
   "recommendedProtocolVersion": "0x0000000000000000000000000000000000000004000000000000000000000000",
