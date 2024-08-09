@@ -16,7 +16,7 @@ It support 4 steps to operate OP Stack node
 
 ## Quick Start
 1. Clone this repository `git clone https://github.com/rabbitprincess/builderism.git`
-2. Check and select chain configuration in `common.env`
+2. Check and select chain configuration in `common.env` and `/envs/{server.env}`
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
 
 ## Configuration
@@ -37,6 +37,7 @@ It support 4 steps to operate OP Stack node
 - `L2_RPC_URL`: Your L2 RPC endpoint
 - `L2_SCAN_URL`: L2 Explore endpoint
 - `L2_BRIDGE_URL`: L2 Bridge endpoint
+- `ALT_DA_SERVER`: ALT DA server url; if empty, use eth DA
 
 ### init node
 - `PRIORITY_GAS_PRICE`: Gas wei price using deploy contracts (default `10000`)
