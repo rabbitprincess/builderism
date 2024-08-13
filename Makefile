@@ -24,14 +24,14 @@ buildx: buildx-init buildx-run buildx-bridge
 buildx-init:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/builderism_init:1.8.0 \
+	-t dreamcacao/builderism_init:2.0.0 \
 	-t dreamcacao/builderism_init:latest \
-	--push ./init
+	 ./init
 
 buildx-run:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/builderism_run:1.8.0 \
+	-t dreamcacao/builderism_run:2.0.0 \
 	-t dreamcacao/builderism_run:latest \
 	--push ./run
 

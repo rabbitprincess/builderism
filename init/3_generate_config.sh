@@ -50,6 +50,15 @@ EOL
   )
 fi
 
+customGasTokenConfig=""
+if [ -n "$CUSTOM_GAS_TOKEN_ADDRESS" ]; then
+  customGasTokenConfig=$(cat << EOL
+  "useCustomGasToken": true,
+  "customGasTokenAddress": "$CUSTOM_GAS_TOKEN_ADDRESS,
+EOL
+  )
+fi
+
 # Generate the config file
 config=$(cat << EOL
 {
@@ -112,6 +121,7 @@ $govConfig
   "systemConfigStartBlock": 0,
 
 $altDaConfig
+$customGasTokenAddress
 
   "requiredProtocolVersion": "0x0000000000000000000000000000000000000004000000000000000000000000",
   "recommendedProtocolVersion": "0x0000000000000000000000000000000000000004000000000000000000000000",
