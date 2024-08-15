@@ -57,31 +57,31 @@ It support 4 steps to operate OP Stack node
 
 ## Frequently Asked Questions
 
-### I don`t have enough fee for faucet
+### Q. I don`t have enough fee for faucet
 - You can take some eth from faucet
   - [sepolia pow faucet](https://sepolia-faucet.pk910.de/)
   - [holesky pow faucet](https://holesky-faucet.pk910.de/)
 - You can adjust faucet fee. If basefee is 3~4 gwei, Deploying cost is ~0.1 eth.
 - Sometimes sepolia gas fee can be too high. You can also use Holskey testnet.
 
-### How long time does init take?
+### Q. How long time does init take?
 - Currently, it takes ~1 hour, so please be patient!
 - Most of time is spent on contract deployment.
 - If you see `[all process is done! check config files.]` message, init process is successfully done.
 
-### init failed with message 'Please try to change your RPC url to an archive node if the issue persists.'
+### Q. Init failed with message 'Please try to change your RPC url to an archive node if the issue persists.'
 - It seems to be problem of foundry.
 - you can use other rpc provider like `quicknode`, instead of `publicNode`.
 
-### I want to change configuration not in ENV files.
+### Q. I want to change configuration not in ENV files.
 - you can modify all `entrypoint` as needed.
 - all script is mounted in docker volume, so there is no need to rebuild docker images.
 
-### How can run replica node?
+### Q. How can run replica node?
 - If run Superchain Network, just use env file in /envs.
 - If run your custom node, you should set `rollup.json` and `genesis.json` in `config` directory.
 
-### When will additional features be supported?
+### Q. When will additional features be supported?
 - ALT DA feature is enabled. Set `ALT_DA_SERVER` to your alt-da server url.
 - Custom Gas token is also enabled. Change branch to `feature/gas-token` and set `GAS_TOKEN_ADDRESS` to your token address.
 - L3 chain is not suported yet.
