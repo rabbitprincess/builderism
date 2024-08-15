@@ -77,7 +77,7 @@ It support 4 steps to operate OP Stack node
 - you can modify all `entrypoint` as needed.
 - all script is mounted in docker volume, so there is no need to rebuild docker images.
 
-## How can run replica node?
+### How can run replica node?
 - If run Superchain Network, just use env file in /envs.
 - If run your custom node, you should set `rollup.json` and `genesis.json` in `config` directory.
 
