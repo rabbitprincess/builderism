@@ -13,6 +13,7 @@ fi
 
 ADDITIONAL_ARGS=""
 if [ ! -z "${ALT_DA_SERVER:-}" ]; then
+  OP_BATCHER_DATA_AVAILABILITY_TYPE="calldata"
   ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
     --altda.da-server=$ALT_DA_SERVER \
     --altda.enabled"
