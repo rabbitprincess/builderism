@@ -1,22 +1,20 @@
 .PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
 
-ENV_FILE=common.env
-DOCKER_COMPOSE=docker compose --env-file $(ENV_FILE)
-
 init:
-	$(DOCKER_COMPOSE) -f init/docker-compose.yml -p builderism_init up
+	docker compose --env-file common.env -f init/docker-compose.yml -p builderism_init up && \
+	docker compose --env-file common.env -f init/docker-compose.yml -p builderism_init down
 
 run:
-	$(DOCKER_COMPOSE) -f run/docker-compose.yml -p builderism_run up
+	docker compose --env-file common.env -f run/docker-compose.yml -p builderism_run up
 
 run-erigon:
-	$(DOCKER_COMPOSE) -f run/docker-compose.erigon.yml -p builderism_run up
+	docker compose --env-file common.env -f run/docker-compose.erigon.yml -p builderism_run up
 
 scan:
-	$(DOCKER_COMPOSE) -f scan/docker-compose.yml -p builderism_scan up
+	docker compose --env-file common.env -f scan/docker-compose.yml -p builderism_scan up
 
 bridge:
-	$(DOCKER_COMPOSE) -f bridge/docker-compose.yml -p builderism_bridge up
+	docker compose --env-file common.env -f bridge/docker-compose.yml -p builderism_bridge up
 
 # buildx command
 buildx: buildx-init buildx-run buildx-bridge
