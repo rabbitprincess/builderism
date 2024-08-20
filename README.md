@@ -45,9 +45,9 @@ It support 4 steps to operate OP Stack node
 - If run your custom node, you should set `rollup.json` and `genesis.json` in `config` directory.
 
 **Q. When will additional features be supported?**
-- ALT DA feature is enabled. Set `ALT_DA_SERVER` to your alt-da server url.
-- Custom Gas token is also enabled. Change branch to `feature/custom-gas-token` and set `GAS_TOKEN_ADDRESS` to your token address.
-- L3 chain is not suported yet.
+- `ALT DA` is enabled. Set `ALT_DA_SERVER` to your alt-da server url.
+- `Custom Gas Token` is also enabled. Change branch to `feature/custom-gas-token` and set `GAS_TOKEN_ADDRESS` to your token address.
+- `L3 Chain` is not suported yet.
 
 ## Configuration
 ### Directory
