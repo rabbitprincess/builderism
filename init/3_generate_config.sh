@@ -104,6 +104,7 @@ $govConfig
   "l2GenesisCanyonTimeOffset": "0x0",
   "l2GenesisDeltaTimeOffset": "0x0",
   "l2GenesisEcotoneTimeOffset": "0x0",
+  "l2GenesisFjordTimeOffset": "0x0",
 
   "eip1559Denominator": 50,
   "eip1559DenominatorCanyon": 250,
