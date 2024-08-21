@@ -24,20 +24,18 @@ local optional(key, conf) =
 //-----------------------------------------------------------------------//
 // elements
 
-// DevDeployConfig
 local DevDeployConfig =
   default("fundDevAccounts", "fundDevAccounts", false);
 
-// L2GenesisBlockDeployConfig
 local L2GenesisBlockDeployConfig =
   default("l2GenesisBlockNonce", "l2GenesisBlockNonce", 0)
-  + default("l2GenesisBlockGasLimit", "l2GenesisBlockGasLimit", "0x1c9c380")  // 30_000_000
+  + default("l2GenesisBlockGasLimit", "l2GenesisBlockGasLimit", "0x1c9c380") // 30_000_000
   + default("l2GenesisBlockDifficulty", "l2GenesisBlockDifficulty", "0x0")
   + default("l2GenesisBlockMixHash", "l2GenesisBlockMixHash", "0x0000000000000000000000000000000000000000000000000000000000000000")
   + default("l2GenesisBlockNumber", "l2GenesisBlockNumber", 0)
   + default("l2GenesisBlockGasUsed", "l2GenesisBlockGasUsed", 0)
   + default("l2GenesisBlockParentHash", "l2GenesisBlockParentHash", "0x0000000000000000000000000000000000000000000000000000000000000000")
-  + default("l2GenesisBlockBaseFeePerGas", "l2GenesisBlockBaseFeePerGas", "0x3b9aca00")  // 1_000_000_000
+  + default("l2GenesisBlockBaseFeePerGas", "l2GenesisBlockBaseFeePerGas", "0x3b9aca00") // 1_000_000_000
   + default("l2GenesisBlockExtraData", "l2GenesisBlockExtraData", "0x426544524f434b");
 
 local OwnershipDeployConfig =
@@ -55,7 +53,6 @@ local L2VaultsDeployConfig =
   + default("l1FeeVaultWithdrawalNetwork", "l1FeeVaultWithdrawalNetwork", 0)
   + default("sequencerFeeVaultWithdrawalNetwork", "sequencerFeeVaultWithdrawalNetwork", 0);
 
-// Governance configuration based on the presence of GOVERNANCE_TOKEN_SYMBOL
 local GovConfig =
   default("enableGovernance", "enableGovernance", false)
   + default("governanceTokenSymbol", "governanceTokenSymbol", "NA")
@@ -104,7 +101,6 @@ local L2CoreDeployConfig =
   + default("batchInboxAddress", "batchInboxAddress", "0xff00000000000000000000000000000000000000")
   + default("systemConfigStartBlock", "systemConfigStartBlock", 0);
 
-// Alternative DA configuration based on the presence of ALT_DA_SERVER
 local AltDaConfig =
   default("usePlasma", "usePlasma", false)
   + default("daCommitmentType", "daCommitmentType", "KeccakCommitment")
