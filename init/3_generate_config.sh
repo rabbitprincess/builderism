@@ -10,11 +10,16 @@ blockhash=$(echo "$block" | awk '/hash/ { print $2 }')
 # Generate the configuration using Jsonnet
 cd ~/optimism/packages/contracts-bedrock && \
 mkdir -p ./deployments/$DEPLOYMENT_CONTEXT && \
-jsonnet generate_config.jsonnet \
+jsonnet /script/3_config.jsonnet \
   --ext-code config='{
-    l2GenesisBlockNonce: "1",
-    l2GenesisBlockGasUsed: "0",
-  }' > .deploy
+    ADMIN_ADDRESS: "$ADMIN_ADDRESS",
+    BATCHER_ADDRESS: "$BATCHER_ADDRESS",
+    SEQUENCER_ADDRESS: "$SEQUENCER_ADDRESS",
+    l1ChainID: "$L1_CHAIN_ID",
+    l2ChainID: "$L2_CHAIN_ID",
+    l2BlockTime: "$timestamp",
+    blockHash: "$blockhash"
+  }' > /config/.deploy
 
   # --ext-str block="$block" \
   # --ext-str timestamp="$timestamp" \

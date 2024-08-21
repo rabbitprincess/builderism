@@ -1,4 +1,4 @@
-jsonnet 3_generate_config.jsonnet \
+jsonnet 3_config.jsonnet \
   --ext-code config='{
     ADMIN_ADDRESS: "abcd",
     SEQUENCER_ADDRESS: "abcd",
