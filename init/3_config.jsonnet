@@ -52,9 +52,9 @@ local L2VaultsDeployConfig =
   require("baseFeeVaultRecipient", "ADMIN_ADDRESS")
   + require("l1FeeVaultRecipient", "ADMIN_ADDRESS")
   + require("sequencerFeeVaultRecipient", "ADMIN_ADDRESS")
-  + default("baseFeeVaultMinimumWithdrawalAmount", "baseFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") # 10000000000000000000
-  + default("l1FeeVaultMinimumWithdrawalAmount", "l1FeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") # 10000000000000000000
-  + default("sequencerFeeVaultMinimumWithdrawalAmount", "sequencerFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") #10000000000000000000
+  + default("baseFeeVaultMinimumWithdrawalAmount", "baseFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") // 10000000000000000000
+  + default("l1FeeVaultMinimumWithdrawalAmount", "l1FeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") // 10000000000000000000
+  + default("sequencerFeeVaultMinimumWithdrawalAmount", "sequencerFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") // 10000000000000000000
   + default("baseFeeVaultWithdrawalNetwork", "baseFeeVaultWithdrawalNetwork", 0)
   + default("l1FeeVaultWithdrawalNetwork", "l1FeeVaultWithdrawalNetwork", 0)
   + default("sequencerFeeVaultWithdrawalNetwork", "sequencerFeeVaultWithdrawalNetwork", 0);
@@ -97,7 +97,7 @@ local UpgradeScheduleDeployConfig =
 local L2CoreDeployConfig =
   require("l1ChainID", "l1ChainID")
   + require("l2ChainID", "l2ChainID")
-  + require("l2BlockTime", "l2BlockTime")
+  + require("l2BlockTime", "TIMESTAMP")
   + default("finalizationPeriodSeconds", "finalizationPeriodSeconds", 12)
   + default("maxSequencerDrift", "maxSequencerDrift", 600)
   + default("sequencerWindowSize", "sequencerWindowSize", 3600)
@@ -115,11 +115,11 @@ local AltDADeployConfig =
   + default("daResolverRefundPercentage", "daResolverRefundPercentage", 0);
 
 local OutputOracleDeployConfig =
-  optional("l2OutputOracleSubmissionInterval", "l2OutputOracleSubmissionInterval")
-  + optional("l2OutputOracleStartingTimestamp", "l2OutputOracleStartingTimestamp")
-  + optional("l2OutputOracleStartingBlockNumber", "l2OutputOracleStartingBlockNumber")
-  + optional("l2OutputOracleProposer", "l2OutputOracleProposer")
-  + optional("l2OutputOracleChallenger", "l2OutputOracleChallenger");
+  default("l2OutputOracleSubmissionInterval", "l2OutputOracleSubmissionInterval", 1800)
+  + default("l2OutputOracleStartingTimestamp", "l2OutputOracleStartingTimestamp", 0)
+  + require("l2OutputOracleStartingBlockNumber", "TIMESTAMP")
+  + require("l2OutputOracleProposer", "PROPOSER_ADDRESS")
+  + require("l2OutputOracleChallenger", "ADMIN_ADDRESS");
 
 local FaultProofDeployConfig =
   default("useFaultProof", "useFaultProof", false)
