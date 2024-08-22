@@ -20,7 +20,7 @@ config+="PROPOSER_ADDRESS: \"$PROPOSER_ADDRESS\", "
 config+="TIMESTAMP: $timestamp, "
 config+="l1StartingBlockTag: \"$blockhash\", "
 config+="l1ChainID: $L1_CHAIN_ID, "
-config+="l2ChainID: $L2_CHAIN_ID"
+config+="l2ChainID: $L2_CHAIN_ID, "
 config+="batchInboxAddress: \"$BatchInboxAddress\""
 
 # Governance config

@@ -90,14 +90,14 @@ local UpgradeScheduleDeployConfig =
   + default("l2GenesisDeltaTimeOffset", "l2GenesisDeltaTimeOffset", "0x0")
   + default("l2GenesisEcotoneTimeOffset", "l2GenesisEcotoneTimeOffset", "0x0")
   + default("l2GenesisFjordTimeOffset", "l2GenesisFjordTimeOffset", "0x0")
-  + default("l2GenesisGraniteTimeOffset", "l2GenesisGraniteTimeOffset", "0x0")
+  // + default("l2GenesisGraniteTimeOffset", "l2GenesisGraniteTimeOffset", "0x0") // not used now
   + default("l2GenesisInteropTimeOffset", "l2GenesisInteropTimeOffset", "0x0")
   + default("useInterop", "useInterop", false);
 
 local L2CoreDeployConfig =
   require("l1ChainID", "l1ChainID")
   + require("l2ChainID", "l2ChainID")
-  + require("l2BlockTime", "TIMESTAMP")
+  + default("l2BlockTime", "l2BlockTime", 2)
   + default("finalizationPeriodSeconds", "finalizationPeriodSeconds", 12)
   + default("maxSequencerDrift", "maxSequencerDrift", 600)
   + default("sequencerWindowSize", "sequencerWindowSize", 3600)
@@ -114,6 +114,21 @@ local AltDADeployConfig =
   + default("daBondSize", "daBondSize", 1000000)
   + default("daResolverRefundPercentage", "daResolverRefundPercentage", 0);
 
+local DevL1DeployConfig =
+  default("l1BlockTime", "l1BlockTime", 12)
+  + optional("l1GenesisBlockTimestamp", "l1GenesisBlockTimestamp")
+  + optional("l1GenesisBlockNonce", "l1GenesisBlockNonce")
+  + optional("l1GenesisBlockGasLimit", "l1GenesisBlockGasLimit")
+  + optional("l1GenesisBlockDifficulty", "l1GenesisBlockDifficulty")
+  + optional("l1GenesisBlockMixHash", "l1GenesisBlockMixHash")
+  + optional("l1GenesisBlockCoinbase", "l1GenesisBlockCoinbase")
+  + optional("l1GenesisBlockNumber", "l1GenesisBlockNumber")
+  + optional("l1GenesisBlockGasUsed", "l1GenesisBlockGasUsed")
+  + optional("l1GenesisBlockParentHash", "l1GenesisBlockParentHash")
+  + optional("l1GenesisBlockBaseFeePerGas", "l1GenesisBlockBaseFeePerGas")
+  + optional("l1GenesisBlockExcessBlobGas", "l1GenesisBlockExcessBlobGas")
+  + optional("l1GenesisBlockblobGasUsed", "l1GenesisBlockblobGasUsed");
+
 local SuperchainL1DeployConfig =
   require("superchainConfigGuardian", "ADMIN_ADDRESS")
   + default("requiredProtocolVersion", "requiredProtocolVersion", "0x0000000000000000000000000000000000000000000000000000000000000000")
@@ -127,7 +142,7 @@ local OutputOracleDeployConfig =
   + require("l2OutputOracleChallenger", "ADMIN_ADDRESS");
 
 local FaultProofDeployConfig =
-  default("useFaultProof", "useFaultProof", true)
+  default("useFaultProofs", "useFaultProofs", true)
   + default("faultGameAbsolutePrestate", "faultGameAbsolutePrestate", "0x0000000000000000000000000000000000000000000000000000000000000000")
   + default("faultGameMaxDepth", "faultGameMaxDepth", 73)
   + default("faultGameClockExtension", "faultGameClockExtension", 18000)
@@ -158,6 +173,7 @@ L1StartingBlockTag
 + UpgradeScheduleDeployConfig
 + L2CoreDeployConfig
 + AltDADeployConfig
++ DevL1DeployConfig
 + SuperchainL1DeployConfig
 + OutputOracleDeployConfig
 + FaultProofDeployConfig
