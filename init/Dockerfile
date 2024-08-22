@@ -3,7 +3,7 @@ FROM debian
 WORKDIR /app
 
 # init system dependencies
-RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates && \
+RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates jsonnet && \
     sudo rm -rf /var/lib/apt/lists
 
 # install go
