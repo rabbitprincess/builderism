@@ -9,7 +9,6 @@ reqenv() {
     fi
 }
 reqenv "L1_RPC_URL"
-reqenv "L1_RPC_KIND"
 reqenv "L1_CHAIN_ID"
 reqenv "L2_CHAIN_ID"
 
