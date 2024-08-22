@@ -49,5 +49,4 @@ config+="}"
 # Generate the configuration using Jsonnet
 cd ~/optimism/packages/contracts-bedrock && \
 mkdir -p ./deployments/$DEPLOYMENT_CONTEXT && \
-jsonnet /script/3_config.jsonnet --ext-code config="$config" > ./deployments/$DEPLOYMENT_CONTEXT/.deploy && \
-cp ./deployments/$DEPLOYMENT_CONTEXT/.deploy /config/.deploy
+jsonnet /script/3_config.jsonnet --ext-code config="$config" > ./deployments/$DEPLOYMENT_CONTEXT/.deploy
