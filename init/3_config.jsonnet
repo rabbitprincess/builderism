@@ -34,27 +34,27 @@ local DevDeployConfig =
   default("fundDevAccounts", "fundDevAccounts", false);
 
 local L2GenesisBlockDeployConfig =
-  default("l2GenesisBlockNonce", "l2GenesisBlockNonce", 0)
+  optional("l2GenesisBlockNonce", "l2GenesisBlockNonce")
   + default("l2GenesisBlockGasLimit", "l2GenesisBlockGasLimit", "0x1c9c380") // 30_000_000
-  + default("l2GenesisBlockDifficulty", "l2GenesisBlockDifficulty", "0x0")
-  + default("l2GenesisBlockMixHash", "l2GenesisBlockMixHash", "0x0000000000000000000000000000000000000000000000000000000000000000")
-  + default("l2GenesisBlockNumber", "l2GenesisBlockNumber", 0)
-  + default("l2GenesisBlockGasUsed", "l2GenesisBlockGasUsed", 0)
-  + default("l2GenesisBlockParentHash", "l2GenesisBlockParentHash", "0x0000000000000000000000000000000000000000000000000000000000000000")
+  + optional("l2GenesisBlockDifficulty", "l2GenesisBlockDifficulty")
+  + optional("l2GenesisBlockMixHash", "l2GenesisBlockMixHash")
+  + optional("l2GenesisBlockNumber", "l2GenesisBlockNumber")
+  + optional("l2GenesisBlockGasUsed", "l2GenesisBlockGasUsed")
+  + optional("l2GenesisBlockParentHash", "l2GenesisBlockParentHash")
   + default("l2GenesisBlockBaseFeePerGas", "l2GenesisBlockBaseFeePerGas", "0x3b9aca00") // 1_000_000_000
-  + default("l2GenesisBlockExtraData", "l2GenesisBlockExtraData", "0x426544524f434b");
+  + optional("l2GenesisBlockExtraData", "l2GenesisBlockExtraData");
 
 local OwnershipDeployConfig =
   require("proxyAdminOwner", "ADMIN_ADDRESS")
   + require("finalSystemOwner", "ADMIN_ADDRESS");
 
 local L2VaultsDeployConfig =
-  default("baseFeeVaultRecipient", "ADMIN_ADDRESS", "0x0000000000000000000000000000000000000000")
-  + default("l1FeeVaultRecipient", "ADMIN_ADDRESS", "0x0000000000000000000000000000000000000000")
-  + default("sequencerFeeVaultRecipient", "ADMIN_ADDRESS", "0x0000000000000000000000000000000000000000")
-  + default("baseFeeVaultMinimumWithdrawalAmount", "baseFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000")
-  + default("l1FeeVaultMinimumWithdrawalAmount", "l1FeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000")
-  + default("sequencerFeeVaultMinimumWithdrawalAmount", "sequencerFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000")
+  require("baseFeeVaultRecipient", "ADMIN_ADDRESS")
+  + require("l1FeeVaultRecipient", "ADMIN_ADDRESS")
+  + require("sequencerFeeVaultRecipient", "ADMIN_ADDRESS")
+  + default("baseFeeVaultMinimumWithdrawalAmount", "baseFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") # 10000000000000000000
+  + default("l1FeeVaultMinimumWithdrawalAmount", "l1FeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") # 10000000000000000000
+  + default("sequencerFeeVaultMinimumWithdrawalAmount", "sequencerFeeVaultMinimumWithdrawalAmount", "0x8ac7230489e80000") #10000000000000000000
   + default("baseFeeVaultWithdrawalNetwork", "baseFeeVaultWithdrawalNetwork", 0)
   + default("l1FeeVaultWithdrawalNetwork", "l1FeeVaultWithdrawalNetwork", 0)
   + default("sequencerFeeVaultWithdrawalNetwork", "sequencerFeeVaultWithdrawalNetwork", 0);
