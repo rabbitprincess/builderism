@@ -1,11 +1,10 @@
-jsonnet 3_config.jsonnet \
-  --ext-code config='{
-    ADMIN_ADDRESS: "abcd",
-    SEQUENCER_ADDRESS: "abcd",
-    BATCHER_ADDRESS: "abcd",
-    l2GenesisBlockNonce: "1",
-    l2GenesisBlockGasUsed: "0",
-    l1ChainID: "1",
-    l2ChainID: "10",
-    l2BlockTime: "0x0",
-  }' > .deploy
+jsonnet ./3_config.jsonnet --ext-code config='{
+  ADMIN_ADDRESS: "$ADMIN_ADDRESS",
+  BATCHER_ADDRESS: "$BATCHER_ADDRESS",
+  SEQUENCER_ADDRESS: "$SEQUENCER_ADDRESS",
+  TIMESTAMP: "$timestamp",
+  l1ChainID: "$L1_CHAIN_ID",
+  l2ChainID: "$L2_CHAIN_ID",
+  l2BlockTime: "$timestamp",
+  l1StartingBlockTag: "$blockhash",
+}' > .deploy

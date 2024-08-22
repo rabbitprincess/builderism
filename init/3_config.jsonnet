@@ -1,20 +1,23 @@
 //-----------------------------------------------------------------------//
-// args and funcs
+// args / funcs
 
 local config = std.extVar("config");
 
+// if the key is not present in the config, throw an error
 local require(key, conf) =
   if std.objectHas(config, conf) then
     { [key]: config[conf] }
   else
     error "required field not found :" + conf;
 
+// if the key is not present in the config, use the default value
 local default(key, conf, default) =
   if std.objectHas(config, conf) then
     { [key]: config[conf] }
   else
     { [key]: default };
 
+// if the key is not present in the config, use empty object
 local optional(key, conf) =
   if std.objectHas(config, conf) then
     { [key]: config[conf] }
@@ -23,6 +26,9 @@ local optional(key, conf) =
 
 //-----------------------------------------------------------------------//
 // elements
+
+local L1StartingBlockTag =
+  require("l1StartingBlockTag", "l1StartingBlockTag");
 
 local DevDeployConfig =
   default("fundDevAccounts", "fundDevAccounts", false);
@@ -53,7 +59,7 @@ local L2VaultsDeployConfig =
   + default("l1FeeVaultWithdrawalNetwork", "l1FeeVaultWithdrawalNetwork", 0)
   + default("sequencerFeeVaultWithdrawalNetwork", "sequencerFeeVaultWithdrawalNetwork", 0);
 
-local GovConfig =
+local GovernanceDeployConfig =
   default("enableGovernance", "enableGovernance", false)
   + default("governanceTokenSymbol", "governanceTokenSymbol", "NA")
   + default("governanceTokenName", "governanceTokenName", "NotApplicable")
@@ -69,7 +75,6 @@ local GasTokenDeployConfig =
   default("useCustomGasToken", "useCustomGasToken", false)
   + optional("customGasTokenAddress", "customGasTokenAddress");
 
-// OperatorDeployConfig
 local OperatorDeployConfig =
   require("p2pSequencerAddress", "SEQUENCER_ADDRESS")
   + require("batchSenderAddress", "BATCHER_ADDRESS");
@@ -101,7 +106,7 @@ local L2CoreDeployConfig =
   + default("batchInboxAddress", "batchInboxAddress", "0xff00000000000000000000000000000000000000")
   + default("systemConfigStartBlock", "systemConfigStartBlock", 0);
 
-local AltDaConfig =
+local AltDADeployConfig =
   default("usePlasma", "usePlasma", false)
   + default("daCommitmentType", "daCommitmentType", "KeccakCommitment")
   + default("daChallengeWindow", "daChallengeWindow", 16)
@@ -109,19 +114,44 @@ local AltDaConfig =
   + default("daBondSize", "daBondSize", 1000000)
   + default("daResolverRefundPercentage", "daResolverRefundPercentage", 0);
 
+local OutputOracleDeployConfig =
+  optional("l2OutputOracleSubmissionInterval", "l2OutputOracleSubmissionInterval")
+  + optional("l2OutputOracleStartingTimestamp", "l2OutputOracleStartingTimestamp")
+  + optional("l2OutputOracleStartingBlockNumber", "l2OutputOracleStartingBlockNumber")
+  + optional("l2OutputOracleProposer", "l2OutputOracleProposer")
+  + optional("l2OutputOracleChallenger", "l2OutputOracleChallenger");
+
+local FaultProofDeployConfig =
+  default("useFaultProof", "useFaultProof", false)
+  + optional("faultGameAbsolutePrestate", "faultGameAbsolutePrestate")
+  + optional("faultGameMaxDepth", "faultGameMaxDepth")
+  + optional("faultGameClockExtension", "faultGameClockExtension")
+  + optional("faultGameMaxClockDuration", "faultGameMaxClockDuration")
+  + optional("faultGameGenesisBlock", "faultGameGenesisBlock")
+  + optional("faultGameGenesisOutputRoot", "faultGameGenesisOutputRoot")
+  + optional("faultGameSplitDepth", "faultGameSplitDepth")
+  + optional("faultGameWithdrawalDelay", "faultGameWithdrawalDelay")
+  + optional("preimageOracleMinProposalSize", "preimageOracleMinProposalSize")
+  + optional("preimageOracleChallengePeriod", "preimageOracleChallengePeriod")
+  + optional("proofMaturityDelaySeconds", "proofMaturityDelaySeconds")
+  + optional("disputeGameFinalityDelaySeconds", "disputeGameFinalityDelaySeconds")
+  + optional("respectedGameType", "respectedGameType");
+
 //-----------------------------------------------------------------------//
 // output
-# l1StartingBlockTag: blockhash
 
-DevDeployConfig
+L1StartingBlockTag
++ DevDeployConfig
 + L2GenesisBlockDeployConfig
 + OwnershipDeployConfig
 + L2VaultsDeployConfig
-+ GovConfig
++ GovernanceDeployConfig
 + GasPriceOracleDeployConfig
 + GasTokenDeployConfig
 + OperatorDeployConfig
 + EIP1559DeployConfig
 + UpgradeScheduleDeployConfig
 + L2CoreDeployConfig
-+ AltDaConfig
++ AltDADeployConfig
++ OutputOracleDeployConfig
++ FaultProofDeployConfig
