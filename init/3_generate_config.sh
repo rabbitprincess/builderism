@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 echo "[3/5] : generate config"
 
@@ -7,43 +8,46 @@ block=$(cast block finalized --rpc-url "$L1_RPC_URL")
 timestamp=$(echo "$block" | awk '/timestamp/ { print $2 }')
 blockhash=$(echo "$block" | awk '/hash/ { print $2 }')
 
-# make necessary args
-extCode="{"
-extCode+="ADMIN_ADDRESS: \"$ADMIN_ADDRESS\", "
-extCode+="BATCHER_ADDRESS: \"$BATCHER_ADDRESS\", "
-extCode+="SEQUENCER_ADDRESS: \"$SEQUENCER_ADDRESS\", "
-extCode+="PROPOSER_ADDRESS: \"$PROPOSER_ADDRESS\", "
-extCode+="TIMESTAMP: \"$timestamp\", "
-extCode+="l1StartingBlockTag: \"$blockhash\", "
-extCode+="l1ChainID: $L1_CHAIN_ID, "
-extCode+="l2ChainID: $L2_CHAIN_ID"
+base_address="0xff00000000000000000000000000000000000000"
+BatchInboxAddress="${base_address%${base_address: -${#L2_CHAIN_ID}}}$L2_CHAIN_ID"
 
-# Governance
+# basic config
+config="{"
+config+="ADMIN_ADDRESS: \"$ADMIN_ADDRESS\", "
+config+="BATCHER_ADDRESS: \"$BATCHER_ADDRESS\", "
+config+="SEQUENCER_ADDRESS: \"$SEQUENCER_ADDRESS\", "
+config+="PROPOSER_ADDRESS: \"$PROPOSER_ADDRESS\", "
+config+="TIMESTAMP: $timestamp, "
+config+="l1StartingBlockTag: \"$blockhash\", "
+config+="l1ChainID: $L1_CHAIN_ID, "
+config+="l2ChainID: $L2_CHAIN_ID"
+config+="batchInboxAddress: \"$BatchInboxAddress\""
+
+# Governance config
 if [ -n "$GOVERNANCE_TOKEN_SYMBOL" ]; then
-  extCode+=", "
-  extCode+="enableGovernance: true, "
-  extCode+="governanceTokenSymbol: \"$GOVERNANCE_TOKEN_SYMBOL\", "
-  extCode+="governanceTokenName: \"$GOVERNANCE_TOKEN_SYMBOL\", "
-  extCode+="governanceTokenOwner: \"$ADMIN_ADDRESS\""
+  config+=", "
+  config+="enableGovernance: true, "
+  config+="governanceTokenSymbol: \"$GOVERNANCE_TOKEN_SYMBOL\", "
+  config+="governanceTokenName: \"$GOVERNANCE_TOKEN_SYMBOL\", "
+  config+="governanceTokenOwner: \"$ADMIN_ADDRESS\""
 fi
 
-# Alt DA
+# Alt DA config
 if [ -n "${ALT_DA_SERVER}" ]; then
-  extCode+=", "
-  extCode+="altDAServer: \"$ALT_DA_SERVER\", "
-  extCode+="usePlasma: true, "
-  extCode+="daCommitmentType: \"KeccakCommitment\", ",
-  extCode+="daChallengeWindow: 16, ",
-  extCode+="daResolveWindow: 16, ",
-  extCode+="daBondSize: 1000000, ",
-  extCode+="daResolverRefundPercentage: 0"
+  config+=", "
+  config+="altDAServer: \"$ALT_DA_SERVER\", "
+  config+="usePlasma: true, "
+  config+="daCommitmentType: \"KeccakCommitment\", ",
+  config+="daChallengeWindow: 16, ",
+  config+="daResolveWindow: 16, ",
+  config+="daBondSize: 1000000, ",
+  config+="daResolverRefundPercentage: 0"
 fi
 
-# Fault proof - TODO
-
-extCode+="}"
+config+="}"
 
 # Generate the configuration using Jsonnet
 cd ~/optimism/packages/contracts-bedrock && \
 mkdir -p ./deployments/$DEPLOYMENT_CONTEXT && \
-jsonnet /script/3_config.jsonnet --ext-code config="$extCode" > /config/.deploy
+jsonnet /script/3_config.jsonnet --ext-code config="$config" > ./deployments/$DEPLOYMENT_CONTEXT/.deploy && \
+cp ./deployments/$DEPLOYMENT_CONTEXT/.deploy /config/.deploy

@@ -3,21 +3,21 @@
 
 local config = std.extVar("config");
 
-// if the key is not present in the config, throw an error
+// if not exist conf, throw an error
 local require(key, conf) =
   if std.objectHas(config, conf) then
     { [key]: config[conf] }
   else
     error "required field not found :" + conf;
 
-// if the key is not present in the config, use the default value
+// if not exist conf, return the default value
 local default(key, conf, default) =
   if std.objectHas(config, conf) then
     { [key]: config[conf] }
   else
     { [key]: default };
 
-// if the key is not present in the config, use empty object
+// if not exist conf, return empty
 local optional(key, conf) =
   if std.objectHas(config, conf) then
     { [key]: config[conf] }
@@ -63,7 +63,7 @@ local GovernanceDeployConfig =
   default("enableGovernance", "enableGovernance", false)
   + default("governanceTokenSymbol", "governanceTokenSymbol", "NA")
   + default("governanceTokenName", "governanceTokenName", "NotApplicable")
-  + optional("governanceTokenOwner", "governanceTokenOwner");
+  + require("governanceTokenOwner", "ADMIN_ADDRESS");
 
 local GasPriceOracleDeployConfig =
   default("gasPriceOracleOverhead", "gasPriceOracleOverhead", 2100)
@@ -101,8 +101,8 @@ local L2CoreDeployConfig =
   + default("finalizationPeriodSeconds", "finalizationPeriodSeconds", 12)
   + default("maxSequencerDrift", "maxSequencerDrift", 600)
   + default("sequencerWindowSize", "sequencerWindowSize", 3600)
-  + default("channelTimeoutBedrock", "channelTimeoutBedrock", 300)
-  + default("channelTimeoutGranite", "channelTimeoutGranite", 0)
+  + default("channelTimeout", "channelTimeout", 300)
+  + optional("channelTimeoutGranite", "channelTimeoutGranite")
   + default("batchInboxAddress", "batchInboxAddress", "0xff00000000000000000000000000000000000000")
   + default("systemConfigStartBlock", "systemConfigStartBlock", 0);
 
@@ -114,28 +114,33 @@ local AltDADeployConfig =
   + default("daBondSize", "daBondSize", 1000000)
   + default("daResolverRefundPercentage", "daResolverRefundPercentage", 0);
 
+local SuperchainL1DeployConfig =
+  require("superchainConfigGuardian", "ADMIN_ADDRESS")
+  + default("requiredProtocolVersion", "requiredProtocolVersion", "0x0000000000000000000000000000000000000000000000000000000000000000")
+  + default("recommendedProtocolVersion", "recommendedProtocolVersion", "0x0000000000000000000000000000000000000000000000000000000000000000");
+
 local OutputOracleDeployConfig =
   default("l2OutputOracleSubmissionInterval", "l2OutputOracleSubmissionInterval", 1800)
-  + default("l2OutputOracleStartingTimestamp", "l2OutputOracleStartingTimestamp", 0)
-  + require("l2OutputOracleStartingBlockNumber", "TIMESTAMP")
+  + require("l2OutputOracleStartingTimestamp", "TIMESTAMP")
+  + default("l2OutputOracleStartingBlockNumber", "l2OutputOracleStartingBlockNumber", 0)
   + require("l2OutputOracleProposer", "PROPOSER_ADDRESS")
   + require("l2OutputOracleChallenger", "ADMIN_ADDRESS");
 
 local FaultProofDeployConfig =
-  default("useFaultProof", "useFaultProof", false)
-  + optional("faultGameAbsolutePrestate", "faultGameAbsolutePrestate")
-  + optional("faultGameMaxDepth", "faultGameMaxDepth")
-  + optional("faultGameClockExtension", "faultGameClockExtension")
-  + optional("faultGameMaxClockDuration", "faultGameMaxClockDuration")
-  + optional("faultGameGenesisBlock", "faultGameGenesisBlock")
-  + optional("faultGameGenesisOutputRoot", "faultGameGenesisOutputRoot")
-  + optional("faultGameSplitDepth", "faultGameSplitDepth")
-  + optional("faultGameWithdrawalDelay", "faultGameWithdrawalDelay")
-  + optional("preimageOracleMinProposalSize", "preimageOracleMinProposalSize")
-  + optional("preimageOracleChallengePeriod", "preimageOracleChallengePeriod")
-  + optional("proofMaturityDelaySeconds", "proofMaturityDelaySeconds")
-  + optional("disputeGameFinalityDelaySeconds", "disputeGameFinalityDelaySeconds")
-  + optional("respectedGameType", "respectedGameType");
+  default("useFaultProof", "useFaultProof", true)
+  + default("faultGameAbsolutePrestate", "faultGameAbsolutePrestate", "0x0000000000000000000000000000000000000000000000000000000000000000")
+  + default("faultGameMaxDepth", "faultGameMaxDepth", 73)
+  + default("faultGameClockExtension", "faultGameClockExtension", 18000)
+  + default("faultGameMaxClockDuration", "faultGameMaxClockDuration", 302400)
+  + default("faultGameGenesisBlock", "faultGameGenesisBlock", 0)
+  + default("faultGameGenesisOutputRoot", "faultGameGenesisOutputRoot", "0x0000000000000000000000000000000000000000000000000000000000000000")
+  + default("faultGameSplitDepth", "faultGameSplitDepth", 30)
+  + default("faultGameWithdrawalDelay", "faultGameWithdrawalDelay", 604800)
+  + default("preimageOracleMinProposalSize", "preimageOracleMinProposalSize", 126000)
+  + default("preimageOracleChallengePeriod", "preimageOracleChallengePeriod", 86400)
+  + default("proofMaturityDelaySeconds", "proofMaturityDelaySeconds", 604800)
+  + default("disputeGameFinalityDelaySeconds", "disputeGameFinalityDelaySeconds", 302400)
+  + default("respectedGameType", "respectedGameType", 0);
 
 //-----------------------------------------------------------------------//
 // output
@@ -153,5 +158,6 @@ L1StartingBlockTag
 + UpgradeScheduleDeployConfig
 + L2CoreDeployConfig
 + AltDADeployConfig
++ SuperchainL1DeployConfig
 + OutputOracleDeployConfig
 + FaultProofDeployConfig
