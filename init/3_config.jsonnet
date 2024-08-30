@@ -90,7 +90,7 @@ local UpgradeScheduleDeployConfig =
   + default("l2GenesisDeltaTimeOffset", "l2GenesisDeltaTimeOffset", "0x0")
   + default("l2GenesisEcotoneTimeOffset", "l2GenesisEcotoneTimeOffset", "0x0")
   + default("l2GenesisFjordTimeOffset", "l2GenesisFjordTimeOffset", "0x0")
-  // + default("l2GenesisGraniteTimeOffset", "l2GenesisGraniteTimeOffset", "0x0") // not used now
+  + default("l2GenesisGraniteTimeOffset", "l2GenesisGraniteTimeOffset", "0x0")
   + default("l2GenesisInteropTimeOffset", "l2GenesisInteropTimeOffset", "0x0")
   + default("useInterop", "useInterop", false);
 
@@ -107,7 +107,7 @@ local L2CoreDeployConfig =
   + default("systemConfigStartBlock", "systemConfigStartBlock", 0);
 
 local AltDADeployConfig =
-  default("usePlasma", "usePlasma", false)
+  default("useAltDA", "useAltDA", false)
   + default("daCommitmentType", "daCommitmentType", "KeccakCommitment")
   + default("daChallengeWindow", "daChallengeWindow", 16)
   + default("daResolveWindow", "daResolveWindow", 16)
