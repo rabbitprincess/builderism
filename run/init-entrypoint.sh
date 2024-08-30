@@ -21,6 +21,6 @@ fi
 
 exec /app/geth init \
   --datadir=/data \
-  --state.scheme=path \
+  --state.scheme=hash \
   --db.engine=pebble \
   /config/genesis.json
