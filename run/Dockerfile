@@ -1,9 +1,9 @@
-FROM golang:1.22 as op
+FROM golang:1.22 AS op
 
 WORKDIR /app
 
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.9.1}
+ENV OP_VERSION=${OP_VERSION:-v1.9.2}
 
 RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch . && \
     git switch -c branch-$OP_VERSION && \
@@ -11,7 +11,7 @@ RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch . 
     make -C op-batcher VERSION=$OP_VERSION op-batcher && \
     make -C op-proposer VERSION=$OP_VERSION op-proposer
 
-FROM golang:1.22 as geth
+FROM golang:1.22 AS geth
 
 WORKDIR /app
 

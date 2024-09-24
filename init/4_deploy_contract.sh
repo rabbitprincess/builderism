@@ -11,7 +11,7 @@ forge script scripts/deploy/Deploy.s.sol:Deploy \
   --rpc-url $L1_RPC_URL \
   --priority-gas-price $PRIORITY_GAS_PRICE
 
-echo "[deploy contract done!]"
+echo "[deploy contract done, start to deploy L2Genesis]"
 
 CONTRACT_ADDRESSES_PATH="./deployments/$L1_CHAIN_ID-deploy.json" \
 DEPLOY_CONFIG_PATH="./deployments/$DEPLOYMENT_CONTEXT/.deploy" \

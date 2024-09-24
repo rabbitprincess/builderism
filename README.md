@@ -32,10 +32,6 @@ It support 4 steps to operate OP Stack node
 - Most of time is spent on contract deployment.
 - If you see `[all process is done! check config files.]` message, init process is successfully done.
 
-**Q. Init failed with message 'Please try to change your RPC url to an archive node if the issue persists.'**
-- It seems to be problem of foundry.
-- you can use other rpc provider like `infura`, `quicknode` instead of `publicNode`.
-
 **Q. I want to change configuration not in ENV files.**
 - you can modify all `entrypoint` as needed.
 - all script is mounted in docker volume, so there is no need to rebuild docker images.

@@ -19,6 +19,11 @@ export DEPLOYMENT_CONTEXT=$L2_CHAIN_ID
 export FAUCET_ADDRESS=${FAUCET_ADDRESS:-""}
 export FAUCET_PRIVATE_KEY=${FAUCET_PRIVATE_KEY:-""}
 
+# overwrite l1 rpc address only for deploy
+if [ ! -z "${L1_RPC_URL_DEPLOY:-}" ]; then
+	export L1_RPC_URL=$L1_RPC_URL_DEPLOY
+fi
+
 # set priority gas price
 if [ -z "${PRIORITY_GAS_PRICE:-}" ]; then
 	export PRIORITY_GAS_PRICE=10000
