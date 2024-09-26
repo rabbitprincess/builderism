@@ -46,4 +46,3 @@ buildx-bridge:
 	-t dreamcacao/builderism_bridge:0.0.0 \
 	-t dreamcacao/builderism_bridge:latest \
 	--push ./bridge
-
