@@ -21,13 +21,15 @@ L1_CROSS_DOMAIN_MESSANGER_PROXY=$(jq -r '.L1CrossDomainMessengerProxy' /config/d
 L1_STANDARD_BRIDGE_PROXY=$(jq -r '.L1StandardBridgeProxy' /config/deploy.json)
 L2_OUTPUT_ORACLE_PROXY=$(jq -r '.L2OutputOracleProxy' /config/deploy.json)
 
-rm -f /config/scan.env
+rm -f /data/.env.local
 
-sudo tee "/config/scan.env" > /dev/null <<EOF
+sudo tee "/data/.env.local" > /dev/null <<EOF
 NEXT_PUBLIC_L1_CHAIN_ID="$L1_CHAIN_ID"
 NEXT_PUBLIC_L1_RPC_URL="$L1_RPC_URL"
+NEXT_PUBLIC_L1_NAME="$L1_CHAIN_NAME"
 NEXT_PUBLIC_L2_CHAIN_ID="$L2_CHAIN_ID"
 NEXT_PUBLIC_L2_RPC_URL="$L2_RPC_URL"
+NEXT_PUBLIC_L2_NAME="$L2_CHAIN_NAME"
 NEXT_PUBLIC_OPTIMISM_PORTAL_ADDRESS="$OPTIMISM_PORTAL_PROXY"
 NEXT_PUBLIC_L1_CROSS_DOMAIN_MESSENGER_ADDRESS="$L1_CROSS_DOMAIN_MESSANGER_PROXY"
 

@@ -7,6 +7,7 @@ services:
     command: [ "/bin/bash", "/script/init-entrypoint.sh" ]
     volumes:
       - ${CONFIG_DIR}:/config
+      - ${SCAN_DATA_DIR}:/data
       - ./init-entrypoint.sh:/script/init-entrypoint.sh
     env_file:
       - ../common.env
@@ -19,7 +20,6 @@ services:
         condition: service_completed_successfully
     volumes:
       - ${SCAN_DATA_DIR}:/data
-      - ${CONFIG_DIR}:/config
       - ./indexer-entrypoint.sh:/script/indexer-entrypoint.sh
     command: [ "/bin/bash", "/script/indexer-entrypoint.sh" ]
     env_file:
@@ -34,7 +34,6 @@ services:
       - 3000:3000
     volumes:
       - ${SCAN_DATA_DIR}:/data
-      - ${CONFIG_DIR}:/config
       - ./explorer-entrypoint.sh:/script/explorer-entrypoint.sh
     command: [ "/bin/bash", "/script/explorer-entrypoint.sh" ]
     env_file:
