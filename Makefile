@@ -1,4 +1,4 @@
-.PHONY: init run scan bridge buildx buildx-init buildx-run buildx-bridge
+.PHONY: init run scan bridge buildx buildx-init buildx-run buildx-scan buildx-bridge
 
 init:
 	docker compose --env-file common.env -f init/docker-compose.yml -p builderism-init up && \
@@ -17,7 +17,7 @@ bridge:
 	docker compose --env-file common.env -f bridge/docker-compose.yml -p builderism-bridge up
 
 # buildx command
-buildx: buildx-init buildx-run buildx-bridge
+buildx: buildx-init buildx-run buildx-scan buildx-bridge
 
 buildx-init:
 	docker buildx build \
