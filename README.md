@@ -2,12 +2,12 @@
 **User-friendly builder for launch your optimism node**
 
 It support 4 steps to operate OP Stack node
-|  Name      | Description                                       | Command      |
-| :--------: | ------------------------------------------------- | ------------ |
-|  `init`    | deploy bridge contracts and generate l2 configs.  | `make init`  |
-|  `run`     | run optimism node using generated configs.        | `make run`   |
-|  `scan`    | run blockchain explorer using blockscout.         | `make scan`  |
-|  `bridge`  | transfer eth and tokens between L1 and L2.        | `make bridge`|
+|  Name      | Description                                                                   | Command      |
+| :--------: | ----------------------------------------------------------------------------- | ------------ |
+|  `init`    | deploy bridge contracts and generate l2 configs.                              | `make init`  |
+|  `run`     | run optimism node using generated configs.                                    | `make run`   |
+|  `scan`    | run blockchain explorer using [op-scan](https://github.com/walnuthq/op-scan). | `make scan`  |
+|  `bridge`  | transfer eth and tokens between L1 and L2.                                    | `make bridge`|
 
 ## Prerequisite
 - makefile, docker, docker-compose
