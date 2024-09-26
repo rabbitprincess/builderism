@@ -2,6 +2,7 @@ services:
   init:
     build:
       context: .
+    pull_policy: always
     image: dreamcacao/builderism_scan:latest
     command: [ "/bin/bash", "/script/init-entrypoint.sh" ]
     volumes:
@@ -12,8 +13,7 @@ services:
       - ../envs/${CHAIN_ENV_FILE}
   indexer:
     image: dreamcacao/builderism_scan:latest
-    # pull_policy: always
-    container_name: builderism_indexer
+    pull_policy: always
     depends_on:
       init:
         condition: service_completed_successfully
@@ -27,8 +27,7 @@ services:
       - ../envs/${CHAIN_ENV_FILE}
   explorer:
     image: dreamcacao/builderism_scan:latest
-    # pull_policy: always
-    container_name: builderism_explorer
+    pull_policy: always
     depends_on:
       - indexer
     ports:
