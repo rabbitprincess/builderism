@@ -1,7 +1,7 @@
 FROM node:22-bullseye
 
-RUN apt update && apt install -y sudo jq git curl findutils \ 
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt-get install -y sudo jq git curl && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g pnpm
 
