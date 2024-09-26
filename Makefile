@@ -33,6 +33,13 @@ buildx-run:
 	-t dreamcacao/builderism_run:latest \
 	--push ./run
 
+buildx-scan:
+	docker buildx build \
+	--platform linux/amd64,linux/arm64 \
+	-t dreamcacao/builderism_scan:1.9.2 \
+	-t dreamcacao/builderism_scan:latest \
+	--push ./scan
+
 buildx-bridge:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
