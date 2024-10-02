@@ -1,9 +1,9 @@
-FROM golang:1.22 AS op
+FROM golang:1.23 AS op
 
 WORKDIR /app
 
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.9.2}
+ENV OP_VERSION=${OP_VERSION:-v1.9.3}
 
 RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch . && \
     git switch -c branch-$OP_VERSION && \
