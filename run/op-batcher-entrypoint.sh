@@ -4,7 +4,6 @@ set -eu
 RUN_MODE=${RUN_MODE:-"replica"}
 OP_BATCHER_L1_ETH_RPC=${L1_RPC_URL}
 OP_BATCHER_MAX_CHANNEL_DURATION=${OP_BATCHER_MAX_CHANNEL_DURATION:-0}
-OP_BATCHER_DATA_AVAILABILITY_TYPE=${OP_BATCHER_DATA_AVAILABILITY_TYPE:-"blobs"}
 
 if [ "$RUN_MODE" != "sequencer" ]; then
   echo "batcher only running in sequencer mode, exiting..."
@@ -13,7 +12,6 @@ fi
 
 ADDITIONAL_ARGS=""
 if [ ! -z "${ALT_DA_SERVER:-}" ]; then
-  OP_BATCHER_DATA_AVAILABILITY_TYPE="calldata"
   ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
     --altda.da-server=$ALT_DA_SERVER \
     --altda.enabled"
@@ -33,7 +31,7 @@ exec /app/op-batcher \
   --rpc.addr=0.0.0.0 \
   --rpc.port=8548 \
   --rpc.enable-admin \
-  --data-availability-type=${OP_BATCHER_DATA_AVAILABILITY_TYPE} \
+  --data-availability-type=auto \
   --wait-node-sync=true \
   --max-channel-duration=${OP_BATCHER_MAX_CHANNEL_DURATION} \
   --private-key=${OP_BATCHER_PRIVATE_KEY} \
