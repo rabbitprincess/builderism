@@ -15,11 +15,13 @@ reqenv "L1_BEACON_URL"
 reqenv "L1_CHAIN_ID"
 reqenv "L2_CHAIN_ID"
 
-OPTIMISM_PORTAL_PROXY=$(jq -r '.OptimismPortalProxy' /config/deploy.json)
-ADDRESS_MANAGER=$(jq -r '.AddressManager' /config/deploy.json)
-L1_CROSS_DOMAIN_MESSANGER_PROXY=$(jq -r '.L1CrossDomainMessengerProxy' /config/deploy.json)
-L1_STANDARD_BRIDGE_PROXY=$(jq -r '.L1StandardBridgeProxy' /config/deploy.json)
-L2_OUTPUT_ORACLE_PROXY=$(jq -r '.L2OutputOracleProxy' /config/deploy.json)
+if [ -f /config/deploy.json ]; then
+    OPTIMISM_PORTAL_PROXY=$(jq -r '.OptimismPortalProxy' /config/deploy.json)
+    ADDRESS_MANAGER=$(jq -r '.AddressManager' /config/deploy.json)
+    L1_CROSS_DOMAIN_MESSANGER_PROXY=$(jq -r '.L1CrossDomainMessengerProxy' /config/deploy.json)
+    L1_STANDARD_BRIDGE_PROXY=$(jq -r '.L1StandardBridgeProxy' /config/deploy.json)
+    L2_OUTPUT_ORACLE_PROXY=$(jq -r '.L2OutputOracleProxy' /config/deploy.json)
+fi
 
 rm -f /data/.env.local
 
