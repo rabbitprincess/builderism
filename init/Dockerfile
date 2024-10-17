@@ -7,7 +7,7 @@ RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc 
     sudo rm -rf /var/lib/apt/lists
 
 # install go
-RUN curl -sL https://golang.org/dl/go1.22.5.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+RUN curl -sL https://golang.org/dl/go1.23.2.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 ENV PATH="$PATH:/usr/local/go/bin"
 
 # install nodejs and pnpm
@@ -22,7 +22,7 @@ ENV PATH="~/.foundry/bin:${PATH}"
 
 # clone optimism repository
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.9.3}
+ENV OP_VERSION=${OP_VERSION:-v1.9.1}
 RUN mkdir -p ~/optimism && cd ~/optimism && \
     git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
     git switch -c $OP_VERSION && \
