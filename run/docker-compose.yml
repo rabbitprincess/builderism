@@ -9,6 +9,7 @@ services:
       - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
       - ./init-entrypoint.sh:/script/init-entrypoint.sh
+      - ./snapshot:/snapshot
     env_file:
       - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
