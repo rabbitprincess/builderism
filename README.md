@@ -16,7 +16,7 @@ It support 4 steps to operate OP Stack node
 
 ## Quick Start
 1. Clone this repository `git clone https://github.com/rabbitprincess/builderism.git`
-2. Check and select chain configuration in `common.env` and `/envs/{server.env}`
+2. Check and select chain configuration in `common.env` and `/envs/{server}.env`
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
 
 ## Supported Replica Networks
@@ -91,4 +91,4 @@ It support 4 steps to operate OP Stack node
 - `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer endpoint
 - `P2P_BOOTNODES`: Bootnode enr address
-- `DOWNLOAD_SNAPSHOT`: Download snapshot before run
+- `DOWNLOAD_SNAPSHOT`: Download snapshot before run node
