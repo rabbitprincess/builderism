@@ -6,13 +6,13 @@ services:
     pull_policy: always
     command: [ "bash", "/script/init-entrypoint.sh" ]
     volumes:
-      - ${EXECUTION_DATA_DIR}:/data
+      - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
       - ./init-entrypoint.sh:/script/init-entrypoint.sh
     env_file:
       - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
-  execution:
+  geth:
     image: dreamcacao/builderism_run:latest
     pull_policy: always
     depends_on:
@@ -24,7 +24,7 @@ services:
       - 8546:8546 # ws
       - 8551:8551 # auth http
     volumes:
-      - ${EXECUTION_DATA_DIR}:/data
+      - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
       - ./geth-entrypoint.sh:/script/geth-entrypoint.sh
     networks:
@@ -41,12 +41,12 @@ services:
     image: dreamcacao/builderism_run:latest
     pull_policy: always
     depends_on:
-      - execution
+      - geth
     command: [ "bash", "/script/op-node-entrypoint.sh" ]
     networks:
       - op-network
     volumes:
-      - ${EXECUTION_DATA_DIR}:/data
+      - ${GETH_DATA_DIR}:/data
       - ${CONFIG_DIR}:/config
       - ./op-node-entrypoint.sh:/script/op-node-entrypoint.sh
     ports:

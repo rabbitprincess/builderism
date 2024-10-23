@@ -5,7 +5,7 @@ It support 4 steps to operate OP Stack node
 |  Name      | Description                                                                   | Command      |
 | :--------: | ----------------------------------------------------------------------------- | ------------ |
 |  `init`    | deploy bridge contracts and generate l2 configs.                              | `make init`  |
-|  `run`     | run optimism node using generated configs.                                    | `make run`   |
+|  `run`     | run sequencer or replica node                                                 | `make run`   |
 |  `scan`    | run blockchain explorer using [op-scan](https://github.com/walnuthq/op-scan). | `make scan`  |
 |  `bridge`  | transfer eth and tokens between L1 and L2.                                    | `make bridge`|
 
@@ -16,8 +16,20 @@ It support 4 steps to operate OP Stack node
 
 ## Quick Start
 1. Clone this repository `git clone https://github.com/rabbitprincess/builderism.git`
-2. Check and select chain configuration in `common.env` and `/envs/{server.env}`
+2. Check and select chain configuration in `common.env` and `/envs/{server}.env`
 3. Run Command in sequence to `make init`, `make run`, `make scan`, `make bridge`
+
+## Supported Replica Networks
+|                    | Available     | Superchain Registry  | Snapshot Support     |
+|--------------------|---------------|----------------------|----------------------|
+| op-mainnet         | ✅            | ✅                  | ✅                  | 
+| op-sepolia         | ✅            | ✅                  | ✅                  | 
+| base-mainnet       | ✅            | ✅                  | ✅                  | 
+| base-sepolia       | ✅            | ✅                  | ✅                  | 
+| worldchain-mainnet | ❌            | ❌                  | ❌                  | 
+| worldchain-sepolia | ✅            | ❌                  | ❌                  | 
+| unichain-mainnet   | ❌            | ❌                  | ❌                  | 
+| unichain-sepolia   | ❌            | ❌                  | ❌                  |
 
 ## Frequently Asked Questions
 **Q. I don`t have enough fee for faucet**
@@ -48,7 +60,7 @@ It support 4 steps to operate OP Stack node
 ## Configuration
 ### Directory
 - `CONFIG_DIR`: Path to store config files (default `../config`)
-- `EXECUTION_DATA_DIR`: Path to store execution layer data (default `../data-execution`)
+- `GETH_DATA_DIR`: Path to store geth data (default `../data-geth`)
 - `SCAN_DATA_DIR`: Path to store explorer data (default `../data-scan`)
 
 ### L1 chain
@@ -79,3 +91,4 @@ It support 4 steps to operate OP Stack node
 - `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer endpoint
 - `P2P_BOOTNODES`: Bootnode enr address
+- `DOWNLOAD_SNAPSHOT`: Download snapshot before run node
