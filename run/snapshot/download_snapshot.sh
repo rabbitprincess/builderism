@@ -11,7 +11,9 @@ if [ -z "$URLS" ]; then
   exit 1
 fi
 
-echo "$URLS" | xargs -n 1 -P 2 aria2c -x 4 -s 4 -d /data --retry-wait=10 --max-tries=3
+echo "$URLS" | xargs -n 1 -P 2 wget --retry-connrefused --waitretry=10 \
+  --timeout=60 --tries=5 -P /data
+
 echo "Download snapshot completed. Unpacking..."
 
 for FILE in /data/*.tar.lz4; do

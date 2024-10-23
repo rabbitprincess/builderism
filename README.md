@@ -26,10 +26,10 @@ It support 4 steps to operate OP Stack node
 | op-sepolia         | ✅            | ✅                  | ✅                  | 
 | base-mainnet       | ✅            | ✅                  | ✅                  | 
 | base-sepolia       | ✅            | ✅                  | ✅                  | 
-| worldchain-mainnet | ❌            | ❌                  | ❌                  | 
+| worldchain-mainnet | ✅            | ❌                  | ❌                  | 
 | worldchain-sepolia | ✅            | ❌                  | ❌                  | 
 | unichain-mainnet   | ❌            | ❌                  | ❌                  | 
-| unichain-sepolia   | ❌            | ❌                  | ❌                  |
+| unichain-sepolia   | ✅            | ❌                  | ❌                  |
 
 ## Frequently Asked Questions
 **Q. I don`t have enough fee for faucet**
