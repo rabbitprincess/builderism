@@ -2,7 +2,7 @@ services:
   init:
     build:
       context: .
-    image: dreamcacao/builderism_run:latest
+    image: dreamcacao/builderism_run:aj/update-superchain-registry
     pull_policy: always
     command: [ "bash", "/script/init-entrypoint.sh" ]
     volumes:
@@ -13,7 +13,7 @@ services:
       - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
   geth:
-    image: dreamcacao/builderism_run:latest
+    image: dreamcacao/builderism_run:aj/update-superchain-registry
     pull_policy: always
     depends_on:
       init:
@@ -38,7 +38,7 @@ services:
         max-size: "500m"
         max-file: "7"
   node:
-    image: dreamcacao/builderism_run:latest
+    image: dreamcacao/builderism_run:aj/update-superchain-registry
     pull_policy: always
     depends_on:
       - geth
@@ -62,7 +62,7 @@ services:
         max-size: "500m"
         max-file: "7"
   batcher:
-    image: dreamcacao/builderism_run:latest
+    image: dreamcacao/builderism_run:aj/update-superchain-registry
     pull_policy: always
     depends_on:
       - node
@@ -81,7 +81,7 @@ services:
         max-size: "500m"
         max-file: "7"
   proposer:
-    image: dreamcacao/builderism_run:latest
+    image: dreamcacao/builderism_run:aj/update-superchain-registry
     pull_policy: always
     depends_on:
       - batcher
