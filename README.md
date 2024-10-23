@@ -9,6 +9,18 @@ It support 4 steps to operate OP Stack node
 |  `scan`    | run blockchain explorer using [op-scan](https://github.com/walnuthq/op-scan). | `make scan`  |
 |  `bridge`  | transfer eth and tokens between L1 and L2.                                    | `make bridge`|
 
+## Supported Replica Networks
+|                    | Available     | Superchain Registry  | Snapshot Support     |
+|--------------------|---------------|----------------------|----------------------|
+| op-mainnet         | ✅            | ✅                  | ✅                  | 
+| op-sepolia         | ✅            | ✅                  | ✅                  | 
+| base-mainnet       | ✅            | ✅                  | ✅                  | 
+| base-sepolia       | ✅            | ✅                  | ✅                  | 
+| worldchain-mainnet | ❌            | ❌                  | ❌                  | 
+| worldchain-sepolia | ✅            | ❌                  | ❌                  | 
+| unichain-mainnet   | ❌            | ❌                  | ❌                  | 
+| unichain-sepolia   | ❌            | ❌                  | ❌                  | 
+
 ## Prerequisite
 - makefile, docker, docker-compose
 - L1 RPC and Beacon endpoint (use PublicNode experimentally)
@@ -79,3 +91,4 @@ It support 4 steps to operate OP Stack node
 - `MAX_CHANNEL_DURATION`: Batch time submitted to the L1 (default `1500`)
 - `SEQUENCER_HTTP`: Sequencer endpoint
 - `P2P_BOOTNODES`: Bootnode enr address
+- `DOWNLOAD_SNAPSHOT`: Download snapshot before run
