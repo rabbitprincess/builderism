@@ -14,6 +14,11 @@ reqenv "L1_RPC_KIND"
 reqenv "L1_BEACON_URL"
 reqenv "L2_CHAIN_ID"
 
+if [ "$DOWNLOAD_SNAPSHOT" = "true" ]; then
+  exec /snapshot/download_snapshot.sh "$L2_CHAIN_ID"
+  exit 0
+fi
+
 if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
   echo "init only running in custom chain, exiting on [$L2_SUPERCHAIN_NETWORK]..."
   exit 0

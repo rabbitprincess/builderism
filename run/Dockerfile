@@ -30,7 +30,7 @@ RUN chmod +x /script/*.sh
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y sudo jq curl && \
+    apt-get install -y sudo jq curl aria2 && \
     rm -rf /var/lib/apt/lists
 
 COPY --from=op /app/op-node/bin/op-node ./

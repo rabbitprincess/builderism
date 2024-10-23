@@ -21,7 +21,7 @@ OP_BATCHER_PRIVATE_KEY=$(grep "BATCHER_PRIVATE_KEY" /config/address.ini | cut -d
 
 exec /app/op-batcher \
   --l1-eth-rpc=${OP_BATCHER_L1_ETH_RPC} \
-  --l2-eth-rpc=http://execution:8545 \
+  --l2-eth-rpc=http://geth:8545 \
   --rollup-rpc=http://node:8547 \
   --sub-safety-margin=6 \
   --poll-interval=6s \

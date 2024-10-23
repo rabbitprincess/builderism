@@ -72,7 +72,7 @@ exec /app/op-node \
   --l1=${OP_NODE_L1_ETH_RPC} \
   --l1.beacon=${OP_NODE_L1_BEACON} \
   --l1.rpckind=${L1_RPC_KIND} \
-  --l2=http://execution:8551 \
+  --l2=http://geth:8551 \
   --l2.jwt-secret=/data/jwt.txt \
   --rpc.addr=0.0.0.0 \
   --rpc.port=8547 \
