@@ -8,7 +8,7 @@ OP_NODE_L1_BEACON=${L1_BEACON_URL}
 ADDITIONAL_ARGS=""
 if [ "$RUN_MODE" = "sequencer" ]; then
   SEQUENCER_PRIVATE_KEY=$(grep "SEQUENCER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
-  ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
+  ADDITIONAL_ARGS+=" \
     --rollup.config=/config/rollup.json \
     --sequencer.enabled \
     --sequencer.l1-confs=5 \
@@ -16,28 +16,21 @@ if [ "$RUN_MODE" = "sequencer" ]; then
     --p2p.sequencer.key=${SEQUENCER_PRIVATE_KEY}"
 else
   if [ ! -z "${OP_NODE_P2P_BOOTNODES:-}" ]; then
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-      --p2p.bootnodes=$OP_NODE_P2P_BOOTNODES"
+    ADDITIONAL_ARGS+=" --p2p.bootnodes=$OP_NODE_P2P_BOOTNODES"
   fi
-
   if [ ! -z "${L1_BEACON_FALLBACK_URL:-}" ]; then
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-      --l1.beacon-fallbacks=$L1_BEACON_FALLBACK_URL"
+    ADDITIONAL_ARGS+=" --l1.beacon-fallbacks=$L1_BEACON_FALLBACK_URL"
   fi
-
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-      --network=$L2_SUPERCHAIN_NETWORK"
+    ADDITIONAL_ARGS+=" --network=$L2_SUPERCHAIN_NETWORK"
   else
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-      --rollup.config=/config/rollup.json"
+    ROLLUP_CONFIG_PATH=${ROLLUP_CONFIG_PATH:-"/config"}
+    ADDITIONAL_ARGS+=" --rollup.config=$ROLLUP_CONFIG_PATH/rollup.json"
   fi
 fi
 
 if [ ! -z "${ALT_DA_SERVER:-}" ]; then
-  ADDITIONAL_ARGS="$ADDITIONAL_ARGS \
-    --altda.da-server=$ALT_DA_SERVER \
-    --altda.enabled"
+  ADDITIONAL_ARGS+=" --altda.da-server=$ALT_DA_SERVER --altda.enabled"
 fi
 
 get_public_ip() {

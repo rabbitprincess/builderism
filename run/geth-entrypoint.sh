@@ -6,11 +6,11 @@ ADDITIONAL_ARGS=""
 
 if [ "$RUN_MODE" != "sequencer" ]; then
   if [ ! -z "${OP_GETH_SEQUENCER_HTTP:-}" ]; then
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.halt=major"
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --rollup.sequencerhttp=$OP_GETH_SEQUENCER_HTTP"
+    ADDITIONAL_ARGS+=" --rollup.halt=major"
+    ADDITIONAL_ARGS+=" --rollup.sequencerhttp=$OP_GETH_SEQUENCER_HTTP"
   fi
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
-    ADDITIONAL_ARGS="$ADDITIONAL_ARGS --op-network=$L2_SUPERCHAIN_NETWORK"
+    ADDITIONAL_ARGS+=" --op-network=$L2_SUPERCHAIN_NETWORK"
   fi
 fi
 
@@ -21,8 +21,6 @@ exec /app/geth \
   --networkid=${L2_CHAIN_ID} \
   --syncmode=full \
   --gcmode=full \
-  --nodiscover \
-  --maxpeers=0 \
   --http \
   --http.vhosts="*" \
   --http.corsdomain="*" \
