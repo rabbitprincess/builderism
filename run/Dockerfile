@@ -30,7 +30,7 @@ RUN chmod +x /script/*.sh
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y sudo jq curl wget && \
+    apt-get install -y sudo jq curl wget lz4 && \
     rm -rf /var/lib/apt/lists
 
 COPY --from=op /app/op-node/bin/op-node ./

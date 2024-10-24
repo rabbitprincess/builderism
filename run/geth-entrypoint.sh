@@ -17,9 +17,10 @@ fi
 exec /app/geth \
   --datadir=/data \
   --db.engine=pebble \
+  --state.scheme=path \
   --networkid=${L2_CHAIN_ID} \
   --syncmode=full \
-  --gcmode=archive \
+  --gcmode=full \
   --nodiscover \
   --maxpeers=0 \
   --http \
