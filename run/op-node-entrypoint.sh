@@ -24,8 +24,8 @@ else
   if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
     ADDITIONAL_ARGS+=" --network=$L2_SUPERCHAIN_NETWORK"
   else
-    CONFIG_PATH=${CONFIG_PATH:-""}
-    ADDITIONAL_ARGS+=" --rollup.config=/config$CONFIG_PATH/rollup.json"
+    ROLLUP_CONFIG_PATH=${ROLLUP_CONFIG_PATH:-"/config"}
+    ADDITIONAL_ARGS+=" --rollup.config=$ROLLUP_CONFIG_PATH/rollup.json"
   fi
 fi
 
