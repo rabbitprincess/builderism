@@ -28,4 +28,4 @@ exec /app/geth init \
   --datadir=/data \
   --state.scheme=path \
   --db.engine=pebble \
-  /config/genesis.json
+  /config${CONFIG_PATH:-""}/genesis.json
