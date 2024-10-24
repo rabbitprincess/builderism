@@ -20,7 +20,7 @@ if [ "${DOWNLOAD_SNAPSHOT:-}" = "true" ]; then
 fi
 
 if [ ! -z "${L2_SUPERCHAIN_NETWORK:-}" ]; then
-  echo "init only running in custom chain, exiting on [$L2_SUPERCHAIN_NETWORK]..."
+  echo "Exiting on superchain registry chain: [$L2_SUPERCHAIN_NETWORK]..."
   exit 0
 fi
 

@@ -50,7 +50,7 @@ It support 4 steps to operate OP Stack node
 
 **Q. How can run replica node?**
 - If run Superchain Network, just use env file in /envs.
-- If run your custom node, you should set `rollup.json` and `genesis.json` in `config` directory.
+- If run not Superchain node, you should set `rollup.json` and `genesis.json` in `config` directory.
 
 **Q. When will additional features be supported?**
 - `ALT DA` is enabled. Set `ALT_DA_SERVER` to your alt-da server url.
