@@ -2,11 +2,11 @@ FROM golang:1.23 AS op
 
 WORKDIR /app
 
-ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.9.4}
+ENV OP_REPO=https://github.com/babylonlabs-io/optimism.git
+ENV OP_VERSION=${OP_VERSION:-feat/babylon-rfc}
 
-RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch . && \
-    git switch -c branch-$OP_VERSION && \
+RUN git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
+    git switch -c $OP_VERSION && \
     make -C op-node VERSION=$OP_VERSION op-node && \
     make -C op-batcher VERSION=$OP_VERSION op-batcher && \
     make -C op-proposer VERSION=$OP_VERSION op-proposer

@@ -2,7 +2,7 @@ services:
   node_init:
     build:
       context: .
-    image: dreamcacao/builderism_init:1.9.1
+    image: dreamcacao/builderism_init:babylon
     pull_policy: always
     volumes:
       - ${CONFIG_DIR}:/config
