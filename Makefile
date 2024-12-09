@@ -25,7 +25,7 @@ buildx-init:
 buildx-run:
 	docker buildx build \
 	--platform linux/amd64,linux/arm64 \
-	-t dreamcacao/builderism_run:1.9.4 \
+	-t dreamcacao/builderism_run:1.10.0 \
 	-t dreamcacao/builderism_run:latest \
 	--push ./run
 
