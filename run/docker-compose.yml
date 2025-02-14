@@ -2,8 +2,7 @@ services:
   init:
     build:
       context: .
-    image: dreamcacao/builderism_run:latest
-    pull_policy: always
+    image: dreamcacao/builderism_run:1.11.0
     command: [ "bash", "/script/init-entrypoint.sh" ]
     volumes:
       - ${GETH_DATA_DIR}:/data
@@ -14,8 +13,7 @@ services:
       - ../common.env
       - ../envs/${CHAIN_ENV_FILE}
   geth:
-    image: dreamcacao/builderism_run:latest
-    pull_policy: always
+    image: dreamcacao/builderism_run:1.11.0
     depends_on:
       init:
         condition: service_completed_successfully
@@ -39,8 +37,7 @@ services:
         max-size: "500m"
         max-file: "7"
   node:
-    image: dreamcacao/builderism_run:latest
-    pull_policy: always
+    image: dreamcacao/builderism_run:1.11.0
     depends_on:
       - geth
     command: [ "bash", "/script/op-node-entrypoint.sh" ]
@@ -63,8 +60,7 @@ services:
         max-size: "500m"
         max-file: "7"
   batcher:
-    image: dreamcacao/builderism_run:latest
-    pull_policy: always
+    image: dreamcacao/builderism_run:1.11.0
     depends_on:
       - node
     command: [ "bash", "/script/op-batcher-entrypoint.sh" ]
@@ -82,8 +78,7 @@ services:
         max-size: "500m"
         max-file: "7"
   proposer:
-    image: dreamcacao/builderism_run:latest
-    pull_policy: always
+    image: dreamcacao/builderism_run:1.11.0
     depends_on:
       - batcher
     command: [ "bash", "/script/op-proposer-entrypoint.sh" ]

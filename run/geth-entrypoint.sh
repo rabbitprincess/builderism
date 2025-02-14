@@ -31,7 +31,7 @@ exec /app/geth \
   --ws.addr=0.0.0.0 \
   --ws.port=8546 \
   --ws.origins="*" \
-  --ws.api=debug,eth,txpool,net,engine \
+  --ws.api=web3,debug,eth,txpool,net,engine \
   --authrpc.vhosts="*" \
   --authrpc.addr=0.0.0.0 \
   --authrpc.port=8551 \
