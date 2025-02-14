@@ -6,8 +6,9 @@ ENV CGO_ENABLED=0
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
 ENV OP_VERSION=${OP_VERSION:-v1.11.0}
 
-RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch . && \
-    git switch -c branch-$OP_VERSION && \
+RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch ./optimism && \
+    cd optimism && git switch -c branch-$OP_VERSION && \
+    git submodule sync --recursive && git submodule update --init --recursive && \
     go build -o /app/op-node ./op-node/cmd/main.go && \
     go build -o /app/op-batcher ./op-batcher/cmd/main.go && \
     go build -o /app/op-proposer ./op-proposer/cmd/main.go
