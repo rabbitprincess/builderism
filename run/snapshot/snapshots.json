@@ -1,18 +1,18 @@
 {
     "10": [
         "https://snapshots.publicnode.com/optimism-geth-base-0-123025549.tar.lz4",
-        "https://snapshots.publicnode.com/optimism-geth-part-123025550-127037167.tar.lz4"
+        "https://snapshots.publicnode.com/optimism-geth-part-123025550-131918765.tar.lz4"
     ],
     "11155420": [
         "https://snapshots.publicnode.com/optimism-sepolia-geth-base-0-14573701.tar.lz4",
-        "https://snapshots.publicnode.com/optimism-sepolia-geth-part-14573702-18926737.tar.lz4"
+        "https://snapshots.publicnode.com/optimism-sepolia-geth-part-14573702-23851533.tar.lz4"
     ],
     "8453": [
-        "https://snapshots.publicnode.com/base-geth-base-0-11019956.tar.lz4",
-        "https://snapshots.publicnode.com/base-geth-part-11019957-21465281.tar.lz4"
+        "https://snapshots.publicnode.com/base-geth-base-0-26112439.tar.lz4",
+        "https://snapshots.publicnode.com/base-geth-part-26112440-26346882.tar.lz4"
     ],
     "84532": [
-        "https://snapshots.publicnode.com/base-sepolia-geth-base-0-12900080.tar.lz4",
-        "https://snapshots.publicnode.com/base-sepolia-geth-part-12900081-16960513.tar.lz4"
+        "https://snapshots.publicnode.com/base-sepolia-geth-base-0-21553672.tar.lz4",
+        "https://snapshots.publicnode.com/base-sepolia-geth-part-21553673-21842110.tar.lz4"
     ]
 }
