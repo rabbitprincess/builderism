@@ -8,7 +8,6 @@ services:
       - ${CONFIG_DIR}:/config
       - ./1_init.sh:/script/1_init.sh
       - ./2_faucet.sh:/script/2_faucet.sh
-      - ./3_config.jsonnet:/script/3_config.jsonnet
       - ./3_deploy.sh:/script/3_deploy.sh
     env_file:
       - ../common.env

@@ -12,6 +12,8 @@ fi
 OP_PROPOSER_GAME_FACTORY_ADDRESS=$(jq -r '.. | .disputeGameFactoryProxyAddress? // empty' /config/state.json)
 PROPOSER_PRIVATE_KEY=$(grep "PROPOSER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
+echo ${OP_PROPOSER_GAME_FACTORY_ADDRESS}
+
 exec /app/op-proposer \
   --l1-eth-rpc=${OP_PROPOSER_L1_ETH_RPC} \
   --rollup-rpc=http://node:8547 \

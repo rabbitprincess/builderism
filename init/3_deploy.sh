@@ -19,12 +19,12 @@ sed -i \
   .op-deployer/intent.toml
 
 cp .op-deployer/intent.toml /config/intent.toml
-cp .op-deployer/state.json /config/state.json
 
 ./op-deployer apply --workdir .op-deployer --l1-rpc-url $L1_RPC_URL --private-key $ADMIN_PRIVATE_KEY
 ./op-deployer inspect genesis --workdir .op-deployer $L2_CHAIN_ID > .op-deployer/genesis.json
 ./op-deployer inspect rollup --workdir .op-deployer $L2_CHAIN_ID > .op-deployer/rollup.json
 
+cp .op-deployer/state.json /config/state.json
 cp .op-deployer/genesis.json /config/genesis.json
 cp .op-deployer/rollup.json /config/rollup.json
 
