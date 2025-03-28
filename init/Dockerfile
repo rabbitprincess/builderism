@@ -2,10 +2,13 @@ FROM debian
 
 WORKDIR /app
 
+
 # init system dependencies
 RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates build-essential && \
     sudo rm -rf /var/lib/apt/lists
 
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=${GITHUB_TOKEN:-""}
 ENV PATH="/root/.local/bin:/root/.local/share/mise/shims:/root/.local/share/mise/bin:$PATH"
 ENV MISE_DATA_DIR="/root/.local/share/mise"
 ENV MISE_DIR="/root/.mise"
