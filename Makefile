@@ -3,8 +3,14 @@
 init:
 	docker compose --env-file common.env -f init/docker-compose.yml -p builderism-init up
 
+init-down:
+	docker compose --env-file common.env -f init/docker-compose.yml -p builderism-init down
+
 run:
 	docker compose --env-file common.env -f run/docker-compose.yml -p builderism-run up
+
+run-down:
+	docker compose --env-file common.env -f run/docker-compose.yml -p builderism-run down
 
 scan:
 	docker compose --env-file common.env -f scan/docker-compose.yml -p builderism-scan up
