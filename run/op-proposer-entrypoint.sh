@@ -9,8 +9,7 @@ if [ "$RUN_MODE" != "sequencer" ]; then
   exit 0
 fi
 
-OP_PROPOSER_L2OO_ADDRESS=$(jq -r '.L2OutputOracleProxy' /config/deploy.json)
-
+OP_PROPOSER_GAME_FACTORY_ADDRESS=$(jq -r '.. | .disputeGameFactoryProxyAddress? // empty' /config/state.json)
 PROPOSER_PRIVATE_KEY=$(grep "PROPOSER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
 exec /app/op-proposer \
@@ -18,6 +17,7 @@ exec /app/op-proposer \
   --rollup-rpc=http://node:8547 \
   --poll-interval=12s \
   --rpc.port=8560 \
-  --l2oo-address=${OP_PROPOSER_L2OO_ADDRESS} \
+  --game-factory-address=${OP_PROPOSER_GAME_FACTORY_ADDRESS} \
+  --proposal-interval=20s \
   --wait-node-sync=true \
   --private-key=${PROPOSER_PRIVATE_KEY}
