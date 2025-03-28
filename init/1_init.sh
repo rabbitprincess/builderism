@@ -12,7 +12,7 @@ reqenv "L1_RPC_URL"
 reqenv "L1_CHAIN_ID"
 reqenv "L2_CHAIN_ID"
 
-echo "[1/5] : init environment variables"
+echo "[1/3] : init environment variables"
 
 export IMPL_SALT=$(openssl rand -hex 32)
 export DEPLOYMENT_CONTEXT=$L2_CHAIN_ID
