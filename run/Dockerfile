@@ -4,7 +4,7 @@ WORKDIR /app
 
 ENV CGO_ENABLED=0
 ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.12.2}
+ENV OP_VERSION=${OP_VERSION:-v1.13.5}
 
 RUN git clone $OP_REPO --depth 1 --branch op-node/$OP_VERSION --single-branch ./optimism && \
     cd optimism && git switch -c branch-$OP_VERSION && \
@@ -18,7 +18,7 @@ FROM golang:1.23 AS geth
 WORKDIR /app
 
 ENV GETH_REPO=https://github.com/ethereum-optimism/op-geth.git
-ENV GETH_VERSION=${GETH_VERSION:-v1.101503.1}
+ENV GETH_VERSION=${GETH_VERSION:-v1.101511.1}
 
 RUN git clone $GETH_REPO --depth 1 --branch $GETH_VERSION --single-branch . && \
     git switch -c branch-$GETH_VERSION && \
