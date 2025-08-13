@@ -2,7 +2,7 @@ services:
   node_init:
     build:
       context: .
-    image: dreamcacao/builderism_init:op-deployer-0.4.2
+    image: dreamcacao/builderism_init:1.3.5
     pull_policy: always
     volumes:
       - ${CONFIG_DIR}:/config
