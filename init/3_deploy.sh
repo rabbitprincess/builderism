@@ -28,5 +28,4 @@ cp .op-deployer/state.json /config/state.json
 cp .op-deployer/genesis.json /config/genesis.json
 cp .op-deployer/rollup.json /config/rollup.json
 
-
 echo "[all process is done! check config files.]"

@@ -1,32 +1,32 @@
-FROM debian
+FROM ubuntu:24.04
 
 WORKDIR /app
 
-
 # init system dependencies
-RUN apt-get -y update && apt-get install -y sudo jq wget curl gnupg git make bc ca-certificates build-essential && \
-    sudo rm -rf /var/lib/apt/lists
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common ca-certificates curl tar \
+    && apt-get update
 
-ARG GITHUB_TOKEN
-ENV GITHUB_TOKEN=${GITHUB_TOKEN:-""}
-ENV PATH="/root/.local/bin:/root/.local/share/mise/shims:/root/.local/share/mise/bin:$PATH"
-ENV MISE_DATA_DIR="/root/.local/share/mise"
-ENV MISE_DIR="/root/.mise"
-ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
-ENV OP_VERSION=${OP_VERSION:-v1.12.2}
+RUN apt-get -y update && apt-get install -y just sudo jq wget curl git make procps coreutils bc xz-utils && \
+    sudo rm -rf /var/lib/apt/lists/*
 
-# clone optimism repository
-RUN mkdir -p ~/optimism && cd ~/optimism && \
-    git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
-    git switch -c $OP_VERSION
+# install go
+RUN curl -sL https://golang.org/dl/go1.24.2.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+ENV PATH="$PATH:/usr/local/go/bin"
+
+# install foundry
+ENV FOUNDRY_DIR=/root/.foundry
+ENV PATH="${FOUNDRY_DIR}/bin:${PATH}"
+RUN curl -fsSL https://foundry.paradigm.xyz | bash
+RUN . "$HOME/.profile" && foundryup
 
 # install op-deployer
-RUN cd ~/optimism && curl https://mise.run | sh && \
-    mise trust mise.toml && mise use -g foundry@1.0.0 && mise install && \
-    git submodule update --init --recursive --depth 1
-
-RUN cd ~/optimism/op-deployer && just build
-
+ENV OP_REPO=https://github.com/ethereum-optimism/optimism.git
+ENV OP_VERSION=${OP_VERSION:-op-deployer/v0.4.2}
+RUN mkdir -p ~/optimism && cd ~/optimism && \
+    git clone $OP_REPO --depth 1 --branch $OP_VERSION --single-branch . && \
+    git switch -c $OP_VERSION && cd op-deployer && just build
+    
 COPY *.sh /script/
 RUN chmod +x /script/*.sh
 
