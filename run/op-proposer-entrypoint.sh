@@ -9,7 +9,7 @@ if [ "$RUN_MODE" != "sequencer" ]; then
   exit 0
 fi
 
-OP_PROPOSER_GAME_FACTORY_ADDRESS=$(jq -r '.. | .disputeGameFactoryProxyAddress? // empty' /config/state.json)
+OP_PROPOSER_GAME_FACTORY_ADDRESS=$(jq -r '.. | .DisputeGameFactoryProxy? // empty' /config/state.json)
 PROPOSER_PRIVATE_KEY=$(grep "PROPOSER_PRIVATE_KEY" /config/address.ini | cut -d'=' -f2)
 
 echo ${OP_PROPOSER_GAME_FACTORY_ADDRESS}

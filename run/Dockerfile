@@ -24,7 +24,7 @@ RUN git clone $GETH_REPO --depth 1 --branch $GETH_VERSION --single-branch . && \
     git switch -c branch-$GETH_VERSION && \
     make geth
 
-FROM debian
+FROM debian:stable
 
 COPY *-entrypoint.sh /script/
 RUN chmod +x /script/*.sh
