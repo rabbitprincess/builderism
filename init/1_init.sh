@@ -61,12 +61,12 @@ if [ -z "${SEQUENCER_ADDRESS:-}" ]; then
 fi
 
 # save to file ( address.env )
-sudo mkdir -p /config
+mkdir -p /config
 env_file="/config/address.ini"
 if [ -f "$env_file" ]; then
-  sudo rm "$env_file"
+  rm "$env_file"
 fi
-sudo tee "$env_file" > /dev/null <<EOF
+tee "$env_file" > /dev/null <<EOF
 ADMIN_ADDRESS=$ADMIN_ADDRESS
 ADMIN_PRIVATE_KEY=$ADMIN_PRIVATE_KEY
 BATCHER_ADDRESS=$BATCHER_ADDRESS
